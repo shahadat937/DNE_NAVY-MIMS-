@@ -1,0 +1,74 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.MajorDemandOrProcureViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>অনিয়ন্ত্রিত যন্ত্রপাতি /সামগ্রী </h5>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.ActionLink("Add New", "Edit", "MajorDemandOrProcure", new { @class = "btn btn-primary" })
+                </div>
+                <div class="col-md-10">
+                    @using (Html.BeginForm("SearchByKey", "MajorDemandOrProcure", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                    {
+                        <div>
+                            <div class="pull-right">
+                                @Html.SearchButton()
+                            </div>
+                            <div class="pull-right">
+                                @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.MajorDemandOrProcures, rowCount: Model.MajorDemandOrProcures.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { MajorDemandIdentity = "grid" },
+            tableStyle: "webgrid-table webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            firstText: "First",
+            lastText: "Last",
+            nextText: "Next",
+            mode: WebGridPagerModes.All,
+            previousText: "Previous",
+            columns: grid.Columns(
+                         grid.Column("MajorDemandIdentity", header: "ক্রমিক নম্বর"),
+                grid.Column("ControlShipInfo.ControlName", header: "জাহাজের নাম"),
+                                  grid.Column("MajorDemandName", header: "নামমালা"),
+                                  grid.Column("MajorDemandModel", header: "প্রমিতকৃত সকল মডেল সমূহ"),
+                                  grid.Column("AuthorityNumber", header: "প্রাধিকার (সংখ্যা)"),
+                                  grid.Column("StockedNumber", header: "মজুদ (সংখ্যা)"),
+                                  grid.Column("EthicalApprovalNumber", header: "ইতোপূর্বে বর্ণিত আইটেমের জন্য নীতিগত অনুমোদন নেয়া হয়ে থাকলে এবং তা প্রক্রিয়াধীন থাকলে তার সংখ্যা"),
+                                           grid.Column("DeficitOrExtraNumber", header: "ঘাটতি /অতিরিক্ত (সংখ্যা)"),
+                                            grid.Column("Remarks", header: "মন্তব্য"),
+                grid.Column("Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "MajorDemandOrProcure", new { id = item.MajorDemandIdentity }, null)</text>),
+                grid.Column("Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "MajorDemandOrProcure", new { id = item.MajorDemandIdentity }, null)</text>),
+                grid.Column("Download", format: @<text> @Html.ActionLink("Download", "Download", "MajorDemandOrProcure", new { id = item.MajorDemandIdentity }, null)</text>)
+                                                                   ));
+    }
+</div>
+
+
+
+

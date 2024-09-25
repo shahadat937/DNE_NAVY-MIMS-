@@ -1,0 +1,153 @@
+﻿@model RMS.Web.Models.ViewModel.TrainingInfoViewModel
+@{
+    ViewBag.Title = (Model.TrainingInfo.TrainingInfoId > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm("Save", "TrainingInfo", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <br />
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        Training Information
+                    </legend>
+                    <br />
+                   
+                    @Html.HiddenFor(x => x.TrainingInfo.TrainingInfoId)
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">P/O No</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.TrainingInfo.ONOorPNO, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                    @Html.HiddenFor(x => x.TrainingInfo.ONOorPNO)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Name</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.TrainingInfo.TrainerName, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                                    @*@Html.ValidationMessageFor(x=>x.TrainingInfo.TrainerName)*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Rank</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.TrainingInfo.RankId, Model.RanksListItems.OrderBy(x=>x.Value), "-Select-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Type of Training</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.TrainingInfo.TrainingType, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Name of Course</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.TrainingInfo.NameofCourse, Model.NameOfCoursesListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Location of training</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.TrainingInfo.TrainingLocation, Model.CountryNameSelectListItems, "-Select-", new { @class = "dropdownsize form-control", required = "required" })
+                                   
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Start Date</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.TrainingInfo.TrainingFrom, "{0: dd MMMM yyyy}", new { @class = " datefrom textBoxsize form-control ", required = "required" })
+                                    @*@Html.TextBoxFor(x => x.TrainingInfo.TrainingFrom, new { @class = "textBoxsize form-control datepicker" })*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">End Date</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.TrainingInfo.TrainingTo, "{0: dd MMMM yyyy}", new { @class = " dateto textBoxsize form-control ", required = "required" })
+                                   </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Training Type :</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.TrainingInfo.TrainingCategory, Model.TrainingCategorySelectListItems, "-Select-", new { @class = "dropdownsize form-control", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Remarks</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.TrainingInfo.Remarks, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "TrainingInfo")'">Back to List </button></div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+
+
+    }
+</div>
+<script type="text/javascript">
+    //onkeypress = " return isNumberKey(event)",
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+
+        if (charCode != 46 && charCode > 31
+    && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+</script>
+
+
+
+

@@ -1,0 +1,136 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipPowerViewModel
+@{
+    ViewBag.Title = (Model.ShipPower.ShipPowerIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    @using (Html.BeginForm("Save", "ShipPower", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        Ship Power
+                    </legend>
+                    <br />
+                    @if (ViewBag.Title == "Edit")
+                    {
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Serial Number:</label>
+                                    <div class="col-md-8">
+                                        @Html.DisplayFor(x => x.ShipPower.ShipPowerIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                        @Html.HiddenFor(x => x.ShipPower.ShipPowerIdentity)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Ship Name:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.ShipPower.ShipId, Model.ShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Description:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipPower.Description, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Speed:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipPower.Speed, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Duration:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipPower.Duration, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">EnduranceHr:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipPower.EnduranceHr, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">EnduranceNm:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipPower.EnduranceNm, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">ShaftSpeed:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipPower.ShaftSpeed, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Power:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipPower.Power, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">FuelConsumption:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipPower.FuelConsumption, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div>@Html.ActionLink("Back to List", "Index", "ShipPower", new { @class = "btn btn-primary" })</div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

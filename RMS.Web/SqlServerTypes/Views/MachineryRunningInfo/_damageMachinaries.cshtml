@@ -1,0 +1,94 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.MachineryRunningInfoViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>SHIP'S RUNNING RETURN</h5>
+        </div>
+        <div class="body">
+
+            <table>
+                <tr>
+                    <td><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "MachineryRunningInfo")'">Add New</button></td>
+                    @*<td>@Html.ActionLink("Add New Running Hrs", "Edit", "MachineryRunningInfo", new { @class = "btn btn-primary" })</td>*@
+                    <td>
+                        @using (Html.BeginForm("SearchByKey", "MachineryRunningInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                        {
+
+                            <table>
+                                <tr>
+                                    <td>
+                                        @Html.Label("Search Key")
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control search", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </td>
+                                    @*<td>
+                                        @Html.SearchButton()
+                                    </td>*@
+                                    <td>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Date From:</label>
+                                            <div class="col-md-8">
+                                                @Html.TextBoxFor(x => x.DateFrom, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control" })
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Date From:</label>
+                                            <div class="col-md-8">
+                                                @Html.TextBoxFor(x => x.DateTo, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control" })
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td> <input type="button" onclick="saveForm(this)" class="btn btn-primary pull-right " data-target="#RunningReturn" value="Search" /></td>
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.MachineryRunningInfos, rowCount: Model.MachineryRunningInfos.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { MachineryRunningIdentity = "grid" },
+            tableStyle: "webgrid-table webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            firstText: "First",
+            lastText: "Last",
+            nextText: "Next",
+            mode: WebGridPagerModes.All,
+            previousText: "Previous",
+            columns: grid.Columns(
+                                grid.Column("MachineryRunningIdentity", header: "Serial No"),
+                                grid.Column("ShipInfo.ShipName", header: "Ship Name"),
+                                grid.Column("CommonCode.TypeValue", header: "No of Hours Run"),
+
+                                         grid.Column("CommonCode1.TypeValue", header: "Type"),
+                                                  grid.Column("Hour", header: "Hour"),
+                                                  grid.Column("Minute", header: "Minute"),
+                grid.Column("Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "MachineryRunningInfo", new { id = item.MachineryRunningIdentity }, null)</text>),
+                grid.Column("Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "MachineryRunningInfo", new { id = item.MachineryRunningIdentity }, null)</text>),
+                grid.Column("Download", format: @<text> @Html.ActionLink("Download", "Download", "MachineryRunningInfo", new { id = item.ShipId, DateFrom = Model.DateFrom, DateTo = Model.DateTo }, null)</text>)
+
+                                                                                             ));
+    }
+</div>
+

@@ -1,0 +1,94 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipInfoViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Ship's Parameters</h5>
+        </div>
+        <div class="body">
+
+            <table>
+                <tr>
+                    <td>@Html.ActionLink("Add New", "Edit", "ShipInfo", new { @class = "btn btn-primary" })</td>
+                    <td>
+                        @using (Html.BeginForm("SearchByKey", "ShipInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                        {
+
+                            <table>
+                                <tr>
+                                    <td>
+                                        @Html.Label("Search Key")
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </td>
+                                    <td>
+                                        @Html.SearchButton()
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="">
+        <div class="btn-group ">
+            <button type="button" class="btn btn-primary">Ship's Basic Information</button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Excel", "ExportTo", new { ReportType = "Excel", searchKey = Model.SearchKey, id = "Basic" })</li>
+                <li>@Html.ActionLink("PDF", "ExportTo", new { ReportType = "PDF", searchKey = Model.SearchKey, id = "Basic" })</li>
+                <li>@Html.ActionLink("Word", "ExportTo", new { ReportType = "Word", searchKey = Model.SearchKey, id = "Basic" })</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.ShipInfoes, rowCount: Model.ShipInfoes.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { ShipInfoIdentity = "grid" },
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                columns: grid.Columns(
+                                grid.Column("ShipInfoIdentity", header: "SER"),
+                                grid.Column("CommonCode.TypeValue", header: "SQD"),
+                                grid.Column("ShipId", header: "CALL SIGN"),
+                                grid.Column("ShipName", header: "Ship Name"),
+                                grid.Column("Remarks", header: "Remarks"),
+                                grid.Column("Length"),
+                                grid.Column("Breadth"),
+                                grid.Column("DraughtAFT"),
+                                grid.Column("DraughtFWD"),
+                                grid.Column("Displacement"),
+                                grid.Column("PropellerQty"),
+                                grid.Column("RudderQty", header: "RudderQty"),
+                                grid.Column("SpeedMax"),
+                                grid.Column("SpeedCont", header: "SpeedCont..."),
+                                grid.Column( "Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "ShipInfo", new { id = item.ShipInfoIdentity }, null)</text>),
+                                grid.Column("Download", format: @<text> @Html.ActionLink("Download", "Download", "ShipInfo", new { id = item.ShipInfoIdentity }, null)</text>)
+                                                                                                                    ));
+    }
+</div>

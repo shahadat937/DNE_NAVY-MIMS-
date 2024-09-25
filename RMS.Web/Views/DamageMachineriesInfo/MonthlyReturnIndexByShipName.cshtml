@@ -1,0 +1,62 @@
+﻿@using RMS.Utility
+@model RMS.Web.Models.ViewModel.MonthlyReturnViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Monthly Return Of <span class="badge badge-danger-light">@if(@Model.monthlyReturns.Count()>0) { @Model.monthlyReturns.FirstOrDefault().ControlShipInfo.ControlName }</span></h3>
+                </div>
+                <div class="card-options">
+                    @Html.ActionLink("Add New", "MonthlyReturnEdit", "DamageMachineriesInfo", new { viewCount = 0 }, new { @class = "btn btn-primary", style = "color:#fff;" })
+
+                </div>
+            </div>
+            <div class="card-body" style="max-height:100% !important">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th class="wd-15p">Ship Name</th>
+                                <th class="wd-15p">Ship Status</th>
+                                <th class="wd-20p">Report Month</th>
+                                <th class="wd-20p">Action</th>
+                                <th class="wd-20p">Download@*<i class="fas fa-download"></i>*@</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.monthlyReturns)
+                            {
+                            <tr>
+                                <td><a href="@Url.Action("MonthlyReturnView", "DamageMachineriesInfo", new {id= item.MonthlyReturnId })">@item.ControlShipInfo.ControlName</a></td>
+                                <td>@item.CommonCode.TypeValue</td>
+                                <td>@item.ReturnReportNo.ReturnSerialNo  /  @item.ReportYearId</td>
+
+                                <td>
+                                    @Html.ActionLink("Defect Machinary", "MonthlyReturnEdit", "DamageMachineriesInfo", new { id = item.MonthlyReturnId, viewCount = 1 }, new { @class = "btn btn-outline-primary btn-sm" }) |
+                                    @Html.ActionLink("Machinary Running Hour", "MonthlyReturnEdit", "DamageMachineriesInfo", new { id = item.MonthlyReturnId, viewCount = 2 }, new { @class = "btn btn-outline-secondary btn-sm" }) |
+                                    @Html.ActionLink("POL State", "MonthlyReturnEdit", "DamageMachineriesInfo", new { id = item.MonthlyReturnId, viewCount = 3 }, new { @class = "btn btn-outline-dark btn-sm" }) |
+                                    @Html.ActionLink("Ships Running Hour", "MonthlyReturnEdit", "DamageMachineriesInfo", new { id = item.MonthlyReturnId, viewCount = 4 }, new { @class = "btn btn-outline-info btn-sm" }) |
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Download", "Download", "DamageMachineriesInfo", new { id = item.ShipId }, null)
+                                </td>
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->

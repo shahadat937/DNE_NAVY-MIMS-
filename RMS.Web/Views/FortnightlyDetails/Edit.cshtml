@@ -1,0 +1,88 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.FortnightlyDetailsViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>রিফিট/ডকিং অগ্রগতি বিবরণ</h5>
+        </div>
+        <div class="body">
+            <table>
+                <tr>
+                    <td>@Html.Label("From Date")</td>
+                    <td>@Html.TextBoxFor(x => x.StartDate, "{0: dd MMMM yyyy}", new { @class = "textBoxsize form-control datefrom", tabindex = 1, placeholder = "তারিখ নির্বাচন করুন" })</td>
+                    <td>@Html.Label("To Date")</td>
+                    <td>@Html.TextBoxFor(x => x.EndDate, "{0: dd MMMM yyyy}", new { @class = "textBoxsize form-control dateto", tabindex = 2, placeholder = "তারিখ নির্বাচন করুন" })</td>
+                    <td>@Html.ActionLink("Report", "Download", "FortnightlyDetails", new { startDate = Model.StartDate, endDate = Model.EndDate }, new { @class = "btn btn-primary" })</td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.ActionLink("Add New", "Index", "FortnightlyDetails", new { @class = "btn btn-primary" })
+                </div>
+                <div class="col-md-10">
+                    @using (Html.BeginForm("SearchByKey", "FortnightlyDetails", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                    {
+                        <div>
+                            <div class="pull-right">
+                                &nbsp;&nbsp;&nbsp; @Html.SearchButton()&nbsp;
+                            </div>
+                            <div class="pull-right">
+                                @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.FortnightlyDetails, rowCount: Model.FortnightlyDetails.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { FortnightlyDeatailsId = "grid" },
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                                columns: grid.Columns(
+                                grid.Column("FortnightlyDeatailsId", header: "Serial No"),
+                                grid.Column("Fortnightly", header: "Fortnightly Name"),
+                                grid.Column("RefitDockSelectedStartDate", header: "Refit/Docking StartDate", format: item => ((item.RefitDockSelectedStartDate == null) ? "" : item.RefitDockSelectedStartDate.ToString("dd MMM yyyy"))),
+                                grid.Column("RefitDockSelectedEndDate", header: "Refit/Docking EndDate", format: item => ((item.RefitDockSelectedEndDate == null) ? "" : item.RefitDockSelectedEndDate.ToString("dd MMM yyyy"))),
+                                grid.Column("RefitStartDate", header: "Refit StartDate", format: item => ((item.RefitStartDate == null) ? "" : item.RefitStartDate.ToString("dd MMM yyyy"))),
+                                grid.Column("RefitEndDate", header: "Refit EndDate", format: item => ((item.RefitEndDate == null) ? "" : item.RefitEndDate.ToString("dd MMM yyyy"))),
+                                grid.Column("DockingDate", header: "Docking Date", format: item => ((item.DockingDate == null) ? "" : item.DockingDate.ToString("dd MMM yyyy"))),
+                                grid.Column("UnDockingDate", header: "Un-Docking Date", format: item => ((item.UnDockingDate == null) ? "" : item.UnDockingDate.ToString("dd MMM yyyy"))),
+                                grid.Column("ProgressTime", header: "Progress Time"),
+                                grid.Column("TotalWorkProgress", header: "Total Work Progress"),
+
+                                grid.Column("Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "FortnightlyDetails", new { id = item.FortnightlyDeatailsId }, null)</text>),
+                                grid.Column("Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "FortnightlyDetails", new { id = item.FortnightlyDeatailsId }, null)</text>)
+
+                                                                          ));
+    }
+</div>
+
+
+

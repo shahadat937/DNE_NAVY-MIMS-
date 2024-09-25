@@ -1,0 +1,57 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.RefitDockingScheduleViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">@Model.DockName</h3>
+                </div>
+                @*<div class="card-options">
+                    @Html.ActionLink("Add New", "YearlyReturnEdit", "DamageMachineriesInfo", new { @class = "btn btn-primary", style = "color:#fff;" })
+
+                </div>*@
+            </div>
+            <div class="card-body" style="max-height:100% !important">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th class="wd-15p">From Year</th>
+                                <th class="wd-15p">To Year</th>
+                                <th></th>
+                                @*<th class="wd-15p">Report Year</th>*@
+                                @*<th class="wd-20p">Deck No</th>*@
+                                @*<th class="wd-20p">Frmae No</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.RefitDockingReportExcellList)
+                            {
+                                <tr>
+                                    <td>@item.FromYear</td>
+                                    <td>@item.ToYear</td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "RefitDockingScheduleExcelEdit", "RefitDockingSchedule", new { id = item.RefitDockingReportExcellId }, new { @class = "btn btn-primary" }) |
+                                        <a target="_blank" href="@item.ImageUrl" class="btn btn-primary">View</a> | 
+                                        @Html.ActionLink("Delete", "RefitDockingScheduleExcelDelete", "RefitDockingSchedule", new {  id = item.RefitDockingReportExcellId }, new { @class = "btn btn-danger" }) 
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        @Html.ActionLink("Exit", "ScheduleReport", "RefitDockingSchedule", new { @class = "btn btn-primary" })
+    </div>
+</div>
+<!-- Row End-->

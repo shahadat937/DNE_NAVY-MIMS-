@@ -1,0 +1,111 @@
+﻿@model RMS.Web.Models.ViewModel.UserViewModel
+@{
+    ViewBag.Title = "User Rights";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lengthOfUser = Model.Users.Count;
+}
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title"> User Information</h3>
+                </div>
+                <div class="card-options">
+                    @Html.ActionLink("Add New", "Edit", "User", new { @class = "btn btn-primary", style = "color:#fff;" })
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-md-12">
+                        @if (Model.Message != null)
+                        {
+                            if (Model.IsSucceed == 1)
+                            {
+                                <div style="color:green">@Model.Message</div>
+                            }
+                            else
+                            {
+                                <div style="color:red">@Model.Message</div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="max-height:100% !important">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th class="wd-15p">Branch Code</th>
+                                <th class="wd-15p">User Full Name</th>
+                                <th class="wd-20p">District Name</th>
+                                <th class="wd-20p">Branch Name</th>
+                                <th class="wd-20p">Role Name</th>
+                                <th class="wd-20p">Ship Name</th>
+                                <th class="wd-20p">Mobile Number</th>
+                                <th class="wd-20p">Email Address</th>
+                                <th class="wd-20p">Status</th>
+                                <th class="wd-20p">Is Login</th>
+                                <th class="wd-20p">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.UserBankInfos)
+                            {
+                                <tr>
+                                    <td>@item.UserName</td>
+                                    <td>@item.UserFullName</td>
+                                    <td>@item.DistrictName</td>
+                                    <td>@item.BranchName</td>
+                                    <td>@item.RoleName</td>
+                                    <td>@item.ShipName</td>
+                                    <td>@item.MobileNumber</td>
+                                    <td>@item.EmailAddress</td>
+                                    <td>@item.ApprovedUser</td>
+                                    <td>@item.IsLogin</td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", "User", new { UserId = item.UserId, BranchInfoIdentity = item.BranchInfoIdentity }, null)
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->
+
+
+
+
+
+
+
+@section scripts
+{
+
+    <script type="text/javascript">
+        $("tr:odd").css("background-color", "#bbf");
+
+        $("input[type=date]").datepicker({
+            dateFormat: 'dd/mm/yy',
+            yearRange: '1920:' + new Date().getFullYear(),
+            changeMonth: true,
+            changeYear: true,
+        });
+        $(function () {
+            $('th a, tfoot a').on('click', function () {
+                $('form').attr('action', $(this).attr('href')).submit();
+                return false;
+            });
+        });
+    </script>
+}

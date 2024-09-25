@@ -1,0 +1,182 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipInactiveOrgViewModel
+@{
+    ViewBag.Title = (Model.ShipInactiveOrg.SInactiveOrgIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    @using (Html.BeginForm("Save", "ShipInactiveOrg", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        Ship Inactive organization Information
+                    </legend>
+                    <br />
+                    @if (ViewBag.Title == "Edit")
+                    {
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Serial Number:</label>
+                                    <div class="col-md-8">
+                                        @Html.DisplayFor(x => x.ShipInactiveOrg.SInactiveOrgIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                                        @Html.HiddenFor(x => x.ShipInactiveOrg.SInactiveOrgIdentity)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Ship Name:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.ShipInactiveOrg.ShipInfoIdentity, Model.ShipInactiveOrgSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Organization:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.ShipInactiveOrg.OrgId, Model.CommonCodeSelectList, "-Select-", new { @class = "dropdownsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Total Ship:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipInactiveOrg.TotalShip, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Neumeric Value", required = "required" })
+                                    @*@Html.TextBoxFor(x => x.ShipInactiveOrg.InactiveDate, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control", placeholder = "Enter Date" })*@
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Operational:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipInactiveOrg.Operational, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Neumeric Value", required = "required" })
+                                    @*@Html.TextBoxFor(x => x.ShipInactive.InactiveDate, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control", placeholder = "Enter Date" })*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Non-Operational:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipInactiveOrg.NonOperational, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Neumeric Value", required = "required" })
+                                    @*@Html.TextBoxFor(x => x.ShipInactiveOrg.InactiveDate, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control", placeholder = "Enter Date" })*@
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Description:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipInactiveOrg.sDescription, new { @class = "textBoxsize form-control", tabindex = 5, required = "required" })
+                                    @*@Html.TextBoxFor(x => x.ShipInactive.InactiveDate, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control", placeholder = "Enter Date" })*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Refit DateFrom:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipInactiveOrg.RefitDateFrom, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control", placeholder = "Enter Date" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Refit DateTo:</label>
+                                <div class="col-md-8">
+                                    @*@Html.TextBoxFor(x => x.ShipInactiveOrg.RefitDateTo, new { @class = "textBoxsize form-control", tabindex = 5, required = "required" })*@
+                                    @Html.TextBoxFor(x => x.ShipInactiveOrg.RefitDateTo, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control", placeholder = "Enter Date" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Docking DateFrom:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipInactiveOrg.DockingDateFrom, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control", placeholder = "Enter Date" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Docking DateTo:</label>
+                                <div class="col-md-8">
+                                    @*@Html.TextBoxFor(x => x.ShipInactiveOrg.RefitDateTo, new { @class = "textBoxsize form-control", tabindex = 5, required = "required" })*@
+                                    @Html.TextBoxFor(x => x.ShipInactiveOrg.DockingDateTo, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control", placeholder = "Enter Date" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Remark:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipInactiveOrg.Remark, new { @class = "textBoxsize form-control", tabindex = 5, required = "required" })
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                      
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div>@Html.ActionLink("Back to List", "Index", "ShipInactiveOrg", new { @class = "btn btn-primary" })</div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    //onkeypress = " return isNumberKey(event)",
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+
+        if (charCode != 46 && charCode > 31
+    && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+</script>

@@ -1,0 +1,79 @@
+﻿
+@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.FuelConsumptionViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Fuel Consumption Data</h5>
+        </div>
+        <div class="body">
+            <table>
+                <tr>
+                    <td><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "FuelConsumption")'">Add New</button></td>
+                    @*<td>@Html.ActionLink("Add New Consumption Data", "Edit", "FuelConsumption", new { @class = "btn btn-primary" })</td>*@
+                    <td>
+                        @using (Html.BeginForm("SearchByKey", "FuelConsumption", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                        {
+
+                            <table>
+                                <tr>
+                                    <td>
+                                        @Html.Label("Search Key")
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control search", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </td>
+                                    <td>
+                                        <input type="button" onclick="saveForm(this)" class="btn btn-primary pull-right " data-target="#Consumption" value="Search" />
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.FuelConsumptions, rowCount: Model.FuelConsumptions.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { FuelConsumptionIdentity = "grid" },
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                columns: grid.Columns(
+                                         grid.Column("FuelConsumptionIdentity", header: "SER"),
+                                         grid.Column("ShipInfo.ShipName", header: "Ship Name"),
+                                                  grid.Column("CommonCode.TypeValue", header: "Machinery"),
+                                                  grid.Column("MachinaryOil", header: "MachinaryOil"),
+                                                           grid.Column("MahinaryOilType", header: "MahinaryOilType"),
+                                                  grid.Column("LubOil"),
+                                                  grid.Column("LuboilType"),
+                                grid.Column("Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "FuelConsumption", new { id = item.FuelConsumptionIdentity }, null)</text>),
+                                grid.Column("Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "FuelConsumption", new { id = item.FuelConsumptionIdentity }, null)</text>)
+                                                                                                   ));
+    }
+</div>
+
+
+

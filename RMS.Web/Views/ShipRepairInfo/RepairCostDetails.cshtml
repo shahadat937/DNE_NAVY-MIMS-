@@ -1,0 +1,65 @@
+﻿@using RMS.Utility
+@using System.Web.UI.WebControls
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipRepairViewModel
+@{
+    /**/
+
+    /**/
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .description {
+        text-align: justify;
+    }
+</style>
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-12">
+        <div class="expanel expanel-primary">
+            <div class="expanel-heading">
+                <h3 class="expanel-title" style="text-align:center;">Repair Cost Of @Model.ShipRepairInfo.ControlShipInfo.ControlName</h3>
+            </div>
+            <div class="expanel-body">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                @*<h3 class="card-title">1. Defect Machinary Information</h3>*@
+                            </div>
+                        </div>
+                        <div class="card-body" style="max-height:100% !important">
+                            <div class="table-responsive">
+                                <table class="table row table-borderless w-100 m-0">
+                                    <tbody class="col-lg-6 p-0">
+                                        <tr>
+                                            <td><strong>Docking Place :</strong><u>@Model.ShipRepairInfo.DockingPlace</u> Ltrs</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong> Docking Start  :</strong><u>@Model.ShipRepairInfo.DockingStart</u> </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Docking End :</strong><u>@Model.ShipRepairInfo.DockingEnd</u></td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody class="col-lg-6 p-0">
+                                        <tr>
+                                            <td><strong>Finantial Year :</strong><u>@(Model.ShipRepairInfo.FinantialYear != null ? Model.ShipRepairInfo.FinantialYear : "-" ) </u></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Repair Cost :</strong><u>@Model.ShipRepairInfo.RepairCost</u> </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->

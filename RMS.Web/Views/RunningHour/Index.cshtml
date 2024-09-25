@@ -1,0 +1,90 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.DamageMachineriesInfoViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>প্রকৌশল বিভাগের   যন্ত্রপাতির পরিসংখ্যান</h5>
+        </div>
+        <div class="body">
+            <table>
+                <tr class="col-md-12">
+                    <td class="col-md-2">@Html.ActionLink("Add New", "Edit", "RunningHour", new { @class = "btn btn-primary" })</td>
+                    <td class="col-md-7"></td>
+                    <td class="col-md-3">
+                        @using (Html.BeginForm("SearchByKey", "RunningHour", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                        {
+
+                            <table>
+                                <tr>
+                                    @*<td>
+                                        @Html.Label("Search Key")
+                                    </td>*@
+                                    <td>
+                                        @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </td>
+                                    <td>
+                                        @Html.SearchButton()
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.DamageMachineriesInfos, rowCount: Model.DamageMachineriesInfos.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { MachineriesDescriptionIdentity = "grid" },
+            tableStyle: "webgrid-table webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            firstText: "First",
+            lastText: "Last",
+            nextText: "Next",
+            mode: WebGridPagerModes.All,
+            previousText: "Previous",
+            columns: grid.Columns(
+                grid.Column("MachineSerialNo", header: "ক্রমিক নম্বর"),
+                         grid.Column("ControlShipInfo.ControlName", header: "জাহাজের নাম"),
+                grid.Column("MachineName", header: "যন্ত্রপাতির নাম"),
+                grid.Column("MachineSide", header: "পার্শ্ব"),
+                grid.Column("Hour", header: "ঘন্টা"),
+                grid.Column("Minute", header: "মিনিট"),
+                grid.Column("Duration", header: "চলাকালীন সময়"),
+                grid.Column("MachineRemarks", header: "মন্তব্য"),
+                grid.Column(header: "Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "RunningHour", new { id = item.MachineriesDescriptionIdentity }, null)</text>, canSort: false),
+                grid.Column(header: "Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "RunningHour", new { id = item.MachineriesDescriptionIdentity }, null)</text>),
+                grid.Column(header: "Download", format: @<text> @Html.ActionLink("Download", "Download", "RunningHour", new { id = item.ShipId }, null)</text>)
+                                 ));
+    }
+</div>
+<div>
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "DamageMachineriesInfo")'"><</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+

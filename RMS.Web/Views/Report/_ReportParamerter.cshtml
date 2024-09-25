@@ -1,0 +1,33 @@
+﻿
+@model RMS.Web.Models.ViewModel.ReportParameterViewModel
+@{
+
+    ViewBag.Title = "ReprotParameterWidgerd";
+}
+
+@using (Html.BeginForm("ReportParameter", "Report", FormMethod.Post, new { @class = "ParameterForm" }))
+{
+    @*<table class="table">*@
+
+    @*@foreach (var reportParameter in Model.ReportParameters)
+            {
+                <tr>
+                    <td>
+                        @Html.Label(Model.ReportParameters[reportParameter.Key].ParameterDisplayText)
+                    </td>
+
+                    <td>
+                        @Html.TextBoxFor(x => x.ReportParameters[reportParameter.Key].ParameterValue, new { @class = "form-control", @type = Model.ReportParameters[reportParameter.Key].ControlType })
+                    </td>
+                </tr>
+
+            }
+            <tr>
+                <td>
+                    <input type="submit" value="Show Report" />
+                </td>
+            </tr>
+        </table>*@
+}
+
+

@@ -1,0 +1,65 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.RefitDockingScheduleViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-profile  overflow-hidden">
+            <div class="card-body text-center profile-bg">
+                <div class=" card-profile">
+                    <h3 class="mt-3 text-white mb-0">Refit Docking Schedule of @Model.RefitDockingSchedule.ControlShipInfo.ControlName </h3>
+
+
+                    <a href="@Url.Action("Edit", "RefitDockingSchedule", new {id= Model.RefitDockingSchedule.RefitDockingIdentity })" class="btn btn-danger btn-sm"><i class="fa fa-pencil-alt" aria-hidden="true"></i> Edit</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body pb-0" style="max-height:100% !important">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade active show" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                            <div class="table-responsive mb-3">
+                                <table class="table row table-borderless w-100 m-0">
+                                    <tbody class="col-lg-6 p-0">
+                                        <tr>
+                                            <td><strong>Last Refit From :</strong>@string.Format("{0:dd MMMM yyyy}", @Model.RefitDockingSchedule.LastRefitFrom)</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Last Docking From :</strong>@string.Format("{0:dd MMMM yyyy}", @Model.RefitDockingSchedule.LastDockingFrom)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>PNext Refit From :</strong>@string.Format("{0:dd MMMM yyyy}", @Model.RefitDockingSchedule.PNextRefitFrom) </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>PNext Docking From  :</strong>@string.Format("{0:dd MMMM yyyy}", @Model.RefitDockingSchedule.PNextDockingFrom) </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody class="col-lg-6 p-0">
+                                        <tr>
+                                            <td><strong>Last Refit To :</strong> @string.Format("{0:dd MMMM yyyy}", @Model.RefitDockingSchedule.LastRefitTo)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Last Docking To :</strong>@string.Format("{0:dd MMMM yyyy}", @Model.RefitDockingSchedule.LastDockingTo) </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>PNext Refit To :</strong>@string.Format("{0:dd MMMM yyyy}", @Model.RefitDockingSchedule.PNextRefitTo)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>PNext Docking To :</strong>@string.Format("{0:dd MMMM yyyy}", @Model.RefitDockingSchedule.PNextDockingTo) </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Row -->

@@ -1,0 +1,99 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.DamageMachineriesInfoViewModel
+@{
+    ViewBag.Title = (Model.DamageMachineriesInfo.MachineriesDescriptionIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    @using (Html.BeginForm("Save", "POLCalculation", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <br/>
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        পি ও এল এর হিসাব :
+                    </legend>
+                    <br />
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">ক্রমিক নম্বর:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.DamageMachineriesInfo.FuelSerialNo, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                    @Html.HiddenFor(x => x.DamageMachineriesInfo.MachineriesDescriptionIdentity)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">জাহাজের নাম:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.DamageMachineriesInfo.ShipId, Model.ShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">জ্বালানী তেলের নাম:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.DamageMachineriesInfo.FuelOilName, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">জ্বালানী তেলের মজুদ (লিটার/কেজি) :</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.DamageMachineriesInfo.StockFuelOil, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">জ্বালানী তেল খরচ:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.DamageMachineriesInfo.FuelConsumption, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">লিটার/কেজি:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.DamageMachineriesInfo.UnitPrice, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+        <div><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Nabvar", "DamageMachineriesInfo")'">Back To List</button></div>
+          
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+
+
+    }
+</div>

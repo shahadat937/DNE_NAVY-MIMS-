@@ -1,0 +1,357 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ICEViewModel
+@{
+    ViewBag.Title = (Model.ICE.IceId > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+<div>
+    @using (Html.BeginForm("Save", "ICE", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">
+            ICE Basic Information
+        </legend>
+        @if (ViewBag.Title == "Edit")
+        {
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">ক্রমিক নং:</label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(x => x.ICE.IceId, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                            @Html.HiddenFor(x => x.ICE.IceId)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">জাহাজের নাম:</label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(x => x.ICE.ControlShipInfoId, Model.ControlShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 1 })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">তারিখ:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.IceDate, new { @class = "datefrom textBoxsize form-control", tabindex = 1 })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">Year:</label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(x => x.ICE.Year, Model.YearSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 1 })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">ICE For:</label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(x => x.ICE.ICEFor, Model.ICEForSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 1 })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">নির্দেশ সংখ্যা:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.InstructionNo, new { @class = "textBoxsize form-control", tabindex = 1, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">ইঞ্জিন  প্রস্তুতকারক:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.EngineManufacturer, new { @class = "textBoxsize form-control", tabindex = 3, placeholder = "Enter Value" })
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">ইঞ্জিনের মডেল:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.EngineModel, new { @class = "textBoxsize form-control", tabindex = 4, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">ইঞ্জিনের কায:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.EngineWork, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Neumeric Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+
+
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">
+            ICE Details
+        </legend>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">ইঞ্জিন ক্রমিক সংখ্যা:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.EngineSlNo, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">শীতলীকরণ পদ্ধতি:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.EngineCoolingSys, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">মেরামত করার পর:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.AfterRepairTime, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">কমিশন হতে সময়:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.SinceCommission, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">মেরামতের মন্তব্য :</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(x => x.ICE.MaintenanceRemark, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">ইঞ্জিন ক্রমিক সংখ্যা:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.EngineSlNo1, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">শীতলীকরণ পদ্ধতি:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.EngineCoolingSys1, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">মেরামত করার পর:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.AfterRepairTime1, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">কমিশন হতে সময়:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.SinceCommission1, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">মেরামতের মন্তব্য :</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(x => x.ICE.MaintenanceRemark1, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">ইঞ্জিন ক্রমিক সংখ্যা:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.EngineSlNo2, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">শীতলীকরণ পদ্ধতি:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.EngineCoolingSys2, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">মেরামত করার পর:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.AfterRepairTime2, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">কমিশন হতে সময়:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.SinceCommission2, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">মেরামতের মন্তব্য :</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(x => x.ICE.MaintenanceRemark2, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">ইঞ্জিন ক্রমিক সংখ্যা:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.EngineSlNo3, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">শীতলীকরণ পদ্ধতি:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.EngineCoolingSys3, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">মেরামত করার পর:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.AfterRepairTime3, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">কমিশন হতে সময়:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ICE.SinceCommission3, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">মেরামতের মন্তব্য :</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(x => x.ICE.MaintenanceRemark3, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">
+            Engineer Officer Remarks
+        </legend>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">প্রকৌশল অফিসারের মন্তব্য ১:</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(x => x.ICE.EngineerRemark1, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">প্রকৌশল অফিসারের মন্তব্য ২:</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(x => x.ICE.EngineerRemark2, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">প্রকৌশল অফিসারের মন্তব্য ৩:</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(x => x.ICE.EngineerRemark3, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+        <div class="form_group">
+            <div style="float: right">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+        <div>@Html.ActionLink("Back to List", "Index", "ICE", new { @class = "btn btn-primary" })</div>
+        <div class="row">
+            <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                <p>@TempData["message"]</p>
+            </div>
+        </div>
+
+
+    }
+</div>

@@ -1,0 +1,240 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.RefitDockingScheduleViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Refit Docking Schedule</h3>
+                </div>
+                <div class="card-options">
+                    @Html.ActionLink("Add New", "Edit", "RefitDockingSchedule", new { @class = "btn btn-primary", style = "color:#fff;" })
+
+                </div>
+            </div>
+            <div class="card-body" style="max-height:100% !important">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th class="wd-15p">Ship Name</th>
+                                <th class="wd-15p">Docked Name</th>
+                                <th class="wd-20p">Last Refit From</th>
+                                <th class="wd-20p">Last Refit To</th>
+                                <th class="wd-20p">Last Docking From</th>
+                                <th class="wd-20p">Last Docking To</th>
+                                <th class="wd-20p">Planed Refit From</th>
+                                <th class="wd-20p">Planed Docking From</th>
+                                <th class="wd-20p">Planed Docking To</th>
+                                <th class="wd-20p">Last Docking To</th>
+                                <th class="wd-20p">Last Docking To</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.RefitDockingSchedules)
+                            {
+                                <tr>
+                                    <td><a href="@Url.Action("RefitDockingScheduleDetails", "RefitDockingSchedule", new {id= item.RefitDockingIdentity })">@item.ControlShipInfo.ControlName</a></td>
+                                    <td>@item.CommonCode.TypeValue</td>
+                                    <td>@string.Format("{0:dd MMM yyyy}", item.LastRefitFrom)</td>
+                                    <td>@string.Format("{0:dd MMM yyyy}", item.LastRefitTo)</td>
+                                    <td>@string.Format("{0:dd MMM yyyy}", item.LastDockingFrom)</td>
+                                    <td>@string.Format("{0:dd MMM yyyy}", item.LastDockingTo)</td>
+                                    <td>@string.Format("{0:dd MMM yyyy}", item.PNextRefitFrom)</td>
+                                    <td>@string.Format("{0:dd MMM yyyy}", item.PNextRefitTo)</td>
+                                    <td>@string.Format("{0:dd MMM yyyy}", item.PNextDockingFrom)</td>
+                                    <td>@string.Format("{0:dd MMM yyyy}", item.PNextDockingTo)</td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", "RefitDockingSchedule", new { id = item.RefitDockingIdentity }, null) |
+                                        @Html.ActionLink("Delete", "Delete", "RefitDockingSchedule", new { id = item.RefitDockingIdentity }, null) |
+                                        @Html.ActionLink("Download", "Download", "RefitDockingSchedule", new { id = item.RefitDockingIdentity }, null)
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->
+@*<div class="row">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h5>Yearly Refit Docking Schedule</h5>
+            </div>
+            @if (@PortalContext.CurrentUser.LoweredRoleName == "A" || @PortalContext.CurrentUser.LoweredRoleName == "B")
+            {
+                <div class="body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="pull-left">
+                                &nbsp;  &nbsp; @Html.ActionLink("Add New", "Edit", "RefitDockingSchedule", new { @class = "btn btn-primary" })
+                            </div>
+                            @using (Html.BeginForm("SearchByKey", "RefitDockingSchedule", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                            {
+                                <div>
+
+                                    <div class="pull-left">
+                                        @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </div>
+                                    <div class="pull-left">
+                                        &nbsp; @Html.SearchButton()&nbsp;
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        @using (Html.BeginForm("DownloadAll", "RefitDockingSchedule", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                        {
+
+                            <div class="col-md-6">
+                                <div>
+                                    <div class="pull-left">
+                                        <label>From Year &nbsp;&nbsp;</label>
+                                    </div>
+                                    <div class="pull-left">
+                                        @Html.TextBoxFor(x => x.FromYear, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </div>
+                                    <div class="pull-left">
+                                        <label>&nbsp;&nbsp;To Year &nbsp;&nbsp;</label>
+                                    </div>
+                                    <div class="pull-left">
+
+                                        @Html.TextBoxFor(x => x.ToYear, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </div>
+                                    <div class="pull-left">
+                                        &nbsp; &nbsp; <input type="submit" value="Download All" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="row">
+        @if (@PortalContext.CurrentUser.LoweredRoleName == "A" || @PortalContext.CurrentUser.LoweredRoleName == "B")
+        {
+            var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+            grid.Bind(Model.RefitDockingSchedules, rowCount: Model.RefitDockingSchedules.Count, autoSortAndPage: true);
+            grid.Pager(WebGridPagerModes.All);
+            @grid.GetHtml(htmlAttributes: new {RefitDockingIdentity = "grid"},
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                columns: grid.Columns(
+                grid.Column("RefitDockingIdentity", header: "Serial No"),
+                grid.Column("ControlShipInfo.ControlName", header: "Ship Name"),
+                grid.Column("CommonCode.TypeValue", header: "Docked Name"),
+                grid.Column("LastRefitFrom", header: "Last Refit From", format: item => ((item.LastRefitFrom == null) ? "" : item.LastRefitFrom.ToString("dd MMM yyyy"))),
+                grid.Column("LastRefitTo", header: "Last Refit To", format: item => ((item.LastRefitTo == null) ? "" : item.LastRefitTo.ToString("dd MMM yyyy"))),
+                grid.Column("LastDockingFrom", header: "Last Docking From", format: item => ((item.LastDockingFrom == null) ? "" : item.LastDockingFrom.ToString("dd MMM yyyy"))),
+                grid.Column("LastDockingTo", header: "Last Docking To", format: item => ((item.LastDockingTo == null) ? "" : item.LastDockingTo.ToString("dd MMM yyyy"))),
+
+                grid.Column("PNextRefitFrom", header: "Planed Refit From", format: item => ((item.PNextRefitFrom == null) ? "" : item.PNextRefitFrom.ToString("dd MMM yyyy"))),
+                grid.Column("PNextRefitTo", header: "Planed Refit To", format: item => ((item.PNextRefitTo == null) ? "" : item.PNextRefitTo.ToString("dd MMM yyyy"))),
+                grid.Column("PNextDockingFrom", header: "Planed Docking From", format: item => ((item.PNextDockingFrom == null) ? "" : item.PNextDockingFrom.ToString("dd MMM yyyy"))),
+                grid.Column("PNextDockingTo", header: "Planed Docking To", format: item => ((item.PNextDockingTo == null) ? "" : item.PNextDockingTo.ToString("dd MMM yyyy"))),
+                grid.Column("Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "RefitDockingSchedule", new { id = item.RefitDockingIdentity }, null)</text>),
+                                                                      grid.Column("Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "RefitDockingSchedule", new { id = item.RefitDockingIdentity }, null)</text>),
+                                                                                                                   grid.Column("Download", format: @<text> @Html.ActionLink("Download", "Download", "RefitDockingSchedule", new { id = item.RefitDockingIdentity }, null)</text>)))
+            ;
+
+        }
+        else
+        {
+            var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+            grid.Bind(Model.RefitDockingSchedules, rowCount: Model.RefitDockingSchedules.Count, autoSortAndPage: true);
+            grid.Pager(WebGridPagerModes.All);
+            @grid.GetHtml(htmlAttributes: new {RefitDockingIdentity = "grid"},
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                columns: grid.Columns(
+                grid.Column("RefitDockingIdentity", header: "Serial No"),
+                grid.Column("ControlShipInfo.ControlName", header: "Ship Name"),
+                grid.Column("CommonCode.TypeValue", header: "Docked Name"),
+                grid.Column("LastRefitFrom", header: "Last Refit From", format: item => ((item.LastRefitFrom == null) ? "" : item.LastRefitFrom.ToString("dd MMM yyyy"))),
+                grid.Column("LastRefitTo", header: "Last Refit To", format: item => ((item.LastRefitTo == null) ? "" : item.LastRefitTo.ToString("dd MMM yyyy"))),
+                grid.Column("LastDockingFrom", header: "Last Docking From", format: item => ((item.LastDockingFrom == null) ? "" : item.LastDockingFrom.ToString("dd MMM yyyy"))),
+                grid.Column("LastDockingTo", header: "Last Docking To", format: item => ((item.LastDockingTo == null) ? "" : item.LastDockingTo.ToString("dd MMM yyyy"))),
+
+                grid.Column("PNextRefitFrom", header: "Planed Refit From", format: item => ((item.PNextRefitFrom == null) ? "" : item.PNextRefitFrom.ToString("dd MMM yyyy"))),
+                grid.Column("PNextRefitTo", header: "Planed Refit To", format: item => ((item.PNextRefitTo == null) ? "" : item.PNextRefitTo.ToString("dd MMM yyyy"))),
+                grid.Column("PNextDockingFrom", header: "Planed Docking From", format: item => ((item.PNextDockingFrom == null) ? "" : item.PNextDockingFrom.ToString("dd MMM yyyy"))),
+                grid.Column("PNextDockingTo", header: "Planed Docking To", format: item => ((item.PNextDockingTo == null) ? "" : item.PNextDockingTo.ToString("dd MMM yyyy"))),
+            grid.Column("Download", format: @<text> @Html.ActionLink("Download", "Download", "RefitDockingSchedule", new { id = item.RefitDockingIdentity }, null)</text>)));
+
+        }
+    </div>*@
+
+
+
+
+
+
+
+
+

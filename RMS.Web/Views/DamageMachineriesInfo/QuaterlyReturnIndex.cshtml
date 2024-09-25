@@ -1,0 +1,135 @@
+﻿@using RMS.Utility
+@model RMS.Web.Models.ViewModel.QuaterlyReturnViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Quaterly Return</h3>
+                </div>
+                <div class="card-options">
+                    @Html.ActionLink("Add New", "QuaterlyReturnEdit", "DamageMachineriesInfo", new { viewCount = 0 }, new { @class = "btn btn-primary", style = "color:#fff;" })
+
+                </div>
+            </div>
+            <div class="card-body" style="max-height:100% !important">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th class="wd-15p">Ship Name</th>
+                                <th class="wd-15p">Report Month</th>
+                                <th class="wd-20p">Last Refit From</th>
+                                <th class="wd-20p">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.quaterlyReturns)
+                            {
+                            <tr>
+                                <td><a href="@Url.Action("QuaterlyReturnIndexByShipName", "DamageMachineriesInfo", new {ShipId= item.ShipId })">@item.ControlShipInfo.ControlName</a> </td>
+                                @if (item.CommonCode !=null)
+                                {
+                                    <td>@item.CommonCode.TypeValue</td>
+                                }
+                                <td>@item.ReturnReportNo.ReturnSerialNo  /  @item.ReturnReportYear.Name</td>
+                                <td>
+                                    @*@Html.ActionLink("Edit", "QuaterlyReturnEdit", "DamageMachineriesInfo", new { id = item.QuaterlyReturnId }, null) |*@
+                                    @Html.ActionLink("Download", "Download", "DamageMachineriesInfo", new { id = item.ShipId }, null)
+                                </td>
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->
+
+
+
+
+
+
+
+
+
+@*<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Quaterly Return </h5>
+        </div>
+        <div class="body">
+            <table>
+                <tr>
+                    <td>@Html.ActionLink("Add New", "QuaterlyReturnEdit", "DamageMachineriesInfo", new { @class = "btn btn-primary" })</td>
+
+                    <td>
+                        @using (Html.BeginForm("SearchByKey", "DamageMachineriesInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                        {
+
+                            <table>
+                                <tr>
+                                    <td>
+                                        @Html.Label("Search Key")
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>*@
+
+
+
+@*<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.quaterlyReturns, rowCount: Model.quaterlyReturns.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { MachineriesDescriptionIdentity = "grid" },
+            tableStyle: "webgrid-table webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            firstText: "First",
+            lastText: "Last",
+            nextText: "Next",
+            mode: WebGridPagerModes.All,
+            previousText: "Previous",
+            columns: grid.Columns(
+            //grid.Column("SerialNo", header: "ক্রমিক নম্বর"),
+            grid.Column("ControlShipInfo.ControlName", header: "জাহাজের নাম"),
+            //grid.Column("Description", header: "বিবরণ"),
+            //grid.Column("MobilityDescription", header: "সচলতা"),
+            //grid.Column("ReturnReportNoId", header: "ক্রটির তারিখ", format: item => ((item.ReportMonthDate == null) ? "" : item.ReportMonthDate.ToString("dd MMM yyyy"))),
+            //grid.Column("RepairTime", header: "সম্ভাব্য মেরামতের সময়"),
+            //grid.Column("Remarks", header: "মন্তব্য"),
+            grid.Column(header: "Edit", format: @<text>@Html.ActionLink("Edit", "QuaterlyReturnEdit", "DamageMachineriesInfo", new { id = item.QuaterlyReturnId }, null)</text>, canSort: false),
+                 //grid.Column(header: "Edit", format: @<text>@Html.ActionLink("View", "MonthlyReturnView", "DamageMachineriesInfo", new { id = item.MonthlyReturnId }, null)</text>, canSort: false),
+                 //grid.Column(header: "Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "DamageMachineriesInfo", new { id = item.MachineriesDescriptionIdentity }, null)</text>),
+                 grid.Column(header: "Download", format: @<text> @Html.ActionLink("Download", "Download", "DamageMachineriesInfo", new { id = item.ShipId }, null)</text>)
+                                                         ));
+    }
+</div>*@

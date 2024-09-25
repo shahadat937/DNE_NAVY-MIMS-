@@ -1,0 +1,60 @@
+﻿@using RMS.Utility
+
+@model RMS.Web.Models.ViewModel.UserViewModel
+@{
+    ViewBag.Title = "User information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/APP/AutoRefresh.js"></script>
+<div class="row">
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="text-align:center;">
+            Current Login User Information
+        </div>
+        <div class="panel-body">
+            <div class="">
+                @{
+                    var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+                    grid.Bind(Model.UserBankInfos, rowCount: Model.UserBankInfos.Count, autoSortAndPage: true);
+                    grid.Pager(WebGridPagerModes.All);
+                    @grid.GetHtml(htmlAttributes: new { UserId = "grid" },
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                columns: grid.Columns(
+                                             grid.Column("Serial No", canSort: false, format: item => item.WebGrid.Rows.IndexOf(item) + 1 + Math.Round(Convert.ToDouble(grid.TotalRowCount / grid.PageCount) / grid.RowsPerPage) * grid.RowsPerPage * grid.PageIndex),
+                                                                        grid.Column("AspUserFullName", header: "User Full Name"),
+                                                      grid.Column("DistrictName", header: "District Name"),
+                                             grid.Column("BranchName", header: "Branch Name"),
+                                    grid.Column("RoleName", header: "Role Name"),
+                                    grid.Column("UserName", header: "User ID"),
+                                    grid.Column("PhoneNumber", header: "Mobile Number", canSort: false),
+                                             grid.Column("UserEmail", header: "Email Address", canSort: false),
+                                             grid.Column("WinPassword", header: "Is AD User"),
+                                             grid.Column("ApprovedUser", header: "Status")
+          ));
+                }
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+

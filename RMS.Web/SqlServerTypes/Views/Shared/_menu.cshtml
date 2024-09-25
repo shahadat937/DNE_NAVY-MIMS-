@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+
+}
+@using RMS.Utility
+@model IEnumerable<UserRightTreeView>
+@if (User.Identity.IsAuthenticated)
+{
+        <ul id="nav" class="nav navbar-nav" >
+            @* <li><a style="color: #ffffff; cursor: pointer" class="ajaxLoad" action="Remittance/CashPayment">Student</a></li>*@
+          
+                @Html.ActionLink("Home", "Index", "Home", null, new { @class = "navbar-brand" }) 
+          
+           
+            @foreach (var tree in Model)
+            {
+
+                <li>
+                    <a href="#" style="color: #2D9BD6" class="dropdown-toggle" data-toggle="dropdown">@tree.MenuObjectName<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        @foreach (var child in tree.ChildUserRight)
+                        {
+                            <li class="@(!child.ChildUserRight.Any() ? "" : "dropdown-submenu")">
+                                <a style="cursor: pointer" href="@child.UrlLink">@child.MenuObjectName</a>
+                                @*@Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })*@
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+}
+
+
+ 
+
+

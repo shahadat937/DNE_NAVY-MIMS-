@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EAAFC2B7-7CBE-4ADF-A186-B2AAB38D93A2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RMS.Model</RootNamespace>
+    <AssemblyName>RMS.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.3.0\lib\net451\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.3.0\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.5.3.0\lib\net451\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.5.3.0\lib\net451\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.3.0\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.4.2.2\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Jwt, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Jwt.4.2.2\lib\net45\Microsoft.Owin.Security.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OpenIdConnect, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OpenIdConnect.4.2.2\lib\net45\Microsoft.Owin.Security.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.3.0\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountInfo.cs" />
+    <Compile Include="AccountInformation.cs" />
+    <Compile Include="AccountTypeInfo.cs" />
+    <Compile Include="ApprovedRefitDockingSchedule.cs" />
+    <Compile Include="AsAndAsInfo.cs" />
+    <Compile Include="AspNetRole.cs" />
+    <Compile Include="CommonCode1.cs" />
+    <Compile Include="DefectMachinary.cs" />
+    <Compile Include="FortNightly.cs" />
+    <Compile Include="MachinaryRunningHour.cs" />
+    <Compile Include="MessageInfoView.cs" />
+    <Compile Include="MonthlyReturn.cs" />
+    <Compile Include="MonthlyReturnView.cs" />
+    <Compile Include="NewMachinaryEquipmentInformationN_Result.cs" />
+    <Compile Include="NotificationDockingModel.cs" />
+    <Compile Include="NotificationCustomModel.cs" />
+    <Compile Include="OilRate.cs" />
+    <Compile Include="POLExpenseInfo.cs" />
+    <Compile Include="QuaterlyConsumption.cs" />
+    <Compile Include="QuaterlyMainEnginesGeneratorsRunningHour.cs" />
+    <Compile Include="QuaterlyReturn.cs" />
+    <Compile Include="QuaterlyReturnEngineerOfficerRemark.cs" />
+    <Compile Include="RefitDockingDefectList.cs" />
+    <Compile Include="RefitDockingReportExcell.cs" />
+    <Compile Include="ReturnReportNo.cs" />
+    <Compile Include="ReturnReportYear.cs" />
+    <Compile Include="RoleUserURLRightMapping.cs" />
+    <Compile Include="RoleUserURLRightMappingModel.cs" />
+    <Compile Include="RunningHourInfo.cs" />
+    <Compile Include="ShipAndDocking.cs" />
+    <Compile Include="ShipInactiveView.cs" />
+    <Compile Include="UserBankInfo.cs" />
+    <Compile Include="UserProfile.cs" />
+    <Compile Include="UserURLRightModel.cs" />
+    <Compile Include="vwDamageMachinaries.cs" />
+    <Compile Include="vwMachinarieInfo.cs" />
+    <Compile Include="vwMachineriesRunning.cs" />
+    <Compile Include="vwNewMachinaryEquipmentInformation_Result.cs" />
+    <Compile Include="NewMachinaryEquipmentInformation_Result.cs" />
+    <Compile Include="Signal.cs" />
+    <Compile Include="AspNetUser.cs" />
+    <Compile Include="BankInfo.cs" />
+    <Compile Include="BooksAndBr.cs" />
+    <Compile Include="BranchInfo.cs" />
+    <Compile Include="CommonCode.cs" />
+    <Compile Include="ControlShipInfo1.cs" />
+    <Compile Include="ControlShipInfo.cs" />
+    <Compile Include="DailyTransaction.cs" />
+    <Compile Include="DamageMachineriesInfo.cs" />
+    <Compile Include="DeckInfo.cs" />
+    <Compile Include="HomeInformation.cs" />
+    <Compile Include="ProcurementByDNE.cs" />
+    <Compile Include="ShipInactiveDescription.cs" />
+    <Compile Include="vwNotification.cs" />
+    <Compile Include="vwPontoon.cs" />
+    <Compile Include="vwPreviousDateValue.cs" />
+    <Compile Include="vwRefitDokingNotification.cs" />
+    <Compile Include="vwShipBankInfo.cs" />
+    <Compile Include="vwShipBranchInfo.cs" />
+    <Compile Include="vwTrainingInfo.cs" />
+    <Compile Include="vwRefitDockingSchedule.cs" />
+    <Compile Include="vwShipcommOrgnaization.cs" />
+    <Compile Include="UpdateOPlState.cs" />
+    <Compile Include="ShipcommOrgnaization.cs" />
+    <Compile Include="vwICE.cs" />
+    <Compile Include="ICE.cs" />
+    <Compile Include="Documentation.cs" />
+    <Compile Include="EventLog.cs" />
+    <Compile Include="FortnightlyDetail.cs" />
+    <Compile Include="vwControlShipInfo.cs" />
+    <Compile Include="vwShipNameSearch.cs" />
+    <Compile Include="vwShipRepairInfo.cs" />
+    <Compile Include="vwFortnightlyInfo.cs" />
+    <Compile Include="FortnightlyInfo.cs" />
+    <Compile Include="FuelConsumption.cs" />
+    <Compile Include="FuelConsumptions1_Result.cs" />
+    <Compile Include="LubOilConsumption.cs" />
+    <Compile Include="MachinaryEquipmentInformation.cs" />
+    <Compile Include="MachinaryEquipmentInformation_Result.cs" />
+    <Compile Include="MachineryInfo.cs" />
+    <Compile Include="MachineryRunningInfo.cs" />
+    <Compile Include="MajorDemandOrProcure.cs" />
+    <Compile Include="MasterCode.cs" />
+    <Compile Include="MEInfo.cs" />
+    <Compile Include="MessageInfo.cs" />
+    <Compile Include="Module.cs" />
+    <Compile Include="ProcurementSchedule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RefitDockingSchedule.cs" />
+    <Compile Include="ReportHeader.cs" />
+    <Compile Include="Reporting.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="SearchModel.cs" />
+    <Compile Include="ShipDetail.cs" />
+    <Compile Include="ShipEmployed.cs" />
+    <Compile Include="vwShipInactive .cs" />
+    <Compile Include="ShipInactive.cs" />
+    <Compile Include="ShipInactiveOrg.cs" />
+    <Compile Include="ShipInfo.cs" />
+    <Compile Include="ShipMovement.cs" />
+    <Compile Include="ShipPower.cs" />
+    <Compile Include="ShipRepairInfo.cs" />
+    <Compile Include="ShipSpeedTrial.cs" />
+    <Compile Include="TrainingInfo.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserBankInfoMVC.cs" />
+    <Compile Include="UserLogInfo.cs" />
+    <Compile Include="UserRight.cs" />
+    <Compile Include="UserURLRight.cs" />
+    <Compile Include="uvGLTransaction.cs" />
+    <Compile Include="vAccountInfo.cs" />
+    <Compile Include="vwDamageMachinery.cs" />
+    <Compile Include="vwFuelConsumption.cs" />
+    <Compile Include="vwFuelConsumption1_Result.cs" />
+    <Compile Include="vwMachinaryEquipmentInformation.cs" />
+    <Compile Include="vwMachineryRunningInfo.cs" />
+    <Compile Include="vwMesageInfo.cs" />
+    <Compile Include="vwProcurementSchedule.cs" />
+    <Compile Include="vwShipEmployed.cs" />
+    <Compile Include="vwShipInfo.cs" />
+    <Compile Include="vwShipInactiveOrg.cs" />
+    <Compile Include="vwShipMovement.cs" />
+    <Compile Include="YearlyReturn.cs" />
+    <Compile Include="YearlyReturnDetail.cs" />
+    <Compile Include="ZoneInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RMS.Utility\RMS.Utility.csproj">
+      <Project>{7962ad98-79e1-47c3-9555-b929f480c7f3}</Project>
+      <Name>RMS.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

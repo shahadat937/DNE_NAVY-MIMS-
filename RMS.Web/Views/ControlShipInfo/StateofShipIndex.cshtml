@@ -1,0 +1,338 @@
+﻿@model RMS.Web.Models.ViewModel.ControlAccountViewModel
+@{
+    ViewBag.Title = (Model.ControlShipInfoId) > 0 ? "Edit" : "Add New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+<div>
+    @using (Html.BeginForm("StateOfShipIndexSave", "ControlShipInfo", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        @Html.HiddenFor(model => model.ControlShipInfoId)
+        @Html.HiddenFor(model => model.SortOrder)
+        @Html.HiddenFor(model => model.ControlLevel)
+        @Html.HiddenFor(model => model.IsActive)
+        @Html.HiddenFor(model => model.ParentCode)
+
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">
+                State Of Ships & Crafts
+            </legend>
+
+            <p style="font-weight:600"><span style="color: rgb(233 58 0); font-size:20px;">&#9888</span> <b>Please fill out all</b> (<span style="color:red; font-size:16px;">*</span>) <b>field</b></p>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Control Code:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ControlCode, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value", @readonly = "readonly" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Organization<span style="color:red; font-size:16px;">*</span> :</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.Organization, Model.OrgSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Ship Name<span style="color:red; font-size:16px;">*</span>:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ControlName, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Call Sign:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ControlValue, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> SQN:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.SQD, Model.SqdSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Operational Status<span style="color:red; font-size:16px;">*</span> :</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.Status, Model.ShipstatusSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Nick Name:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.NickName, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Type<span style="color:red; font-size:16px;">*</span> :</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.ShipType, Model.ShipTypeSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Commissioning Date:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.CommotionDate, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Class:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.ClassId, Model.ClassTypeSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> File Upload(ships Pack) :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipsPackFile, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Displacement (Full Load) (Tons) :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.DisplacementFullLoad, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Manufacturer :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.Manufacturer, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Displacement ( Light Weight) (Tons) :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.DisplacementLightWeight, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Date Of Commission :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.DateOfCommission, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Length (LOA)(MTR) :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.LengthMTR, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Height Of Mast (Mtr) :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.HeightOfMast, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Breadth (BMLD)(MTR) :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.Breadth, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Depth (Mtr) :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.Depth, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @*<div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Sqdn</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.Sqdn, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>*@
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Draft (Fwd) (Mtr):</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.DraftFwd, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Draft (Aft) (Mtr):</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.DraftAft, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Fresh Water Capacity (Tons) :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.FreshWaterCapacity, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Maximum Speed (kn) :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MaximumSpeed, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Fual Capacity (Ltr) :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.FualCapacity, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Maximum Continuous Speed(kn):</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MaximumContinuousSpeed, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Luboil Capcity (Ltr) :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.LuboilCapcity, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Cruising Speed (kn):</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.CruisingSpeed, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Economic Speed (kn) :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.EconomicSpeed, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Address :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.Address, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Authority :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.Authority, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Contact No :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ContactNo, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"> Remarks:</label>
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.Remarks, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form_group">
+            <div class="text-center">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+            @*<div>@Html.ActionLink("Back to List", "IndexDisplay", "ControlShipInfo", new { @class = "btn btn-primary" })</div>*@
+        </div>
+        @*<div class="row">
+            <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                <p>@TempData["Msg"]</p>
+            </div>
+        </div>*@
+    }
+</div>

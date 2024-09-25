@@ -1,0 +1,292 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.DeckInfoViewModel
+@{
+    //ViewBag.Title = "Edit Form";
+    ViewBag.Title = (Model.DeckInfo.DeckInfoIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<style>
+    .t {
+        font-size: 20px !important;
+        font-style: italic;
+    }
+
+    ul.ui-autocomplete {
+        z-index: 1100;
+    }
+</style>*@
+
+<div>
+    
+@using (Html.BeginForm("Save", "DeckInfo", FormMethod.Post, new { @class = "VoucherForm", role = "form" }))
+{
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        Deck Information
+                    </legend>
+                    <br />
+                    @if (ViewBag.Title == "Edit")
+                    {
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Serial Number:</label>
+                                    <div class="col-md-8">
+                                        @Html.DisplayFor(x => x.DeckInfo.DeckInfoIdentity, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                        @Html.HiddenFor(x => x.DeckInfo.DeckInfoIdentity, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Ship Name:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.DeckInfo.ShipInfoIdentity, Model.ShipinSelectListItems, "-Select Ship-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Deck No:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.DechNo, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Compartment:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.Compartment, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Location:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.Location, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Examination Date:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.DeckInfo.CheckDate, "{0:dd MMMM yyyy}", new { @class = "datepicker text ui-widget-content ui-corner-all" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">State Plates:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.StatePlates, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">State Frames:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.StateFrames, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">State Rivets:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.StateRivets, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Cements (If any):</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.StateCement, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Paint's Description:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.PaintDescriptio, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                                <label class="col-md-12 control-label" style="font-size: 10px;font-style: italic">Suction and Discharge Line</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Weather Clear:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.PaintState, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">State:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.SanctionDisLineW, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+
+                            <label class="col-md-8 control-label" style="font-size: 10px;font-style: italic">Suction and Discharge and Non Return Values</label>
+                            @*<label class="col-md-8 control-label" style="font-size: 10px;font-style: italic"></label>*@
+                        </div>
+                    </div>
+                   
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Weather Tested:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.SanctDisNonRW, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">State:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.SanctDisNonRS, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6" >
+
+                            <label class="col-md-12 control-label" style="font-size: 10px;font-style: italic">Watertight Doors,Hatchers,Scuttles & Manhole Cover</label>
+                            @*<label class="col-md-12 control-label" style="font-size: 10px;font-style: italic">Scuttles & Manhole Cover</label>*@
+
+                        </div>
+                    </div>
+                   
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Weather Tested:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.HeadCoverWT, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">State:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.HeadCoverS, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                                <label class="col-md-12 control-label" style="font-size: 10px;font-style: italic">Defects/Damage</label>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Description:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.DefectDes, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Proposal for Repair:</label>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.DeckInfo.DefectActionTaken, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+           
+
+            <div>@Html.ActionLink("Back to List", "Index", "DeckInfo", new { @class = "btn btn-primary" })</div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".datepicker").datepicker({
+            dateFormat: 'dd MM yy',
+            yearRange: '1920:' + (new Date().getFullYear() + 5),
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+</script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".datepicker").datepicker({
+            dateFormat: 'dd MM yy',
+            yearRange: '1920:' + (new Date().getFullYear() + 5),
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+</script>

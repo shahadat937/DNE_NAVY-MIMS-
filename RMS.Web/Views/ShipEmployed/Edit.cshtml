@@ -1,0 +1,116 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipEmployedViewModel
+@{
+    ViewBag.Title = (Model.ShipEmployed.ShipInfoIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="~/Scripts/jquery-1.12.4.js"></script>
+</head>
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+<div>
+    @using (Html.BeginForm("Save", "ShipEmployed", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        SHIP EMPLOYED DURATION
+                    </legend>
+                    <br />
+                    @if (ViewBag.Title == "Edit")
+                    {
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Serial Number:</label>
+                                    <div class="col-md-8">
+                                        @Html.DisplayFor(x => x.ShipEmployed.EmployedIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                        @Html.HiddenFor(x => x.ShipEmployed.EmployedIdentity)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Ship Name:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.ShipEmployed.ShipInfoIdentity, Model.SelectedShipListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 1 })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Employment:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipEmployed.Employment, new { @class = "textBoxsize form-control", tabindex = 1, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Day's From :</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipEmployed.DaysFrom, new { @class = "textBoxsize form-control", tabindex = 3, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Day's To:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipEmployed.DaysTo, new { @class = "textBoxsize form-control", tabindex = 4, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">No. Of Days:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipEmployed.NoOfDays, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Neumeric Value" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Completion Of Last:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipEmployed.CompletionOfLast, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Message Date:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipEmployed.Date, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div>@Html.ActionLink("Back to List", "Index", "ShipEmployed", new { @class = "btn btn-primary" })</div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+
+
+    }
+</div>

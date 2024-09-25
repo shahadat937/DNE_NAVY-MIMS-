@@ -1,0 +1,233 @@
+﻿@model RMS.Web.Models.ViewModel.DailyTransactionViewModel
+
+@{
+    ViewBag.Title = "Transaction";
+
+}
+<style>
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+        width: 70%;
+        margin: auto;
+    }
+</style>
+<link href="~/CommonDesign/DailyTransaction.css" rel="stylesheet" />
+<div class="container">
+        <br/>
+
+        @*@using (Html.BeginForm("FindByVoucher", "DailyTransaction", FormMethod.Post, new {@class="formControl", @traget="_blank"}))
+            {
+                
+            }*@
+        @using (Html.BeginForm("Save", "DailyTransaction", FormMethod.Post, new { @class = "formControl"}))
+        {
+
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Daily Transaction</legend>
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="VoucherNo" class="col-md-4 control-label">Voucher No:</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.VoucherNo, new { @class = "form-control", autofocus = "autofocus", tabindex = 1 })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="TransactionDate" class="col-md-4 control-label">Transaction Date:</label>
+                            <div class="col-md-8">
+                                @Html.EditorFor(x => x.TransDate,new { htmlAttributes = new { @class = "form-control datepicker" , tabindex = 2}})
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="inputLabel3" class="col-md-4 control-label">Transaction Nature:</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.TransNature, Model.TransactionNatureListItems, new { @class = "form-control", tabindex = 3 })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="inputLabel4" class="col-md-4 control-label">Transaction Mode:</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.ModeOfTrans, Model.TransactionModeListItems, new { @class = "form-control", tabindex = 4 })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="inputLabel3" class="col-md-4 control-label">Voucher Type:</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.VoucherType, Model.VoucherSelectListItems, new { @class = "form-control dropdownsize", tabindex = 5 })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="inputLabel3" class="col-md-4 control-label">Account Code:</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.AccountCode, Model.AccountSelectListItems, new { @class = "form-control dropdownsize", tabindex = 6 })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="inputLabel3" class="col-md-4 control-label">Currency:</label>
+                            <div class="col-md-8">
+                               @Html.DropDownListFor(x => x.Currency, Model.CurrencySelectListItems, new { @class = "form-control", tabindex = 7 })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="inputLabel4" class="col-md-4 control-label">Exchange Rate:</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.ExchangeRate, new { @class = "form-control amountCalcuation", id = "exchangeRate", tabindex = 8 })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               
+                
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="VoucherNo" class="col-md-4 control-label">FC Amount:</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Amount, new { @class = "col-sm-2 col-md-2 col-lg-2 form-control amountCalcuation", tabindex = 9, id = "fcAmount" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="inputLabel3" class="col-md-4 control-label">Amount BDT:</label>
+                            <div class="col-md-8">
+                                <label style="color:green;font-weight: bold" id="bdtAmount">0</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="inputLabel3" class="col-md-4 control-label">Exchange Company:</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.UserAgentBranch, Model.ExchangeSelectListItems, new { @class = "form-control", tabindex = 10 })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="inputLabel4" class="col-md-4 control-label">Description:</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Description, new { @class = "form-control", tabindex = 11 })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="inputLabel4" class="col-md-4 control-label"></label>
+                            <div class="col-md-8" >
+                                <button id="findButton" style="width: 95PX;height: 30PX;" class="btn btn-primary " tabindex=12>Save</button><p style="color:red">@Model.Message</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                    </div>
+                </div>
+            </fieldset>
+             <div class="table-responsive">
+                <table class="table table-bordered table-hover" style="font-size:12px;">
+                    <thead style="background-color: mintcream">
+                        <tr>
+                            <th>Sl No</th>
+                            <th>Account Code</th>
+                            <th>Voucher No</th>
+                            <th>Transaction Date</th>
+                            <th>Amount(Cr.) in BDT</th>
+                            <th>Amount(Dr.) in BDT</th>
+                            <th>Exchange Rate</th>
+                            <th>Amount(Cr.) in USD</th>
+                            <th>Amount(Dr.) in USD</th>
+                            <th>Currency Code</th>
+                            <th>Description</th>
+                            <th>User ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.DailyTransactions)
+                        {
+                            <tr class="table-hover">
+                                <td>@Html.DisplayFor(modelItem => item.IdentityNo)</td>
+                                <td>@Html.DisplayFor(modelItem => item.AccountCode)</td>
+                                <td>@Html.DisplayFor(modelItem => item.VoucherNo)</td>
+                                <td>@Html.DisplayFor(modelItem => item.TransDate)</td>
+                                <td style="text-align: right">@Html.DisplayFor(modelItem => item.FCredit)</td>
+                                <td style="text-align: right">@Html.DisplayFor(modelItem => item.FDebit)</td>
+                                <td style="text-align: right">@Html.DisplayFor(modelitem => item.ExchangeRate)</td>
+                                <td style="text-align: right">@Html.DisplayFor(modelItem => item.Credit)</td>
+                                <td style="text-align: right">@Html.DisplayFor(modelItem => item.Debit)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Currency)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+@*@section scripts{
+        <script type="text/javascript">
+            $('.amountCalcuation').keyup(function () {
+                if (/\D/g.test(this.value)) {
+                    var $this = $(this);
+                    $this.val($this.val().replace(/[^\d.]/g, ''));
+                } else {
+                    var fcAmount = $('#fcAmount').val();
+                    if (fcAmount == '')
+                        fcAmount = 0;
+                    var exchangeRate = $('#exchangeRate').val();
+                    if(exchangeRate == '')
+                        exchangeRate=0;
+                    var bdtAmount = parseFloat(fcAmount) * parseFloat(exchangeRate);
+                    $('#bdtAmount').text(parseFloat(bdtAmount));
+
+                }
+            });
+     </script>
+
+}*@
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.amountCalcuation').on('keyup', function () {
+                var fcAmount = $('#fcAmount').val();
+                fcAmount = fcAmount == '' ? 0 : fcAmount;
+                var exchangeRate = $('#exchangeRate').val();
+                exchangeRate = exchangeRate == '' ? 0 : exchangeRate;
+                var bdtAmount = (parseFloat(fcAmount) * parseFloat(exchangeRate)).toFixed(2);
+                $('#bdtAmount').text(parseFloat(bdtAmount));
+            });
+        });
+    </script>
+}

@@ -1,0 +1,212 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.FuelConsumptionViewModel
+@{
+    ViewBag.Title = (Model.FuelConsumption.FuelConsumptionIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm("Save", "FuelConsumption", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        Consumption Data For The Quater
+                    </legend>
+                    <br />
+                    @if (ViewBag.Title == "Edit")
+                    {
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Serial Number:</label>
+                                    <div class="col-md-8">
+                                        @Html.DisplayFor(x => x.FuelConsumption.FuelConsumptionIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 1, required = "required" })
+                                        @Html.HiddenFor(x => x.FuelConsumption.FuelConsumptionIdentity)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Ship Name:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.FuelConsumption.ShipId, Model.ControlShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 2, required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Completion Date:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.FuelConsumption.CompletionDate, "{0: dd MMMM yyyy}", new { @class = " datepicker textBoxsize form-control ", required = "required" })
+                                </div>
+
+                            </div>
+                        </div>
+                        @*<div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Machinery:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.FuelConsumption.Machinery, Model.CommonCodeSelectList, "-Select-", new { @class = "dropdownsize form-control", tabindex = 3, required = "required" })
+                                </div>
+
+                            </div>
+                        </div>*@
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Diesel Oil:</label>
+                                <div class="col-md-3">
+                                    
+                                    @Html.TextBoxFor(x => x.FuelConsumption.MachinaryOil, new { @class = "textBoxsize form-control", tabindex = 4, placeholder = "Enter Value ", id = "DieselOil", style = "width: 100px;", required = "required" })
+                                </div>
+                                <label class="col-md-1 control-label"> Type:</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(x => x.MachinaryOilType, Model.OilTypeSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 3, style = "width: 110px;", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Lub Oil:</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(x => x.FuelConsumption.LubOil, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value", id = "LubOil1", style = "width: 100px;", required = "required" })
+                                </div>
+                                <label class="col-md-1 control-label"> Type:</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(x => x.LubOilType, Model.OilTypeSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 3, style = "width: 110px;", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">H.S.D Oil:</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(x => x.FuelConsumption.HSDOil, new { @class = "textBoxsize form-control", tabindex = 4, id = "hsdOil", placeholder = "Enter Value ", style = "width: 100px;", required = "required" })
+                                </div>
+                                <label class="col-md-1 control-label"> Type:</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(x => x.MachinaryOilType, Model.OilTypeSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 3, style = "width: 110px;", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Lub. Oil:</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(x => x.FuelConsumption.GreaseOil, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value", style = "width: 100px;", required = "required" })
+                                </div>
+                                <label class="col-md-1 control-label"> Type:</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(x => x.LubOilType, Model.OilTypeSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 3, style = "width: 110px;", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Fresh Water:</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(x => x.FuelConsumption.Water, new { @class = "textBoxsize form-control", tabindex = 4, placeholder = "Enter Value ", style = "width: 100px;", required = "required" })
+                                </div>
+                                <label class="col-md-1 control-label"> Type:</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(x => x.MachinaryOilType, Model.OilTypeSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 3, style = "width: 110px;", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Lub. Oil:</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(x => x.FuelConsumption.WLubOil, new { @class = "textBoxsize form-control", tabindex = 6, placeholder = "Enter Value", style = "width: 100px;", required = "required" })
+                                </div>
+                                <label class="col-md-1 control-label"> Type:</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(x => x.LubOilType, Model.OilTypeSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 3, style = "width: 110px;", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Percentage Of Oil:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.FuelConsumption.PercentageOfOil, new { @class = "textBoxsize form-control", tabindex = 4, placeholder = "Enter Value ", onclick = "sum()", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Average Load At Sea:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.FuelConsumption.AtSea, new { @class = "textBoxsize form-control", tabindex = 4, placeholder = "Enter Value ", required = "required" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Refrigerator Gas:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.FuelConsumption.RefGas, new { @class = "textBoxsize form-control", tabindex = 4, placeholder = "Enter Value ", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Average Load in Harbour:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.FuelConsumption.Harbour, new { @class = "textBoxsize form-control", tabindex = 4, placeholder = "Enter Value ", required = "required" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+
+            <div><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("NavTab", "MachineryRunningInfo")'">Back to List </button></div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+
+        function sum() {
+            var txtFirstNumberValue = document.getElementById('DieselOil').value;
+            var txtSecondNumberValue = document.getElementById('hsdOil').value;
+            var txtThirdNumberValue = document.getElementById('LubOil1').value;
+            var a = parseFloat(txtFirstNumberValue) + parseFloat(txtSecondNumberValue);
+            var b=parseFloat(txtThirdNumberValue)*100;
+            var result = b / a;  
+            if (!isNaN(result)) {
+                document.getElementById().value = result.toFixed(2);
+            }
+        }
+</script>

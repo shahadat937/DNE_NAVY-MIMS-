@@ -1,0 +1,107 @@
+﻿@using RMS.Utility
+@model RMS.Web.Models.ViewModel.MachineryRunningInfoViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-content">
+    </div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="nav active"><a href="#RunningReturn" data-toggle="tab">SHIP'S Running Return</a></li>
+            <li class="nav"><a href="#Employed" data-toggle="tab">Employed Duration</a></li>
+            <li class="nav"><a href="#Consumption" data-toggle="tab">Fuel Consumption</a></li>
+
+        </ul>
+        <div class="tab-content" id="ApplicantInfoContainner">
+            <div id="RunningReturn" class="tab-pane fade in active">
+                @{
+                    Html.RenderPartial("~/Views/MachineryRunningInfo/_damageMachinaries.cshtml", Model);
+                }
+
+            </div>
+            <div id="Employed" class="tab-pane container">
+                <br />
+                @{
+                    Html.RenderPartial("~/Views/ShipMovement/_shipMovement.cshtml", Model.ShipMovementViewModel);
+                }
+            </div>
+
+           
+            <div id="Consumption" class="tab-pane container">
+                <br />
+                @{
+                    Html.RenderPartial("~/Views/FuelConsumption/_fuelConsumption.cshtml", Model.FuelConsumptionViewModel);
+                }
+            </div>
+        </div>
+
+    </div>
+    @*</div>*@
+</div>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        $(document).ready(
+            function () {
+                $('.search').keypress(function (event) {
+                    if (event.keyCode == 13) {
+                        //call method here
+                        event.preventDefault();
+                    }
+                });
+            });
+
+
+
+
+        function saveForm(obj) {
+
+            var button = $(obj);
+            var target = $(button.attr('data-target'));
+            var form = button.parents('form:first');
+            var url = form.attr('action');
+            var type = form.attr('method');
+            var data = form.serialize();
+            var option = {
+                url: url,
+                type: type,
+                data: data,
+                dataType: 'html'
+            };
+            if (jQuery.validator && jQuery.validator.unobtrusive) {
+                form.validate();
+                if (!form.valid()) {
+                    // e.preventDefault();
+                    return false;
+                } else {
+                    //alert(url);
+                    $.ajax(option).done(function (resp) {
+
+
+
+                        //$("#EducationEdit").hide();
+                        //$("#ProfessionalQualificationEdit").hide();
+                        //$("#trainingEdit").hide();
+                        //$("#MembershipEdit").hide();
+                        //$("#EmploymentEdit").hide();
+
+                        $(target).html(resp);
+                        resetAllControls();
+                    });
+                }
+
+            }
+
+        }
+
+
+    </script>
+}
+
+

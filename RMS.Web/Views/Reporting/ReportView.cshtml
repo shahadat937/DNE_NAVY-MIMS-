@@ -1,0 +1,172 @@
+﻿
+@using iTextSharp.text.pdf.qrcode
+@using Microsoft.Reporting.WebForms
+@using RMS.Utility
+@model RMS.Web.Models.ViewModel.ReportingViewModel
+@{
+    /**/
+
+    ViewBag.Title = "ReportView";
+    Layout = null;
+}
+<h4 style="color:green">@Model.ReportName</h4>
+@using (Html.BeginForm("AspReport", "Reporting", FormMethod.Post, new { @class = "Reporting", target = "_blank" }))
+{
+
+    @Html.HiddenFor(x => x.SlNo)
+    @*foreach (var rn in Model.ReportName)
+        {
+            <h3>rn[]</h3>
+        }*@
+    foreach (var par in Model.Parameters)
+    {
+        if (par.Key.ToLower().Contains("date"))
+        {
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-4">@Html.Label(par.Key)</label>
+                    <div class="col-md-8">
+
+                        @Html.TextBoxFor(x => x.Parameters[par.Key], "{0: dd MMMM yyyy}", new { @class = " datefrom textBoxsize form-control lrefFrom", placeholder = "Enter Date" })
+                    </div>
+
+                </div>
+            </div>
+        }
+        else if (par.Key.ToLower().Contains("exchangecompany"))
+        {
+            <div class="col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-md-12"> @Html.Label(par.Key)</label>
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(x => x.Parameters[par.Key], Model.ExchangeCompanyListItem, "--Select Exchange Company--", new { @class = "Type form-control", tabindex = 2 })
+                    </div>
+                </div>
+            </div>
+        }
+
+        else if (par.Key.ToLower().Contains("namecourse"))
+        {
+            <div class="col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-md-12"> @Html.Label(par.Key)</label>
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(x => x.Parameters[par.Key], Model.NameOfCoursesListItems, "--Select--", new { @class = "Type form-control", tabindex = 2 })
+                    </div>
+                </div>
+            </div>
+        }
+
+        else if (par.Key.ToLower().Contains("exchangecompany"))
+        {
+            <div class="col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-md-12"> @Html.Label(par.Key)</label>
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(x => x.Parameters[par.Key], Model.NameOfCoursesListItems, "--Select Exchange Company--", new { @class = "Type form-control", tabindex = 2 })
+                    </div>
+                </div>
+            </div>
+        }
+        else if (par.Key.ToLower().Contains("user"))
+        {
+            <div class="col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-md-12"> @Html.Label(par.Key)</label>
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(x => x.Parameters[par.Key], new { @class = "textBoxsize form-control", @Value = PortalContext.CurrentUser.UserName, @readonly = true })
+                    </div>
+                </div>
+            </div>
+        }
+        else if (par.Key == "ShipId")
+        {
+            <div class="col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-md-12">Ship's Name</label>
+                    <div class="col-md-12">
+                        @if (PortalContext.CurrentUser.LoweredRoleName == "S" || PortalContext.CurrentUser.LoweredRoleName == "V")
+                        {
+                            @Html.DropDownListFor(x => x.Parameters[par.Key], Model.ShipListItem, new { @class = "Type form-control", tabindex = 2 })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(x => x.Parameters[par.Key], Model.ShipListItem, "-- Select --", new { @class = "Type form-control", tabindex = 2 })
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        else if (par.Key == "QuarterId")
+        {
+            <div class="col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-md-12">Quarter Name</label>
+                    <div class="col-md-12">
+
+                        @Html.DropDownListFor(x => x.Parameters[par.Key], Model.QuarterListSelectItem, "-- Select --", new { @class = "Type form-control", tabindex = 2 })
+
+                    </div>
+                </div>
+            </div>
+        }
+        else if (par.Key == "YearId")
+        {
+            <div class="col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-md-12"> Year</label>
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(x => x.Parameters[par.Key], Model.YearListSelectItem, "-- Select --", new { @class = "Type form-control", tabindex = 2 })
+                    </div>
+                </div>
+            </div>
+        }
+        else if (par.Key == "MonthId")
+        {
+            <div class="col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-md-12"> Month</label>
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(x => x.Parameters[par.Key], Model.MonthListSelectItem, "-- Select --", new { @class = "Type form-control", tabindex = 2 })
+                    </div>
+                </div>
+            </div>
+        }
+        else if (par.Key.ToLower() == "shipname")
+        {
+            <div class="col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-md-12"> @Html.Label(par.Key)</label>
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(x => x.Parameters[par.Key], Model.ShipNameListItem, new { @class = "Type form-control", tabindex = 2 })
+                    </div>
+                </div>
+            </div>
+        }
+        else if (par.Key.ToLower().Contains("officecode"))
+        {
+            <div class="col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-md-12"> @Html.Label(par.Key)</label>
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(x => x.Parameters[par.Key], new { @class = "textBoxsize form-control", Value = "1000000000", @readonly = "readonly" })
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-sm-12 col-lg-12">
+                <div class="form-group">
+                    <label class="col-md-12"> @Html.Label(par.Key)</label>
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(x => x.Parameters[par.Key], new { @class = "textBoxsize form-control" })
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    <br />
+    <div><input type="submit" value="Preview" class="btn btn-primary" id="btnExport" /></div>
+}
+

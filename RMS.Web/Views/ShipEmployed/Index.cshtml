@@ -1,0 +1,77 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipEmployedViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>SHIP EMPLOYED DURATION</h5>
+        </div>
+        <div class="body">
+            <table>
+                <tr class="col-md-12">
+                    <td class="col-md-2">@Html.ActionLink("Add New Ship Employed Duration", "Edit", "ShipEmployed", new { @class = "btn btn-primary" })</td>
+                    <td class="col-md-7"></td>
+                    <td class="col-md-3">
+                        @using (Html.BeginForm("SearchByKey", "ShipEmployed", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                        {
+
+                            <table>
+                                <tr>
+                                    <td>
+                                        @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </td>
+                                    <td>
+                                        @Html.SearchButton()
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.ShipEmployeds, rowCount: Model.ShipEmployeds.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { EmployedIdentity = "grid" },
+            tableStyle: "webgrid-table webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            firstText: "First",
+            lastText: "Last",
+            nextText: "Next",
+            mode: WebGridPagerModes.All,
+            previousText: "Previous",
+            columns: grid.Columns(
+                                             grid.Column("EmployedIdentity", header: "Serial No"),
+                                    grid.Column("ShipInfo.ShipName", header: "Ship Name"),
+                                                      grid.Column("Employment", header: "Employment"),
+                                                      grid.Column("DaysFrom", header: "Days From"),
+                                                      grid.Column("DaysTo", header: "Days To"),
+                                                      grid.Column("NoOfDays", header: "NoOfDays"),
+                                                      grid.Column("CompletionOfLast", header: "CompletionOfLast"),
+                                                      grid.Column("Date", header: "Date"),
+                grid.Column(header: "Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "ShipEmployed", new { id = item.EmployedIdentity }, null)</text>, canSort: false),
+                grid.Column(header: "Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "ShipEmployed", new { id = item.EmployedIdentity }, null)</text>)
+                                 ));
+    }
+</div>
+
+<div>
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "MachineryRunningInfo")'"><</button>
+</div>

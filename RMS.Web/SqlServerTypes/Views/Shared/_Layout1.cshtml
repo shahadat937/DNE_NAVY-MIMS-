@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<style>
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+        width: 100%;
+        margin: auto;
+    }
+
+    /*.commonbackground1 {
+        background: rgba(255,255,255,1);
+        background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+        background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(237,237,237,1)));
+        background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+        background: -o-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+        background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+        background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    }*/
+
+    /*.menubar {
+        background: rgba(206,199,236,1);
+        background: -moz-linear-gradient(left, rgba(206,199,236,1) 0%, rgba(206,199,236,1) 26%, rgba(216,208,239,1) 32%, rgba(235,233,249,1) 55%, rgba(194,192,234,1) 97%, rgba(193,191,234,1) 98%);
+        background: -webkit-gradient(left top, right top, color-stop(0%, rgba(206,199,236,1)), color-stop(26%, rgba(206,199,236,1)), color-stop(32%, rgba(216,208,239,1)), color-stop(55%, rgba(235,233,249,1)), color-stop(97%, rgba(194,192,234,1)), color-stop(98%, rgba(193,191,234,1)));
+        background: -webkit-linear-gradient(left, rgba(206,199,236,1) 0%, rgba(206,199,236,1) 26%, rgba(216,208,239,1) 32%, rgba(235,233,249,1) 55%, rgba(194,192,234,1) 97%, rgba(193,191,234,1) 98%);
+        background: -o-linear-gradient(left, rgba(206,199,236,1) 0%, rgba(206,199,236,1) 26%, rgba(216,208,239,1) 32%, rgba(235,233,249,1) 55%, rgba(194,192,234,1) 97%, rgba(193,191,234,1) 98%);
+        background: -ms-linear-gradient(left, rgba(206,199,236,1) 0%, rgba(206,199,236,1) 26%, rgba(216,208,239,1) 32%, rgba(235,233,249,1) 55%, rgba(194,192,234,1) 97%, rgba(193,191,234,1) 98%);
+        background: linear-gradient(to right, rgba(206,199,236,1) 0%, rgba(206,199,236,1) 26%, rgba(216,208,239,1) 32%, rgba(235,233,249,1) 55%, rgba(194,192,234,1) 97%, rgba(193,191,234,1) 98%);
+    }*/
+
+    .commonMarquee {
+        background: rgba(242,246,248,1);
+        background: -moz-linear-gradient(left, rgba(242,246,248,1) 0%, rgba(242,246,248,1) 7%, rgba(181,198,208,0.99) 31%, rgba(224,239,249,0.96) 88%, rgba(216,225,231,0.96) 99%, rgba(216,225,231,0.96) 100%);
+        background: -webkit-gradient(left top, right top, color-stop(0%, rgba(242,246,248,1)), color-stop(7%, rgba(242,246,248,1)), color-stop(31%, rgba(181,198,208,0.99)), color-stop(88%, rgba(224,239,249,0.96)), color-stop(99%, rgba(216,225,231,0.96)), color-stop(100%, rgba(216,225,231,0.96)));
+        background: -webkit-linear-gradient(left, rgba(242,246,248,1) 0%, rgba(242,246,248,1) 7%, rgba(181,198,208,0.99) 31%, rgba(224,239,249,0.96) 88%, rgba(216,225,231,0.96) 99%, rgba(216,225,231,0.96) 100%);
+        background: -o-linear-gradient(left, rgba(242,246,248,1) 0%, rgba(242,246,248,1) 7%, rgba(181,198,208,0.99) 31%, rgba(224,239,249,0.96) 88%, rgba(216,225,231,0.96) 99%, rgba(216,225,231,0.96) 100%);
+        background: -ms-linear-gradient(left, rgba(242,246,248,1) 0%, rgba(242,246,248,1) 7%, rgba(181,198,208,0.99) 31%, rgba(224,239,249,0.96) 88%, rgba(216,225,231,0.96) 99%, rgba(216,225,231,0.96) 100%);
+        background: linear-gradient(to right, rgba(242,246,248,1) 0%, rgba(242,246,248,1) 7%, rgba(181,198,208,0.99) 31%, rgba(224,239,249,0.96) 88%, rgba(216,225,231,0.96) 99%, rgba(216,225,231,0.96) 100%);
+    }
+</style>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bangladesh Navy</title>
+        @Styles.Render("~/Content/css")
+
+        @Scripts.Render("~/bundles/modernizr")
+
+    </head>
+<body class="menubar">
+    @*<div class="navbar navbar-fixed-top" style="background-color: burlywood">
+            <div class="row">
+                <div class="form_group">
+                    <div class="col-sm-offset-1 col-sm-4 col-md-4 col-lg-4 pull-left">
+                        <article>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Phone :</b>+880 9666 910 392<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>E-mail :</b>info@infinitytechltd.com</article>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-lg-2 pull-left">
+                        <article  style="font-size:9px">
+                            <b>Address :</b>Infinity Technology International Ltd.<br />
+                            BCIC Bhaban (16th Floor), Dilkusha C/A<br />
+                            Dhaka-1000, Bangladesh
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    <div class="row">
+        <div id="contentRight" class="container body-content">
+            @RenderBody()
+            <footer class="container-fluid">
+                <div>
+                    <div style="text-align:right;font-weight:bold">Powered by<img src="~/images/InfinityLogo.jpg" /></div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

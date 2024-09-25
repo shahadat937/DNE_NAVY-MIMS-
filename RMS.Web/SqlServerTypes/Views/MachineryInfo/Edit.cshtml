@@ -1,0 +1,200 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.MachineryInfoViewModel
+@{
+    ViewBag.Title = (Model.MachineryInfo.MachineryInfoIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    @using (Html.BeginForm("Save", "MachineryInfo", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        Machinery Information
+                    </legend>
+                    <br />
+                    @if (ViewBag.Title == "Edit")
+                    {
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Serial Number:</label>
+                                    <div class="col-md-8">
+                                        @Html.DisplayFor(x => x.MachineryInfo.MachineryInfoIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                        @Html.HiddenFor(x => x.MachineryInfo.MachineryInfoIdentity)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Ship Name:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.MachineryInfo.ShipId, Model.ShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Machinery:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.Machinery, new { @class = "textBoxsize form-control", tabindex = 8, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Quantity:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.Quantity, new { @class = "textBoxsize form-control", tabindex = 8, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Location:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.Location, new { @class = "textBoxsize form-control", tabindex = 8, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Model:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.Model, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Power:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.Power, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">PowerUnit:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.PowerUnit, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">RPM:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.RPM, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Pressure:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.Pressure, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Maker Address:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.MakerAddress, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Installation Date:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.InstallationDate, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">TOH:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.TOH, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">MOH:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.MOH, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">ConsumptionFuel:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.ConsumptionFuel, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">LubOilGrade:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.LubOilGrade, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">ConsuptionLuboil:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryInfo.ConsuptionLuboil, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div>@Html.ActionLink("Back to List", "Index", "MachineryInfo", new { @class = "btn btn-primary" })</div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

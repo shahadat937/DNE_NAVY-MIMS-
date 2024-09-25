@@ -1,0 +1,55 @@
+﻿@using RMS.Utility
+@model RMS.Web.Models.ViewModel.MonthlyReturnViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Monthly Return</h3>
+                </div>
+                <div class="card-options">
+                    @Html.ActionLink("Add New", "MonthlyReturnEdit", "DamageMachineriesInfo",new { viewCount = 0}, new { @class = "btn btn-primary", style = "color:#fff;" })
+
+                </div>
+            </div>
+            <div class="card-body" style="max-height:100% !important">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th class="wd-15p">Ship Name</th>
+                                <th class="wd-15p">Ship Status</th>
+                                <th class="wd-20p">Report Month</th>
+                                <th class="wd-20p">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.monthlyReturns)
+                            {
+                                <tr>
+                                    <td><a href="@Url.Action("MonthlyReturnIndexByShipName", "DamageMachineriesInfo", new {ShipId= item.ShipId })">@item.ControlShipInfo.ControlName</a></td>
+                                    <td>@item.CommonCode.TypeValue</td>
+                                    <td>@item.ReturnReportNo.ReturnSerialNo  /  @item.ReportYearId</td>
+                                    <td>
+                                        @*@Html.ActionLink("Edit", "MonthlyReturnEdit", "DamageMachineriesInfo", new { id = item.MonthlyReturnId }, null) |*@
+                                        @Html.ActionLink("Download", "Download", "DamageMachineriesInfo", new { id = item.ShipId }, null)
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->
+

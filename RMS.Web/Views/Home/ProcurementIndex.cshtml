@@ -1,0 +1,107 @@
+﻿@using Org.BouncyCastle.Asn1.X509
+@using RMS.BLL.TreeView
+@using RMS.Model
+@using iTextSharp.text.pdf
+@model RMS.Web.Models.ViewModel.UpdateOplStateViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/App/treeView.css" rel="stylesheet" />
+<div style="width:auto; padding-left:260px">
+
+</div>
+
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+
+            <h4>  Ship’s General & Machinery Information</h4>
+        </div>
+        <div class="panel-heading">
+
+            @Html.ActionLink("Ship Speed", "ShipPowerEdit", "ShipPower", new { @class = "btn btn-primary" })
+            @Html.ActionLink("Ship Trail", "ShipspeedTrialEdit", "ShipSpeedTrial", new { @class = "btn btn-primary" })
+
+        </div>
+        <div class="body">
+            @using (Html.BeginForm())
+            {
+                <section class="search">
+
+                    <div class="tree panel-body" style="overflow-x:scroll;overflow-y:scroll;height:422px; width:auto">
+                        <ul>
+
+                            @foreach (var ch1 in Model.ProcurementChartsOfAccounts)
+                            {
+                                <li>
+                                    <a>  </a>
+
+                                    &nbsp; &nbsp; &nbsp;<span style="margin-right: 5px;">
+                                        @ch1.id-@ch1.Name
+
+                                    </span>
+                                    <ul>
+                                        @foreach (var ch2 in ch1.Nodes.OrderBy(x => x.id))
+                                        {
+                                            <li>
+                                                <a> </a>
+                                                @ch2.id-<span> @ch2.Name </span>
+                                                <ul>
+                                                    @foreach (var ch3 in ch2.Nodes.OrderBy(x => x.id))
+                                                    {
+                                                        <li>
+                                                            <a>  </a>
+                                                            <span> @ch3.Name </span>
+
+                                                            <ul>
+                                                                @foreach (var ch4 in ch3.Nodes)
+                                                                {
+                                                                    <li>
+                                                                        <a>   </a>
+                                                                        @ch4.id-<span> @ch4.Name</span>
+
+                                                                        <ul>
+                                                                            @foreach (var ch5 in ch4.Nodes)
+                                                                            {
+                                                                                <li>
+                                                                                    @*@Math.Truncate(ch5.id)-*@
+                                                                                    <span>
+                                                                                        @ch5.Name
+                                                                                        @Html.ActionLink("Edit", "Create", "ControlShipInfo", new { @class = "AjaxPopup", title = "Edit", @action = Url.Action("Create", "ControlShipInfo", new { ControlShipInfoId = ch5.id, ControlLevel = ch5.LEVEL }) })
+
+                                                                                    </span>
+                                                                                </li>
+                                                                            }
+                                                                        </ul>
+                                                                    </li>
+                                                                }
+                                                            </ul>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </li>
+
+                                        }
+                                    </ul>
+
+                                </li>
+
+                            }
+
+                        </ul>
+                    </div>
+                </section>
+
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/APP/treeView.js"></script>
+}
+
+
+

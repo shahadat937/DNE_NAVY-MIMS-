@@ -1,0 +1,126 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipRepairViewModel
+@{
+    ViewBag.Title = (Model.ShipRepairInfo.ShipRepairIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm("Save", "ShipRepairInfo", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        Ships / Crafts Repair Cost
+                    </legend>
+                    <br />
+                    @if (ViewBag.Title == "Edit")
+                    {
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Serial Number:</label>
+                                    <div class="col-md-8">
+                                        @Html.DisplayFor(x => x.ShipRepairInfo.ShipRepairIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                        @Html.HiddenFor(x => x.ShipRepairInfo.ShipRepairIdentity)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Ship Name:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.ShipRepairInfo.ShipInfoIdentity, Model.ControlShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Financial Year:</label>
+                                <div class="col-md-8">
+                                    @*<input class="date-own form-control" style="width: 300px;" type="text">*@
+                                    @Html.TextBoxFor(x => x.ShipRepairInfo.FinantialYear, new { @class = "textBoxsize form-control date-own", tabindex = 5, placeholder = "yyyy", required = "required" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Docking Start:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipRepairInfo.DockingStart, "{0: dd MMMM yyyy}", new { @class = " datefrom textBoxsize form-control", placeholder = "Enter Date ", required = "required" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Docking End:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipRepairInfo.DockingEnd, "{0: dd MMMM yyyy}", new { @class = " dateto textBoxsize form-control ", placeholder = "Enter Date ", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Repair Cost:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipRepairInfo.RepairCost, new { @class = "textBoxsize form-control", tabindex = 5, onkeypress = " return isNumberKey(event)", placeholder = "Enter Only Neumeric Value " })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Docking Place:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ShipRepairInfo.DockingPlace, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value " })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div>@Html.ActionLink("Back to List", "Index", "ShipRepairInfo", new { @class = "btn btn-primary" })</div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    //onkeypress = " return isNumberKey(event)",
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+</script>
+
+
+
+
+
+

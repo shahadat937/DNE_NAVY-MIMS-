@@ -1,0 +1,101 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.DocumentationViewModel
+@{
+    ViewBag.Title = (Model.Documentation.DocumentationIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+<div>
+    @using (Html.BeginForm("Save", "Documentation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        Drawing Information
+                    </legend>
+                    <br />
+                    @if (ViewBag.Title == "Edit")
+                    {
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Serial Number:</label>
+                                    <div class="col-md-8">
+                                        @Html.DisplayFor(x => x.Documentation.DocumentationIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                        @Html.HiddenFor(x => x.Documentation.DocumentationIdentity)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Ship Name:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.Documentation.ShipId, Model.ControlShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Drawing Type:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.Documentation.DocumentType, Model.CommonCodeListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">File Name:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Documentation.Name, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Create Date:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Documentation.CreateDate, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Image Upload:</label>
+                                <div class="col-md-8">
+                                   @Html.TextBoxFor(m => m.ImageUpload, new { type = "file" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                   
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save and Upload" class="btn btn-primary" />
+                </div>
+            </div>
+            <div>@Html.ActionLink("Back to List", "Index", "Documentation", new { @class = "btn btn-primary" })</div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

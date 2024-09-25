@@ -1,0 +1,160 @@
+/*------Caledar-------*/
+
+.fc-toolbar:before,
+.login-content:after {
+	content: "";
+}
+
+.cal1 {
+	.clndr {
+		.clndr-table {
+			.header-days {
+				.header-day {
+					border-left: 1px solid $black-1;
+					border-top: 1px solid $border;
+				}
+				background: $primary;
+			}
+			tr {
+				.empty,
+				.adjacent-month,
+				.my-empty,
+				.my-adjacent-month {
+					border-left: 1px solid $border;
+					border-top: 1px solid $border;
+					background: #e8eaef;
+				}
+				.day {
+					&.event,
+					&.my-event,
+					&.today.event,
+					&.my-today.event {
+						background: #e8eaef;
+					}
+					&.event:hover,
+					&.my-event:hover {
+						background: #e8eaef !important;
+					}
+					&.today,
+					&.my-today {
+						background: $primary !important;
+					}
+					border-left: 1px solid $border;
+					border-top: 1px solid $border;
+					&:last-child {
+						border-right: 1px solid $border;
+					}
+					&:hover {
+						background: #e8eaef;
+					}
+				}
+			}
+		}
+		.clndr-controls .clndr-control-button {
+			.clndr-previous-button {
+				color: $white;
+				background: $primary;
+			}
+			.clndr-next-button {
+				color: $white;
+				background: $primary;
+				&:hover {
+					background: #7c5cac;
+				}
+			}
+			.clndr-previous-button:hover {
+				background: #7c5cac;
+			}
+		}
+	}
+	font-size: 14px;
+}
+
+.fc button {
+	background: $primary;
+}
+
+.fc-unthemed {
+	.fc-content,
+	.fc-divider,
+	.fc-list-heading td,
+	.fc-list-view,
+	.fc-popover,
+	.fc-row,
+	tbody,
+	td,
+	th,
+	thead {
+		border-color: rgba(0, 0, 0, 0.07);
+	}
+}
+
+.fc-event {
+	border: 1px solid $secondary;
+	background-color: $secondary;
+	color: #f1f1f1 ! important;
+}
+
+.fc-event-dot {
+	background-color: $secondary;
+	color: #f1f1f1 ! important;
+}
+
+.fc-unthemed {
+	.fc-divider,
+	.fc-list-heading td,
+	.fc-popover .fc-header {
+		background: #e8eaef;
+	}
+}
+
+.fc-toolbar {
+	.fc-state-active,
+	.ui-state-active {
+		background: $secondary;
+	}
+}
+
+.fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right fc-state-disabled:focus {
+	border: none !important;
+	box-shadow: none !important;
+}
+
+.fc-unthemed .fc-list-item:hover td {
+	background-color: #e8eaef;
+}
+
+.conv-form-wrapper div#messages div.message.to {
+	background: rgb(238, 239, 246);
+}
+
+div.conv-form-wrapper div.options div.option {
+	border: 1px solid $primary;
+	background: $white;
+	color: $primary;
+}
+
+form.convFormDynamic button.submit {
+	color: $primary;
+	border: 1px solid $primary;
+	background: $white;
+}
+
+div.conv-form-wrapper div.options div.option.selected {
+	background: $primary;
+	color: $white;
+	&:hover {
+		background: $primary;
+	}
+}
+
+form.convFormDynamic button.submit:hover {
+	background: $primary;
+	color: $white;
+}
+
+div.conv-form-wrapper div#messages div.message.from {
+	background: $primary;
+	color: $white;
+	border-top-right-radius: 0;
+}

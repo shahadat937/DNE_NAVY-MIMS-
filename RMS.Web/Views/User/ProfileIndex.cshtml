@@ -1,0 +1,314 @@
+﻿@using RMS.Utility
+@model RMS.Web.Models.ViewModel.UserViewModel
+@{
+    var title = "My Profile";
+    ViewBag.Title = title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("SaveProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="text-align:center">@title</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Full Name:&nbsp;<i class="fa fa-asterisk" style="font-size: 9px; color: red" aria-hidden="true"></i></label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.User.UserFullName, new {@class = "textBoxsize form-control checkLogout", tabindex = 7, placeholder = "Enter User Full Name"})
+                            @Html.ValidationMessageFor(x => x.User.UserFullName)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Father's Name:&nbsp;<i class="fa fa-asterisk" style="font-size:9px;color:red" aria-hidden="true"></i></label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.UserProfile.FatherName, new { @class = "textBoxsize form-control checkLogout", tabindex = 7, placeholder = "Enter Father's Full Name" })
+                            @Html.ValidationMessageFor(x => x.UserProfile.FatherName)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Mother's Name:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.UserProfile.MotherName, new { @class = "textBoxsize form-control checkLogout", tabindex = 7, placeholder = "Enter Mother's Full Name" })
+                            @Html.ValidationMessageFor(x => x.UserProfile.MotherName)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Mobile number:&nbsp;<i class="fa fa-asterisk" style="font-size:9px;color:red" aria-hidden="true"></i></label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.User.MobileNumber, new { @class = "textBoxsize form-control", tabindex = 4, placeholder = "Enter Mobile Number" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="Email" class="col-md-4 control-label">Present Address:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.UserProfile.PresentAddress, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Present Address" })
+                            @Html.ValidationMessageFor(x => x.UserProfile.PresentAddress)
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Permanent Address:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.UserProfile.PermanentAddress, new { @class = "textBoxsize form-control checkLogout", tabindex = 7, placeholder = "Enter Parmanent Address" })
+                            @Html.ValidationMessageFor(x => x.UserProfile.PermanentAddress)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="Email" class="col-md-4 control-label">Email Address:&nbsp;<i class="fa fa-asterisk" style="font-size:9px;color:red" aria-hidden="true"></i></label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.User.EmailAddress, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Email Address" })
+                            @Html.ValidationMessageFor(x => x.User.EmailAddress)
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">NID:&nbsp;<i class="fa fa-asterisk" style="font-size: 9px; color: red" aria-hidden="true"></i></label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.UserProfile.NationalId, new { @class = "textBoxsize form-control checkLogout", tabindex = 7, placeholder = "Enter National Id No" })
+                            @Html.ValidationMessageFor(x => x.UserProfile.NationalId)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="Email" class="col-md-4 control-label">Date of Birth:&nbsp;<i class="fa fa-asterisk" style="font-size:9px;color:red" aria-hidden="true"></i></label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.UserProfile.DateOfBirth, "{0:dd MMMM yyyy}", new { @class = "textBoxsize form-control datefrom", PlaceHolder = " Date of Birth" })
+                            @Html.ValidationMessageFor(x => x.UserProfile.DateOfBirth)
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Joining Date:&nbsp;<i class="fa fa-asterisk" style="font-size: 9px; color: red" aria-hidden="true"></i></label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.UserProfile.JoiningDate, "{0:dd MMMM yyyy}", new { @class = "textBoxsize form-control datefrom", PlaceHolder = " Joining Date" })
+                            @Html.ValidationMessageFor(x => x.UserProfile.JoiningDate)
+                 </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="Email" class="col-md-4 control-label">Sex:&nbsp;<i class="fa fa-asterisk" style="font-size:9px;color:red" aria-hidden="true"></i></label>
+                        <div class="col-md-8">
+                            @*@Html.TextBoxFor(x => x.UserProfile.Sex, new { @class = "textBoxsize form-control datefrom", PlaceHolder = " Date of Birth" })*@
+                            @Html.DropDownListFor(x => x.UserProfile.Sex, Model.SexItemList, "-Select-", new { @class = "dropdownsize form-control", id = "userSex", tabindex = 8 })
+                            @Html.ValidationMessageFor(x => x.UserProfile.Sex)
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="Email" class="col-md-4 control-label">Designation:&nbsp;<i class="fa fa-asterisk" style="font-size:9px;color:red" aria-hidden="true"></i></label>
+                        <div class="col-md-8">
+                            @*@Html.TextBoxFor(x => x.UserProfile.Designation, new { @class = "textBoxsize form-control datefrom", PlaceHolder = " Date of Birth" })*@
+                            @Html.DropDownListFor(x => x.UserProfile.Designation, Model.DesignationItemList, "-Select-", new { @class = "dropdownsize form-control", id = "userSex", tabindex = 8 })
+                            @Html.ValidationMessageFor(x => x.UserProfile.Designation)
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Picture:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.PhotographUrl, new { @class = "textBoxsize form-control", type = "file" })
+                            @*@Html.TextBoxFor(x => x.UserProfile.PhotographUrl, new { @class = "textBoxsize form-control datefrom", PlaceHolder = " Joining Date" })
+                            @Html.ValidationMessageFor(x => x.UserProfile.PhotographUrl)*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Signature:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.SignatureUrl, new { @class = "textBoxsize form-control", type = "file" })
+                            @*@Html.TextBoxFor(x => x.UserProfile.SignatureUrl, new { @class = "textBoxsize form-control datefrom", PlaceHolder = " Joining Date" })
+                            @Html.ValidationMessageFor(x => x.UserProfile.SignatureUrl)*@
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="form-group">
+                        <label class="col-md-8 control-label">
+                                <p style ="color:red; padding-left:3px;">@TempData["message"]</p>
+                        </label>
+                        <div class="col-md-4" style="text-align:right">
+                            <input type="submit" id="btnSave" value="Save" class="btn btn-info" tabindex=13 />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-12">
+                    @if (Model.Message != null)
+                    {
+                        if (Model.IsSucceed == 1)
+                        {
+                            <div style="color:green">@Model.Message</div>
+                        }
+                        else
+                        {
+                            <div style="color:red">@Model.Message</div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        $('.BankName').change(function () {
+            var $BankNamedropdown = $(this);
+            var targetClass = $BankNamedropdown.attr('TargetClass');
+            var url = $BankNamedropdown.attr('action');
+
+            var bankCode = $BankNamedropdown.val();
+            var option = {
+                url: url,
+                type: 'GET',
+                dataType: 'JSON',
+                data: { bankCode: bankCode }
+            };
+            $.ajax(option).done(function (districts) {
+                if (districts.length > 0) {
+                    ClearDropDownList(targetClass);
+                    $.each(districts, function () {
+                        $("." + targetClass).append($("<option />").val(this.BranchCode).text(this.BranchName));
+                    });
+                } else {
+                    ClearDropDownList(targetClass);
+                    NotFoundData(targetClass);
+                }
+
+            });
+        });
+
+        $('.DistrictName').change(function () {
+            var $DistrictNamedropdown = $(this);
+            var targetClass = $DistrictNamedropdown.attr('TargetClass');
+            var url = $DistrictNamedropdown.attr('action');
+            var districtCode = $DistrictNamedropdown.val();
+            var option = {
+                url: url,
+                type: 'GET',
+                dataType: 'JSON',
+                data: { districtCode: districtCode }
+            };
+            $.ajax(option).done(function (branches) {
+                if (branches.length > 0) {
+                    ClearDropDownList(targetClass);
+                    $.each(branches, function () {
+                        $("." + targetClass).append($("<option />").val(this.BranchCode).text(this.BranchName));
+                    });
+                } else {
+                    ClearDropDownList(targetClass);
+                    NotFoundData(targetClass);
+                }
+
+            });
+        });
+
+
+        $('.BranchName').change(function () {
+            var $AgentNamedropdown = $(this);
+            var targetClass = $AgentNamedropdown.attr('TargetClass');
+            var url = $AgentNamedropdown.attr('action');
+            var branchCode = $AgentNamedropdown.val();
+            var option = {
+                url: url,
+                type: 'GET',
+                dataType: 'JSON',
+                data: { branchCode: branchCode }
+            };
+            $.ajax(option).done(function (agentList) {
+                if (agentList.length > 0) {
+                    ClearDropDownList(targetClass);
+                    $.each(agentList, function () {
+                        $("." + targetClass).append($("<option />").val(this.ControlShipInfoId).text(this.ControlName));
+                    });
+                } else {
+                    ClearDropDownList(targetClass);
+                    NotFoundData(targetClass);
+                }
+
+            });
+        });
+
+        function ClearDropDownList(selector) {
+            $('.' + selector)
+                .find('option').remove()
+                .end().append($('<option>').text("-Select-").attr('value', ""));
+        };
+
+        function NotFoundData(targetClass) {
+            $('.' + targetClass)
+                .append($('<option>').text("Not Found").attr('value', ""));
+        };
+
+        $("#userRoleId").change(function () {
+            //alert('hi');
+            if ($("#userRoleId option:selected").val() == "1" || $("#userRoleId option:selected").val() == "6") {
+                $("#exchangeHouseAndAgent").show();
+            } else {
+                $("#exchangeHouseAndAgent").hide();
+            }
+        });
+        $(".isAdUserClass").click(function () {
+
+            showHidePasswordField();
+        });
+        function showHidePasswordField() {
+            var rbtnValue = $('#chkAdUser')[0].checked;
+
+            if (rbtnValue == true) {
+                $("#txtPassword").hide();
+                $("#txtConfirmPassword").hide();
+            } else {
+                $("#txtPassword").show();
+                $("#txtConfirmPassword").show();
+            }
+        };
+
+    </script>
+}
+

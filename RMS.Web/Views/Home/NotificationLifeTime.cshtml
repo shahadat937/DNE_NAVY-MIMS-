@@ -1,0 +1,66 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.UpdateOplStateViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Life Time Notification</h5>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-10">
+                    @using (Html.BeginForm("SearchByKeyLifeTime", "Home", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                    {
+                        <div>
+                            
+                            <div class="pull-left" style="margin-left: 4px">
+                                @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Ex. Ship Name, Machinary & Model" })
+                            </div>
+                            <div class="pull-left" style="margin-left:-15px">
+                                &nbsp; &nbsp;  @Html.SearchButton()&nbsp;
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.vwNotifications, rowCount: Model.vwNotifications.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { MachinariesInfoIdentity = "grid" },
+            tableStyle: "webgrid-table webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            firstText: "First",
+            lastText: "Last",
+            nextText: "Next",
+            mode: WebGridPagerModes.All,
+            previousText: "Previous",
+            columns: grid.Columns(
+                                                               grid.Column("MachinariesInfoIdentity", header: "Serial No"),
+                                             grid.Column("ShipName", header: "Ship Name"),
+                                    grid.Column("Machinery", header: "Machinery"),
+                                    grid.Column("Model", header: "Model"),
+                                    grid.Column("Notification", header: "Message")
+                                                                        ));
+    }
+</div>
+
+
+
+
+
+
+

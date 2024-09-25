@@ -1,0 +1,76 @@
+﻿@using RMS.Utility
+@model RMS.Model.NotificationCustomModel
+@{
+    Layout = null;
+}
+@if (PortalContext.CurrentUser.IsValidate == true)
+{
+
+    <div class="dropdown d-md-flex header-message">
+        <a class="nav-link icon" data-toggle="dropdown">
+            <i class="fe fe-bell"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+            <div class="dropdown-header">
+                <h6 class="mb-0 fs-14">Notifications</h6>
+                <span class="badge badge-danger ml-auto">@ViewBag.count</span>
+            </div>
+            <a class="dropdown-item d-flex pb-4 border-bottom" href="@Url.Action("NotificationLifeTime", "Home")">
+                <span class="avatar mr-3 brround align-self-center avatar-md cover-image bg-primary">
+                    <i class="fe fe-mail"></i>
+                </span>
+                <div>
+                    <span class="font-weight-semibold"> Life Time Notification </span>
+                    <div class="small text-muted d-flex">
+                        @Model.RunningHour
+                    </div>
+                </div>
+            </a>
+            <a class="dropdown-item d-flex pb-4 border-bottom" href="@Url.Action("NotificationRefit", "Home")">
+                <span class="avatar avatar-md brround mr-3 align-self-center cover-image bg-secondary">
+                    <i class="fe fe-download"></i>
+                </span>
+                <div>
+                    <span class="font-weight-semibold"> Next Refit Notification </span>
+                    <div class="small text-muted d-flex">
+                        @Model.NextRefitFrom
+                    </div>
+                </div>
+            </a>
+            <a class="dropdown-item d-flex pb-4 border-bottom" href="@Url.Action("NotificationDoking", "Home")">
+                <span class="avatar avatar-md brround mr-3 align-self-center cover-image bg-success">
+                    <i class="fe fe-user"></i>
+                </span>
+                <div>
+                    <span class="font-weight-semibold"> Next Docking Notification</span>
+                    <div class="small text-muted d-flex">
+                        @Model.NextDockingFrom
+                    </div>
+                </div>
+            </a>
+            <a class="dropdown-item d-flex pb-4 border-bottom" href="@Url.Action("MejorDemanNotification", "MajorDemandOrProcure")">
+                <span class="avatar avatar-md brround mr-3 align-self-center cover-image bg-danger">
+                    <i class="fe fe-shopping-cart"></i>
+                </span>
+                <div>
+                    <span class="font-weight-semibold"> Mejor Demand</span>
+                    <div class="small text-muted d-flex">
+                        @Model.MejorDemand
+                    </div>
+                </div>
+            </a>
+            <a class="dropdown-item d-flex pb-4 border-bottom" href="@Url.Action("SignalNotification", "MessageInfo")">
+                <span class="avatar avatar-md brround mr-3 align-self-center cover-image bg-danger">
+                    <i class="fe fe-shopping-cart"></i>
+                </span>
+                <div>
+                    <span class="font-weight-semibold"> Signal Information</span>
+                    <div class="small text-muted d-flex">
+                        @Model.SignalInfo
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+}

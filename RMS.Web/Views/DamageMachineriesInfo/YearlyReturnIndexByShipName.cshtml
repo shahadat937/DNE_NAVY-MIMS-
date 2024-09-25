@@ -1,0 +1,55 @@
+﻿@using RMS.Utility
+@model RMS.Web.Models.ViewModel.YearlyReturnViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Yearly Return of <span class="badge badge-danger-light">@(Model.YearlyReturns.FirstOrDefault()!=null? Model.YearlyReturns.FirstOrDefault().ControlShipInfo.ControlName: null)</span></h3>
+                </div>
+                <div class="card-options">
+                    @Html.ActionLink("Add New", "YearlyReturnEdit", "DamageMachineriesInfo", new { @class = "btn btn-primary", style = "color:#fff;" })
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->
+
+
+
+
+<div id="accordion">
+    @foreach (var item in Model.YearlyReturns.GroupBy(x => x.YearId).Select(x => x.First()))
+    {
+    <div class="card">
+        <div class="card-header" style="background-color:#7d61f3 !important" id="@(Convert.ToString(item.YearlyReturnId)+"aa")">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#@("bb"+Convert.ToString(item.YearId))" style="color:#fff" aria-expanded="true" aria-controls="collapseOne">
+                    @item.YearId 
+                </button><a style="color:#fff" href="@Url.Action("YearlyReturnView", "DamageMachineriesInfo", new {YearId= item.YearId , ShipId=item.ShipId })"><i class="fe fe-eye"></i> View</a>
+            </h5>
+        </div>
+        @foreach (var item1 in Model.YearlyReturns.Where(x => x.ShipId == item.ShipId && x.YearId == item.YearId))
+        {
+            <div id="@("bb"+Convert.ToString(item.YearId))" class="collapse" aria-labelledby="@("bb"+Convert.ToString(item.YearId))" data-parent="#accordion">
+                <div class="card-body">
+                    @item1.CommonCode.TypeValue
+                    @Html.ActionLink("Edit", "YearlyReturnEdit", "DamageMachineriesInfo", new { id = item1.YearlyReturnId }, null)
+                    @*@Html.ActionLink("Download", "Download", "DamageMachineriesInfo", new { id = item.ShipId }, null)*@
+                </div>
+            </div>
+        }
+
+
+    </div>
+    }
+</div>

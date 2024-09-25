@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{75D55AD0-0AC6-48C8-B10D-4CD98ED1919D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RMS.DAL</RootNamespace>
+    <AssemblyName>RMS.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.3.0\lib\net451\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.3.0\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.5.3.0\lib\net451\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.5.3.0\lib\net451\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.3.0\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.4.2.2\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Jwt, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Jwt.4.2.2\lib\net45\Microsoft.Owin.Security.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OpenIdConnect, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OpenIdConnect.4.2.2\lib\net45\Microsoft.Owin.Security.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="RMS.DAL">
+      <HintPath>..\RMS.Web\DLL\RMS.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.3.0\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IRepository\IAccountInformationRepository.cs" />
+    <Compile Include="IRepository\IAs_AsInfoRepository.cs" />
+    <Compile Include="IRepository\IBankInfoRepository.cs" />
+    <Compile Include="IRepository\IBooksAndBrRepository.cs" />
+    <Compile Include="IRepository\IBranchInfoRepository.cs" />
+    <Compile Include="IRepository\ICommonCodeRepository.cs" />
+    <Compile Include="IRepository\IControlShipInfoRepository.cs" />
+    <Compile Include="IRepository\IDailyTransactionRepository.cs" />
+    <Compile Include="IRepository\IDamageMachineriesInfoRepository.cs" />
+    <Compile Include="IRepository\IDeckInfoRepository.cs" />
+    <Compile Include="IRepository\IDefectMachinaryRepository.cs" />
+    <Compile Include="IRepository\IMachinaryRunningHourRepository.cs" />
+    <Compile Include="IRepository\IMonthlyReturnRepository.cs" />
+    <Compile Include="IRepository\INewMachinaryEquipmentInformation_ResultRepository.cs" />
+    <Compile Include="IRepository\IPOLExpenseInfoRepository.cs" />
+    <Compile Include="IRepository\IQuaterlyConsumptionRepository.cs" />
+    <Compile Include="IRepository\IQuaterlyMainEnginesGeneratorsRunningHourRepository.cs" />
+    <Compile Include="IRepository\IQuaterlyReturnEngineerOfficerRemarksRepository.cs" />
+    <Compile Include="IRepository\IQuaterlyReturnRepository.cs" />
+    <Compile Include="IRepository\IRefitDockingReportExcellRepository.cs" />
+    <Compile Include="IRepository\IReturnReportNoRepository.cs" />
+    <Compile Include="IRepository\IReturnReportYearRepository.cs" />
+    <Compile Include="IRepository\IRoleRepository.cs" />
+    <Compile Include="IRepository\IRoleUserURLRightMappingRepository.cs" />
+    <Compile Include="IRepository\IRunningHourInfoRepository.cs" />
+    <Compile Include="IRepository\ISignalRepository.cs" />
+    <Compile Include="IRepository\ITrainingInfoRepository.cs" />
+    <Compile Include="IRepository\IUpdateOplStateRepository.cs" />
+    <Compile Include="IRepository\IICERepository.cs" />
+    <Compile Include="IRepository\IDocumentationRepository.cs" />
+    <Compile Include="IRepository\IEventLogRepository.cs" />
+    <Compile Include="IRepository\IFortnightlyDetailsRepository.cs" />
+    <Compile Include="IRepository\IFortnightlyInfoRepository.cs" />
+    <Compile Include="IRepository\IFuelConsumptionRepository.cs" />
+    <Compile Include="IRepository\IFuelConsumptions1_ResultRepository.cs" />
+    <Compile Include="IRepository\ILubOilConsumptionRepository.cs" />
+    <Compile Include="IRepository\IMachinaryEquipmentInformationRepositoty.cs" />
+    <Compile Include="IRepository\IMachineryInfoRepository.cs" />
+    <Compile Include="IRepository\IMachineryRunningRepository.cs" />
+    <Compile Include="IRepository\IMajorDemandOrProcureRepository.cs" />
+    <Compile Include="IRepository\IMessageInfoRepository.cs" />
+    <Compile Include="IRepository\IShipcommOrgnaizationRepository.cs" />
+    <Compile Include="IRepository\IProcurementScheduleRepository.cs" />
+    <Compile Include="IRepository\IReportingRepository.cs" />
+    <Compile Include="IRepository\IRoleRepostitory.cs" />
+    <Compile Include="IRepository\IShipDetailRepository.cs" />
+    <Compile Include="IRepository\IShipEmployedRepository.cs" />
+    <Compile Include="IRepository\IShipCraftRepository.cs" />
+    <Compile Include="IRepository\IShipInactiveOrgRepository.cs" />
+    <Compile Include="IRepository\IShipInfoRepository.cs" />
+    <Compile Include="IRepository\IShipInactiveRepository.cs" />
+    <Compile Include="IRepository\IShipMovementRepository.cs" />
+    <Compile Include="IRepository\IShipPowerRepository.cs" />
+    <Compile Include="IRepository\IShipRepairInfoRepository.cs" />
+    <Compile Include="IRepository\IShipSpeedTrialRepository.cs" />
+    <Compile Include="IRepository\IUserBankInfoMVCRepository.cs" />
+    <Compile Include="IRepository\IUserBankInfoRepository.cs" />
+    <Compile Include="IRepository\IUserLogInfoRepository.cs" />
+    <Compile Include="IRepository\IUserProfileRepository.cs" />
+    <Compile Include="IRepository\IUserRepository.cs" />
+    <Compile Include="IRepository\IUserRightRepository.cs" />
+    <Compile Include="IRepository\IUserURLRightRepository.cs" />
+    <Compile Include="IRepository\IuvGLTransactionRepository.cs" />
+    <Compile Include="IRepository\IRefitDockingScheduleRepository.cs" />
+    <Compile Include="IRepository\IvwPontoonRepository.cs" />
+    <Compile Include="IRepository\IvwShipBranchInfoRepository.cs" />
+    <Compile Include="IRepository\IvwRefitDokingNotificationRepository.cs" />
+    <Compile Include="IRepository\IvwNotificationRepository.cs" />
+    <Compile Include="IRepository\IYearlyReturnDetailRepository.cs" />
+    <Compile Include="IRepository\IYearlyReturnRepository.cs" />
+    <Compile Include="IRepository\IZoneInfoRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IRepository\IRepository.cs" />
+    <Compile Include="Repository\AccountInformationRepository.cs" />
+    <Compile Include="Repository\As_AsInfoRepository.cs" />
+    <Compile Include="Repository\BankInfoRepository.cs" />
+    <Compile Include="Repository\BooksAndBrRepository.cs" />
+    <Compile Include="Repository\BranchInfoRepository.cs" />
+    <Compile Include="Repository\CommonCodeRepository.cs" />
+    <Compile Include="Repository\ControlShipInfoRepository.cs" />
+    <Compile Include="Repository\DailyTransactionRepository.cs" />
+    <Compile Include="Repository\DamageMachineriesInfoRepository.cs" />
+    <Compile Include="Repository\DeckInfoRepository.cs" />
+    <Compile Include="Repository\DefectMachinaryRepository.cs" />
+    <Compile Include="Repository\MachinaryRunningHourRepository.cs" />
+    <Compile Include="Repository\MonthlyReturnRepository.cs" />
+    <Compile Include="Repository\NewMachinaryEquipmentInformation_ResultRepository.cs" />
+    <Compile Include="Repository\POLExpenseInfoRepository.cs" />
+    <Compile Include="Repository\QuaterlyConsumptionRepository.cs" />
+    <Compile Include="Repository\QuaterlyMainEnginesGeneratorsRunningHourRepository.cs" />
+    <Compile Include="Repository\QuaterlyReturnEngineerOfficerRemarksRepository.cs" />
+    <Compile Include="Repository\QuaterlyReturnRepository.cs" />
+    <Compile Include="Repository\RefitDockingReportExcellRepository.cs" />
+    <Compile Include="Repository\ReturnReportNoRepository.cs" />
+    <Compile Include="Repository\ReturnReportYearRepository.cs" />
+    <Compile Include="Repository\RoleRepository.cs" />
+    <Compile Include="Repository\RoleUserURLRightMappingRepository.cs" />
+    <Compile Include="Repository\RunningHourInfoRepository.cs" />
+    <Compile Include="Repository\SignalRepository.cs" />
+    <Compile Include="Repository\TrainingInfoRepository.cs" />
+    <Compile Include="Repository\UpdateOplStateRepository.cs" />
+    <Compile Include="Repository\ICERepository.cs" />
+    <Compile Include="Repository\DocumentationRepository.cs" />
+    <Compile Include="Repository\EventLogRepository.cs" />
+    <Compile Include="Repository\FortnightlyDetailsRepository.cs" />
+    <Compile Include="Repository\FortnightlyInfoRepository.cs" />
+    <Compile Include="Repository\FuelConsumptionRepository.cs" />
+    <Compile Include="Repository\FuelConsumptions1_ResultRepository.cs" />
+    <Compile Include="Repository\LubOilConsumptionRepository.cs" />
+    <Compile Include="Repository\MachinaryEquipmentInformationRepositoty.cs" />
+    <Compile Include="Repository\MachineryInfoRepository.cs" />
+    <Compile Include="Repository\MachineryRunningRepository.cs" />
+    <Compile Include="Repository\MajorDemandOrProcureRepository.cs" />
+    <Compile Include="Repository\MessageInfoRepository.cs" />
+    <Compile Include="Repository\ShipcommOrgnaizationRepository.cs" />
+    <Compile Include="Repository\ProcurementScheduleRepository.cs" />
+    <Compile Include="Repository\RefitDockingScheduleRepository.cs" />
+    <Compile Include="Repository\ReportingRepository.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\RoleRepostitory.cs" />
+    <Compile Include="Repository\ShipDetailRepository.cs" />
+    <Compile Include="Repository\ShipEmployedRepository.cs" />
+    <Compile Include="Repository\ShipCraftRepository.cs" />
+    <Compile Include="Repository\ShipInactiveOrgRepository.cs" />
+    <Compile Include="Repository\ShipInfoRepository.cs" />
+    <Compile Include="Repository\ShipInactiveRepository.cs" />
+    <Compile Include="Repository\ShipMovementRepository.cs" />
+    <Compile Include="Repository\ShipPowerRepository.cs" />
+    <Compile Include="Repository\ShipRepairInfoRepository.cs" />
+    <Compile Include="Repository\ShipSpeedTrialRepository.cs" />
+    <Compile Include="Repository\UserBankInfoMVCRepository.cs" />
+    <Compile Include="Repository\UserBankInfoRepository.cs" />
+    <Compile Include="Repository\UserLogInfoRepository.cs" />
+    <Compile Include="Repository\UserProfileRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Repository\UserRightRepository.cs" />
+    <Compile Include="Repository\UserURLRightRepository.cs" />
+    <Compile Include="Repository\uvGLTransactionRepository.cs" />
+    <Compile Include="Repository\vwPontoonRepository.cs" />
+    <Compile Include="Repository\vwShipBranchInfoRepository.cs" />
+    <Compile Include="Repository\vwRefitDokingNotificationRepository.cs" />
+    <Compile Include="Repository\vwNotificationRepository.cs" />
+    <Compile Include="Repository\YearlyReturnDetailRepository.cs" />
+    <Compile Include="Repository\YearlyReturnRepository.cs" />
+    <Compile Include="Repository\ZoneInfoRepository.cs" />
+    <Compile Include="RMSModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RMSModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RMSModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RMSModel.edmx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="RMSModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RMSModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="RMSModel.edmx.diagram">
+      <DependentUpon>RMSModel.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RMS.Model\RMS.Model.csproj">
+      <Project>{eaafc2b7-7cbe-4adf-a186-b2aab38d93a2}</Project>
+      <Name>RMS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RMS.Utility\RMS.Utility.csproj">
+      <Project>{7962ad98-79e1-47c3-9555-b929f480c7f3}</Project>
+      <Name>RMS.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RMSModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RMSModel.Context.cs</LastGenOutput>
+      <DependentUpon>RMSModel.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

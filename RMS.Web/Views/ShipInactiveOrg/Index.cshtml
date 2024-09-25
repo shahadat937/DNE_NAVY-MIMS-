@@ -1,0 +1,75 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipInactiveOrgViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Ship Inactive Org Information</h5>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.ActionLink("Add New", "Edit", "ShipInactiveOrg", new { @class = "btn btn-primary" })
+                </div>
+                <div class="col-md-10">
+                    @using (Html.BeginForm("SearchByKey", "ShipInactiveOrg", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                    {
+                        <div>
+                            <div class="pull-right">
+                              &nbsp;&nbsp; @Html.SearchButton()&nbsp;
+                            </div>
+                            <div class="pull-right">
+                                @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.ShipInactiveOrgs, rowCount: Model.ShipInactiveOrgs.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { SInactiveOrgIdentity = "grid" },
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                columns: grid.Columns(
+                                        grid.Column("SInactiveOrgIdentity", header: "Serial No"),
+                                        //grid.Column("ShipId", header: "Ship Id"),
+                                        grid.Column("ShipInfo.ShipName", header: "Ship Name"),
+                                        grid.Column("CommonCode.TypeValue", header: "organization"),
+                                        grid.Column("TotalShip", header: "Total Ship"),
+                                        grid.Column("Operational", header: "Operational"),
+                                        grid.Column("NonOperational", header: "Non-Operational"),
+                                        grid.Column("sDescription", header: "Description"),
+                                        grid.Column("Remark", header: "Remark"),
+                                               
+                                grid.Column("Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "ShipInactiveOrg", new { id = item.SInactiveOrgIdentity }, null)</text>
+        ),
+                                grid.Column("Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "ShipInactiveOrg", new { id = item.SInactiveOrgIdentity }, null)</text>),
+                                 grid.Column("Download", format: @<text> @Html.ActionLink("Download", "Download", "ShipInactiveOrg", new { id = item.ShipInfoIdentity }, null)</text>)
+
+                 ));
+}
+</div>
+

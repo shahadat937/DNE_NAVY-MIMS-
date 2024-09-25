@@ -1,0 +1,176 @@
+﻿@model  RMS.Web.Models.ViewModel.ControlAccountViewModel
+@{
+    ViewBag.Title = (Model.ControlShipInfoId) > 0 ? "Edit" : "Add New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+<style type="text/css">
+    .remove_field {
+        width: 43px !important;
+    }
+</style>
+<br />
+
+<div>
+    @using (Html.BeginForm("SaveControlAccount", "ControlShipInfo", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        @Html.HiddenFor(model => model.ControlShipInfoId)
+        @Html.HiddenFor(model => model.SortOrder)
+        @Html.HiddenFor(model => model.ControlLevel)
+        @Html.HiddenFor(model => model.IsActive)
+        @Html.HiddenFor(model => model.ControlCode)
+        <fieldset class="scheduler-border">
+
+            <legend class="scheduler-border">
+                Ship General Information
+            </legend>
+            <br />
+            @if (ViewBag.Title == "Edit")
+            {
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Serial Number:</label>
+                        <div class="col-md-10" style="text-align:left">
+                            @Html.DisplayFor(x => x.ControlShipInfoId, "-Select-", new { @class = "dropdownsize form-control", tabindex = 1 })
+                            @Html.HiddenFor(x => x.ControlShipInfoId)
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Parent Code :</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ParentCode, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Control Code :</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.ControlCode, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                            </div>
+
+                        </div>
+                    </div>*@
+            </div>
+            @if (ViewBag.Title == "Edit")
+            {
+                <div class="row ">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Control Name :</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.controlnm[0], new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Control Value:</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.controlvle[0], new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (ViewBag.Title == "Add New")
+            {
+                <div class="row ">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Control Name :</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.controlnm, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Control Value:</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.controlvle, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input_fields_wrap">
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-10 col-lg-10">
+                    </div>
+                    <div class="col-sm-2 col-lg-2">
+                        <div style="margin-left:14px;position: center">
+                            @*<button class="add_field_button btn btn-primary" onclick="textboxadd()" formaction="">Add More Fields</button>*@
+                            <a href="#" class="add_field_button btn btn-primary" onclick="textboxadd()">Add More</a>
+                        </div>
+                    </div>
+                </div>
+
+            }
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Additional Value:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.AdditionalValue, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Remarks:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.Remarks, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+        <div class="form_group">
+            <div style="float: right">
+                <input type="submit" formaction="SaveControlAccount" value="Save" class="btn btn-primary" />
+            </div>
+            <div>@Html.ActionLink("Back to List", "Index", "ControlShipInfo", new { @class = "btn btn-primary" })</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                <p>@TempData["Msg"]</p>
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+
+    function  textboxadd() {
+        var max_fields = 10; //maximum input boxes allowed
+        var wrapper = $(".input_fields_wrap"); //Fields wrapper
+        var x = 1; //initlal text box count
+        if (x < max_fields) { //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<div class="row "><div class="col-sm-6 col-lg-6"><div class="form-group"><label class="col-md-4 control-label">Control Name :</label><div class="col-md-8">@Html.TextBoxFor(x => x.controlnm, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })</div></div></div><div class="col-sm-6 col-lg-6"><div class="form-group"><label class="col-md-4 control-label">Control Value:</label><div class="col-md-6">@Html.TextBoxFor(x => x.controlvle, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })</div><div><a href="#" class="remove_field btn btn-primary" ><span class="glyphicon glyphicon-remove"></span></a> </div></div></div></div>'); //add input box
+        }
+        //$(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+        //    $('.remove_field').parent().parent().remove();
+        //});
+        $(".remove_field").on("click", function () {
+            $(".input_fields_wrap").children().last().remove();
+            x--;
+
+        });
+
+    }
+</script>
+
+
+
+
+
+

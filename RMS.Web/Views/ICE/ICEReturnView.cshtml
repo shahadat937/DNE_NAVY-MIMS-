@@ -1,0 +1,111 @@
+﻿@using RMS.Utility
+@using System.Web.UI.WebControls
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ICEViewModel
+@{
+    /**/
+
+    /**/
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .description {
+        text-align: justify;
+    }
+</style>
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-12">
+        <div class="expanel expanel-primary">
+            <div class="expanel-heading">
+                <h3 class="expanel-title" style="text-align:center;">@Model.ShipName</h3>
+                <h3 class="expanel-title" style="text-align:center;">Internal Combustion Engine Return: @Model.ReportYear</h3>
+            </div>
+            <div class="expanel-body">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                @*<h3 class="card-title">1. Defect Machinary Information</h3>*@
+                            </div>
+                        </div>
+                        <div class="card-body" style="max-height:100% !important">
+                            <div class="table-responsive">
+                                @foreach (var ice in Model.ICEs)
+                                {
+                                    <h3 style="font-size:12pt; font-weight:bold;"><u> @ice.EngineManufacturer </u></h3>
+
+                                    <table id="" class="table table-striped table-bordered text-nowrap w-100">
+                                        <thead>
+                                            <tr>
+                                                <th class="wd-15p" rowspan="2">ইঞ্জিন ক্রমিক সংখ্যা</th>
+                                                <th class="wd-15p" rowspan="2">শীতলীকরণ পদ্ধতি</th>
+                                                <th class="wd-15p" colspan="2">কত ঘন্টা চলছে</th>
+                                                <th class="wd-15p" rowspan="2">মেরামতের মন্তব্য </th>
+
+                                            </tr>
+                                            <tr>
+                                                <th class="wd-15p">মেরামত করার পর</th>
+                                                <th class="wd-15p">কমিশন হতে সময়</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td>@ice.EngineSlNo</td>
+                                                <td>@ice.EngineCoolingSys</td>
+                                                <td>@ice.AfterRepairTime</td>
+                                                <td>@ice.SinceCommission</td>
+                                                <td>@ice.MaintenanceRemark</td>
+                                            </tr>
+                                            <tr>
+                                                <td>@ice.EngineSlNo1</td>
+                                                <td>@ice.EngineCoolingSys1</td>
+                                                <td>@ice.AfterRepairTime</td>
+                                                <td>@ice.SinceCommission1</td>
+                                                <td>@ice.MaintenanceRemark1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>@ice.EngineSlNo2</td>
+                                                <td>@ice.EngineCoolingSys2</td>
+                                                <td>@ice.AfterRepairTime2</td>
+                                                <td>@ice.SinceCommission2</td>
+                                                <td>@ice.MaintenanceRemark2</td>
+                                            </tr>
+                                            <tr>
+                                                <td>@ice.EngineSlNo3</td>
+                                                <td>@ice.EngineCoolingSys3</td>
+                                                <td>@ice.AfterRepairTime3</td>
+                                                <td>@ice.SinceCommission3</td>
+                                                <td>@ice.MaintenanceRemark3</td>
+                                            </tr>
+                                        </tbody>
+
+
+                                    </table>
+                                    <table id="" class="table table-striped table-bordered text-nowrap w-100">
+                                        <tbody>
+                                            <tr>
+                                                <td>@ice.EngineerRemark1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>@ice.EngineerRemark2</td>
+                                            </tr>
+                                            <tr>
+                                                <td>@ice.EngineerRemark3</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->

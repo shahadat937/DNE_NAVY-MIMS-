@@ -1,0 +1,71 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.RefitDockingScheduleViewModel
+@{
+    ViewBag.Title = (Model.RefitDockingSchedule.RefitDockingIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+<div>
+    <script src="~/Scripts/APP/DateFormat.js"></script>
+    @using (Html.BeginForm("RefitDockingScheduleExcelSave", "RefitDockingSchedule", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(x => x.RefitDockingReportExcell.RefitDockingReportExcellId)
+        @Html.HiddenFor(x => x.RefitDockingReportExcell.ImageUrl)
+
+        <div class="row row-sm">
+            <div class="col-md-3 col-sm-12">
+                <div class="form-group mg-b-0">
+                    <label class="form-label">From Year: <span class="text-danger">*</span></label>
+                    @Html.DropDownListFor(x => x.RefitDockingReportExcell.FromYear, Model.FromYearSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="form-group mg-b-0">
+                    <label class="form-label">To Year: <span class="text-danger">*</span></label>
+                    @Html.DropDownListFor(x => x.RefitDockingReportExcell.ToYear, Model.ToYearSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-4">Docked Name:</label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(x => x.RefitDockingReportExcell.DockId, Model.DockedSelectList, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">File Name:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.RefitDockingReportExcell.Name, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Image Upload:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.ImageUpload, new { type = "file" })
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="form_group">
+            @Html.ActionLink("Close", "ScheduleReport", "RefitDockingSchedule",@*new { dockName = Model.DockName, id = Model.RefitDockingReportExcell.RefitDockingReportExcellId, },*@                                                                                                                                                                                                 /**/
+                                                                                                                                                                                                             new { @class = "btn btn-danger" })
+            <div style="float: right">
+                <input type="submit" value="Save and Upload" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+</div>
+
+
+
+

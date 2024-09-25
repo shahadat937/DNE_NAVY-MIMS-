@@ -1,0 +1,161 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.MachineryInfoViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Machinery Information</h5>
+        </div>
+        <div class="body">
+            <table>
+                <tr>
+                    <td>@Html.ActionLink("Add New", "Edit", "MachineryInfo", new { @class = "btn btn-primary" })</td>
+                    <td>
+                        @using (Html.BeginForm("SearchByKey", "MachineryInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                        {
+
+                            <table>
+                                <tr>
+                                    <td>
+                                        @Html.Label("Search Key")
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </td>
+                                    <td>
+                                        @Html.SearchButton()
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.MachineryInfos, rowCount: Model.MachineryInfos.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { MachineryInfoIdentity = "grid" },
+            tableStyle: "webgrid-table webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            firstText: "First",
+            lastText: "Last",
+            nextText: "Next",
+            mode: WebGridPagerModes.All,
+            previousText: "Previous",
+            columns: grid.Columns(
+                                    grid.Column("MachineryInfoIdentity", header: "Serial No"),
+                                    grid.Column("ShipInfo.ShipName", header: "Ship Name"),
+                                    grid.Column("Machinery", header: "Machinery"),
+                                    grid.Column("Quantity", header: "Quantity"),
+                                    grid.Column("Location", header: "Location"),
+                                    grid.Column("Model", header: "Model"),
+                                    grid.Column("Power", header: "Power"),
+                                    grid.Column("PowerUnit", header: "Power Unit"),
+                                    grid.Column("RPM", header: "RPM"),
+                                    grid.Column("Pressure", header: "Pressure"),
+                                    grid.Column("MakerAddress", header: "Maker Address"),
+                                    grid.Column("InstallationDate", header: "Installation Date", format: item => ((item.InstallationDate == null) ? "" : item.InstallationDate.ToString("dd MMM yyyy"))),
+                                    grid.Column("TOH", header: "TOH"),
+                                    grid.Column("MOH", header: "MOH ..."),
+                grid.Column(header: "Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "MachineryInfo", new { id = item.MachineryInfoIdentity }, null)</text>, canSort: false),
+                grid.Column(header: "Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "MachineryInfo", new { id = item.MachineryInfoIdentity }, null)</text>),
+                grid.Column(header: "Download", format: @<text> @Html.ActionLink("Download", "Download", "MachineryInfo", new { id = item.ShipId }, null)</text>)
+                                                       ));
+    }
+</div>
+
+
+
+@*@using AMS.Utility
+    @using AMS.Web.Extensions
+    @model AMS.Web.Models.ViewModel.MachineryInfoViewModel
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <h2 style="margin-left:400px;">Machinery Information</h2>
+    <section class="search" style="margin-bottom: 5px;">
+        @using (Html.BeginForm("SearchByKey", "MachineryInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+        {
+            <table>
+                <tr>
+                    <td>
+                        @Html.Label("Search Name")
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.SearchKey, new { @placeholder = "SearchName", @class = "search_TextBox" })
+                    </td>
+                    <td>
+                        @Html.SearchButton()
+                    </td>
+                </tr>
+            </table>
+        }
+    </section>
+    <p>
+        <input type="button" class="AjaxPopup" value="Add New" action="@Url.Action("Edit", "MachineryInfo")" />
+    </p>
+    <div class="row">
+        @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.MachineryInfos, rowCount: Model.MachineryInfos.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { MachineryInfoIdentity = "grid" },
+                    tableStyle: "webgrid-table webgrid",
+                    headerStyle: "webgrid-header",
+                    footerStyle: "webgrid-footer",
+                    alternatingRowStyle: "webgrid-alternating-row",
+                    selectedRowStyle: "webgrid-selected-row",
+                    rowStyle: "webgrid-row-style",
+                    firstText: "First",
+                    lastText: "Last",
+                    nextText: "Next",
+                    mode: WebGridPagerModes.All,
+                    previousText: "Previous",
+                    columns: grid.Columns(
+                        grid.Column("MachineryInfoIdentity", header: "Serial No"),
+                        grid.Column("ShipInfo.ShipName", header: "Ship Name"),
+                        grid.Column("Machinery", header: "Machinery"),
+                        grid.Column("Quantity", header: "Quantity"),
+                        grid.Column("Location", header: "Location"),
+                        grid.Column("Model", header: "Model"),
+                        grid.Column("Power", header: "Power"),
+                        grid.Column("PowerUnit", header: "PowerUnit"),
+                        grid.Column("RPM", header: "RPM"),
+                        grid.Column("Pressure", header: "Pressure"),
+                        grid.Column("MakerAddress", header: "MakerAddress"),
+                        grid.Column("InstallationDate", header: "InstallationDate", format: item => ((item.InstallationDate == null) ? "" : item.InstallationDate.ToString("dd MMM yyyy"))),
+                        grid.Column("TOH", header: "TOH"),
+                        grid.Column("MOH", header: "MOH"),
+                        grid.Column("ConsumptionFuel", header: "ConsumptionFuel..."),
+
+                           grid.Column("Detail/Edit", format: @<text><button class="edit" action="@Url.Action("Edit","MachineryInfo",new{id=item.MachineryInfoIdentity})"></button></text>, canSort: false),
+                           grid.Column("Delete",format:@<text><button class="delete" action="@Url.Action("Delete", "MachineryInfo", new { id = item.MachineryInfoIdentity })"></button></text>, canSort: false),
+        grid.Column(header: "Download", format: @<text> @Html.ActionLink("Download", "Download", "ShipInfo", new { id = item.shipId }, null)</text>)
+        ));
+    }
+    </div>*@
+
+
+
+
+
+
+
+
+
+

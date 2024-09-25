@@ -1,0 +1,67 @@
+﻿@using System.Globalization
+@using RMS.Web.Extensions
+@model  RMS.Web.Models.ViewModel.ControlAccountViewModel
+@{
+    ViewBag.Title = (Model.ControlShipInfoId) > 0 ? "Edit" : "Add New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("DeleteX", "ControlShipInfo", new { @class = "ControlAccountForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ControlShipInfoId)
+
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.ParentCode)</td>
+            <td>:</td>
+            <td>@Html.DisplayFor(model => model.ParentCode, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.ControlCode)</td>
+            <td>:</td>
+            <td>@Html.DisplayFor(model => model.ControlCode, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.ControlName)</td>
+            <td>:</td>
+            <td>@Html.DisplayFor(model => model.ControlName, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Control Value")</td>
+            <td>:</td>
+            <td>@Html.DisplayFor(model => model.ControlValue, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Additional Value")</td>
+            <td>:</td>
+            <td>@Html.DisplayFor(model => model.AdditionalValue, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Remarks")</td>
+            <td>:</td>
+            <td>@Html.DisplayFor(model => model.Remarks, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+        </tr>
+        <tr>
+            <td><div>@Html.ActionLink("Back to List", "Index", "ControlShipInfo", new { @class = "btn btn-primary" })</div></td>
+            <td></td>
+            <td><input type="submit" value="Delete" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="row">
+                    <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                        <p>@TempData["Msg"]</p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+}
+
+
+

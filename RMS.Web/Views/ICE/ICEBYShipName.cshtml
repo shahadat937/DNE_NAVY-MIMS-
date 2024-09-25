@@ -1,0 +1,52 @@
+﻿@using RMS.Utility
+@model RMS.Web.Models.ViewModel.ICEViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Internal Combustion Engine Return of <span class="badge badge-danger-light">@Model.ICEs.FirstOrDefault().ControlShipInfo.ControlName</span></h3>
+                </div>
+                <div class="card-options">
+                    @Html.ActionLink("Add New", "Edit", "ICE", new { @class = "btn btn-primary", style = "color:#fff;" })
+
+                </div>
+            </div>
+
+            <div id="accordion">
+                @foreach (var item in Model.ICEs.GroupBy(x => new { x.ControlShipInfoId, x.Year }).Select(x => x.First()))
+                {
+                    <div class="card">
+                        <div class="card-header" style="background-color:#7d61f3 !important" id="@(Convert.ToString(item.IceId)+"aa")">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#@("bb"+Convert.ToString(item.Year))" style="color:#fff" aria-expanded="true" aria-controls="@("bb"+Convert.ToString(item.Year))">
+                                    @item.Year
+                                </button><a style="color:#fff" href="@Url.Action("ICEReturnView", "ICE", new {Year= item.Year , ShipId=item.ControlShipInfoId })"><i class="fe fe-eye"></i> View</a>
+                            </h5>
+                        </div>
+                        @foreach (var item1 in Model.ICEs.Where(x => x.ControlShipInfoId == item.ControlShipInfoId && x.Year == item.Year))
+                        {
+                            <div id="@("bb"+Convert.ToString(item.Year))" class="collapse" aria-labelledby="@(Convert.ToString(item.IceId)+"aa")" data-parent="#accordion">
+                                <div class="card-body">
+                                    @item1.CommonCode.TypeValue
+                                    @Html.ActionLink("Edit", "Edit", "ICE", new { id = item1.IceId }, null)
+                                    @*@Html.ActionLink("Download", "Download", "DamageMachineriesInfo", new { id = item.ShipId }, null)*@
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->

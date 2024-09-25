@@ -1,0 +1,79 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.RefitDockingScheduleViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Yearly Refit Docking Schedule</h5>
+        </div>
+        <div class="body">
+            <table>
+                <tr>
+                    <td>@Html.ActionLink("Add New", "Edit", "RefitDockingSchedule", new { @class = "btn btn-primary" })</td>
+                    <td>
+                        @using (Html.BeginForm("SearchByKey", "RefitDockingSchedule", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                        {
+
+                            <table>
+                                <tr>
+                                    <td>
+                                        @Html.Label("Search Key")
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </td>
+                                    <td>
+                                        @Html.SearchButton()
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.RefitDockingSchedules, rowCount: Model.RefitDockingSchedules.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { RefitDockingIdentity = "grid" },
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                                columns: grid.Columns(
+                                grid.Column("RefitDockingIdentity", header: "Serial No"),
+                                grid.Column("ShipInfo.ShipName", header: "Ship Name"),
+                                grid.Column("BranchInfo.BranchName", header: "Branch Name"),
+                                grid.Column("LastRefitFrom", header: "LastRefitFrom", format: item => ((item.LastRefitFrom == null) ? "" : item.LastRefitFrom.ToString("dd MMM yyyy"))),
+                                grid.Column("LastRefitTo", header: "LastRefitTo", format: item => ((item.LastRefitTo == null) ? "" : item.LastRefitTo.ToString("dd MMM yyyy"))),
+                                grid.Column("LastDockingFrom", header: "LastDockingFrom", format: item => ((item.LastDockingFrom == null) ? "" : item.LastDockingFrom.ToString("dd MMM yyyy"))),
+                                grid.Column("LastDockingTo", header: "LastDockingTo", format: item => ((item.LastDockingTo == null) ? "" : item.LastDockingTo.ToString("dd MMM yyyy"))),
+                                                                  
+                                grid.Column("Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "RefitDockingSchedule", new { id = item.RefitDockingIdentity }, null)</text>),
+                                grid.Column("Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "RefitDockingSchedule", new { id = item.RefitDockingIdentity }, null)</text>)
+
+                                         ));
+    }
+</div>
+
+
+

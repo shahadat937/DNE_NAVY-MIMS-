@@ -1,0 +1,40 @@
+﻿@{
+    /**/
+
+    ViewBag.Title = "Log in";
+    Layout = null;
+
+}
+<link rel="stylesheet" href="~/Content/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+@*<link rel="stylesheet" href="~/Content/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />*@
+@using DocumentFormat.OpenXml.Office.CustomUI
+@using RMS.Utility
+@using RMS.Web.Models.ViewModel
+@model IEnumerable<UserRightTreeView>
+@*@model  RMS.Web.Models.ViewModel.UpdateOplStateViewModel*@
+@if (User.Identity.IsAuthenticated)
+{
+
+
+
+<ul class="side-menu toggle-menu">
+    @foreach (var tree in Model)
+    {
+        <li class="slide">
+
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon las la-cube"></i><span class="side-menu__label">@tree.MenuObjectName</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                @foreach (var child in tree.ChildUserRight)
+                {
+                    <li><a href="@child.UrlLink" class="slide-item">@child.MenuObjectName</a></li>
+                }
+            </ul>
+            
+        </li>
+    }
+        <li>
+            <a class="side-menu__item" href="#"><i class="side-menu__icon las la-life-ring"></i><span class="side-menu__label">Support</span></a>
+        </li>
+    </ul>
+}
+

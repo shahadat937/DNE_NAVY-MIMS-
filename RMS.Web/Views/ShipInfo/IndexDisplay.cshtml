@@ -1,0 +1,91 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipInfoViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h5>Ship craft</h5>
+                </div>
+                <div class="body" style="">
+                    <div class="row">
+                        <div class="col-md-2">
+                            @Html.ActionLink("Add New", "StateofShipIndex", "ControlShipInfo", new { @class = "btn btn-primary" })
+                        </div>
+
+                        <div class="col-md-10">
+                            @using (Html.BeginForm("SearchByKey", "ShipInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                            {
+                                <div>
+                                    <div class="pull-right">
+                                        &nbsp;&nbsp;&nbsp;@Html.SearchButton()&nbsp;
+                                    </div>
+
+                                    <div class="pull-right">
+                                        @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="">
+        <div class="btn-group ">
+            <button type="button" class="btn btn-primary">Ship craft</button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Excel", "ExportTo", new { ReportType = "Excel", searchKey = Model.SearchKey, id = "Basic" })</li>
+                <li>@Html.ActionLink("PDF", "ExportTo", new { ReportType = "PDF", searchKey = Model.SearchKey, id = "Basic" })</li>
+                <li>@Html.ActionLink("Word", "ExportTo", new { ReportType = "Word", searchKey = Model.SearchKey, id = "Basic" })</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.ShipInfoes, rowCount: Model.ShipInfoes.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { ShipInfoIdentity = "grid" },
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                columns: grid.Columns(
+                                grid.Column("ShipInfoIdentity", header: "SER"),
+                                grid.Column("CommonCode.TypeValue", header: "SQD"),
+                                grid.Column("ShipId", header: "CALL SIGN"),
+                                grid.Column("ShipName", header: "Ship Name"),
+                                grid.Column("Remarks", header: "Remarks"),
+                                //grid.Column("Length"),
+                                //grid.Column("Breadth"),
+                                //grid.Column("DraughtAFT", header: "Draught AFT"),
+                                //grid.Column("DraughtFWD", header: "Draught FWD"),
+                                //grid.Column("Displacement"),
+                                //                  grid.Column("PropellerQty", header: "Propeller Qty"),
+                                //grid.Column("RudderQty", header: "Rudder Qty"),
+                                //                  grid.Column("SpeedMax", header: "Speed Max"),
+                                //grid.Column("SpeedCont", header: "Speed Cont..."),
+                                grid.Column("Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "ShipInfo", new { id = item.ShipInfoIdentity }, null)</text>),
+                                grid.Column("Download", format: @<text> @Html.ActionLink("Download", "Download", "ShipInfo", new { id = item.ShipInfoIdentity }, null)</text>)
+                                                                                                                                                                                                                                                        ));
+    }
+</div>

@@ -1,0 +1,97 @@
+﻿@using RMS.Utility
+@model RMS.Web.Models.ViewModel.DamageMachineriesInfoViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-content">
+    </div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+    @*<div class="panel panel-info">*@
+        @*<div class="panel-heading custom-panel-heading"><h5>ক্রটিপূর্ণ  প্রকৌশল  যন্ত্রপাতির বিবরণ </h5></div>*@
+        <div class="panel-body">
+            <ul class="nav nav-tabs">
+                <li class="nav active"><a href="#prev" data-toggle="tab">ক্রটিপূর্ণ  প্রকৌশল  যন্ত্রপাতির বিবরণ</a></li>
+                <li class="nav"><a href="#runninghour" data-toggle="tab">প্রকৌশল বিভাগের যন্ত্রপাতির পরিসংখ্যান</a></li>
+                <li class="nav"><a href="#person" data-toggle="tab">পিওএল হিসাব </a></li>
+         
+            </ul>
+            <div class="tab-content" id="ApplicantInfoContainner">
+                <div id="prev" class="tab-pane fade in active">
+                    @{
+                        //Html.RenderPartial("~/Views/DamageMachineriesInfo/_DamageMachineries.cshtml", Model.DamageMachineriesInfos);
+                        Html.RenderPartial("~/Views/DamageMachineriesInfo/_DamageMachineries.cshtml", Model);
+                    }
+                </div>
+                <div id="person" class="tab-pane container">
+                    <br />
+                    @{
+                        Html.RenderPartial("~/Views/POLCalculation/_polCalculaton.cshtml", Model);
+                    }
+                </div>
+              
+                <div id="runninghour" class="tab-pane container">
+                    <br />
+                    @{
+                        Html.RenderPartial("~/Views/RunningHour/_runningHour.cshtml", Model);
+                    }
+                </div>
+            </div>
+            
+        </div>
+    @*</div>*@
+</div>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+ 
+$(document).ready( 
+    function () {
+        $('.search').keypress(function (event) {
+            if (event.keyCode == 13) {
+                //call method here
+                event.preventDefault();
+            }
+        });
+    }); 
+
+        function saveForm(obj) {
+
+            var button = $(obj);
+            var target = $(button.attr('data-target'));
+            
+             var form = button.parents('form:first');
+            //var form = button.current('form');
+            var url = form.attr('action');
+            var type = form.attr('method');
+            var data = form.serialize();
+            var option = {
+                url: url,
+                type: type,
+                data: data,
+                dataType: 'html'
+            };
+            if (jQuery.validator && jQuery.validator.unobtrusive) {
+                form.validate();
+                if (!form.valid()) {
+                    // e.preventDefault();
+                    return false;
+                } else {
+                    //alert(url);
+                    $.ajax(option).done(function (resp) {
+
+                        $(target).html(resp);
+                        resetAllControls();
+                    });
+                }
+
+            }
+
+        }
+    </script>
+}

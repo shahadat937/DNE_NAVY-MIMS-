@@ -1,0 +1,142 @@
+/*------Tabsmenu-------*/
+
+.tabs-menu ul li {
+	a {
+		padding: 10px 12px;
+		margin: 3px 0px 3px 14px;
+		display: block;
+		border: 1px solid $border;
+		border-radius: 3px;
+		color: $color;
+		line-height: 1;
+	}
+	.active {
+		background: $white;
+		color: $color;
+	}
+}
+
+.tabs-menu1 ul li {
+	a {
+		padding: 10px 10px 11px 20px;
+	}
+	.active {
+		border-bottom: 3px solid $primary;
+	}
+}
+
+.tabs-menu-body {
+	padding: 15px;
+	border: 1px solid $border;
+	p:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.tab-menu-heading {
+	padding: 20px;
+	border: 1px solid $border;
+	border-bottom: 0;
+}
+
+.tab_wrapper {
+	.content_wrapper .tab_content.active p:last-child {
+		margin-bottom: 0;
+	}
+	>ul li.active {
+		border-color: $primary !important;
+		background: $primary !important;
+		color: $white;
+	}
+	&.right_side {
+		>ul li.active:after {
+			background: $primary !important;
+		}
+		.content_wrapper {
+			border: 1px solid $border;
+		}
+		>ul {
+			li {
+				&.active {
+					border-color: $border;
+				}
+				&:after {
+					background: $border;
+				}
+			}
+			border-bottom: 1px solid $border;
+		}
+	}
+	>ul {
+		li {
+			border: 1px solid $border;
+			border-top: 1px solid $border;
+		}
+		border-bottom: 1px solid $border;
+	}
+}
+
+.tab-pane {
+	.profile-content .media-body {
+		margin-top: 6px;
+		margin-left: 20px;
+	}
+	.media {
+		margin-top: 0;
+	}
+	.profile-content .media-body .text-inverse {
+		margin-top: 2px;
+	}
+}
+
+#myTab .nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+	border-color: $black-3;
+	color: $white !important;
+	background: $primary;
+}
+
+#myTab .nav-tabs .nav-item a.active::hover {
+	color: $white !important;
+}
+
+.tab-content>.tab-pane {
+	padding: 10px 0;
+	line-height: 24px;
+	display: none;
+}
+
+.tab-bordered .tab-pane {
+	padding: 15px;
+	border: 1px solid $border;
+	margin-top: -1px;
+}
+
+.myTab .nav-tabs .nav-link {
+	border: 0;
+	transition: .3s border-color;
+	font-weight: 500;
+	padding: 0.55rem 1.25rem;
+	font-size: 13px;
+	text-align: center;
+	margin-left: 12px !important;
+}
+
+.myTab2 .nav-tabs .nav-link {
+	border: 0;
+	color: inherit;
+	color: #1b1a1e;
+	transition: .3s border-color;
+	font-weight: 500;
+	padding: 0.55rem 1.25rem;
+	font-size: 13px;
+	text-align: center;
+	margin-left: 12px !important;
+}
+
+.tabs-menu-body.card-tabs-menu-body p:last-child {
+	margin-bottom: 1em;
+}
+.tab-content>.active {
+    display: block;
+}

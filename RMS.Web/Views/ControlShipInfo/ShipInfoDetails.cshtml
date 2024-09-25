@@ -1,0 +1,117 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ControlAccountViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-profile  overflow-hidden">
+            <div class="card-body text-center profile-bg">
+                <div class=" card-profile">
+                    <h3 class="mt-3 text-white mb-0">@Model.ControlShipInfo.ControlName</h3>
+
+                    <p class="mb-2 text-white">@(Model.ControlShipInfo.CommonCode2!=null? Model.ControlShipInfo.CommonCode2.TypeValue: "")</p>
+
+                    @if (Model.ControlShipInfo != null)
+                    {
+                        <p class="mb-2 text-white">@Model.OrgBranch.Where(x => x.BranchInfoIdentity == Model.ControlShipInfo.Organization).FirstOrDefault().BranchName</p>
+                    }
+                    <a href="@Url.Action("StateofShipIndex", "ControlShipInfo", new {id= Model.ControlShipInfo.ControlShipInfoId })" class="btn btn-danger btn-sm"><i class="fa fa-pencil-alt" aria-hidden="true"></i> Edit</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body pb-0" style="max-height:100% !important">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade active show" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                            <div class="table-responsive mb-3">
+                                <table class="table row table-borderless w-100 m-0">
+                                    <tbody class="col-lg-6 p-0">
+                                        <tr>
+                                            <td><strong>Full Name :</strong>@Model.ControlShipInfo.ControlName</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Call Sign :</strong> @Model.ControlShipInfo.ControlValue</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Displacement (Full Load) (Tons)  :</strong> @Model.ControlShipInfo.DisplacementFullLoad</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Manufacturer  :</strong> @Model.ControlShipInfo.Manufacturer</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody class="col-lg-6 p-0">
+                                        <tr>
+                                            <td><strong>Displacement ( Light Weight) (Tons) :</strong> @Model.ControlShipInfo.DisplacementLightWeight</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Date Of Commission :</strong> @Model.ControlShipInfo.DateOfCommission</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Length (LOA)(MTR) :</strong> @Model.ControlShipInfo.LengthMTR</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Height Of Mast (Mtr) :</strong> @Model.ControlShipInfo.HeightOfMast</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table row table-borderless w-100 m-0">
+                                    <tbody class="col-lg-6 p-0">
+                                        <tr>
+                                            <td><strong>Breadth (BMLD)(MTR) :</strong> @Model.ControlShipInfo.Breadth</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Depth (Mtr) :</strong> @Model.ControlShipInfo.Depth</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Length (LOA)(MTR) :</strong> @Model.ControlShipInfo.LengthMTR</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Draft (Fwd) (Mtr) :</strong> @Model.ControlShipInfo.DraftFwd</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Luboil Capcity (Ltr) :</strong> @Model.ControlShipInfo.LuboilCapcity</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody class="col-lg-6 p-0">
+                                        <tr>
+                                            <td><strong>Fresh Water Capacity (Tons) :</strong> @Model.ControlShipInfo.FreshWaterCapacity</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Maximum Speed (kn) :</strong> @Model.ControlShipInfo.MaximumSpeed</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Fual Capacity (Ltr) :</strong> @Model.ControlShipInfo.FualCapacity</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Maximum Continuous Speed(kn) :</strong> @Model.ControlShipInfo.MaximumContinuousSpeed</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Economic Speed (kn) :</strong> @Model.ControlShipInfo.EconomicSpeed</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <table class="table row table-borderless w-100 m-0">
+                                    <tbody class="col-lg-6 p-0">
+
+                                        <tr>
+                                            <td><strong>Cruising Speed (kn) :</strong> @Model.ControlShipInfo.CruisingSpeed</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <h4><strong>Opl/Non-Opl Details</strong></h4>
+                            <p class="description">@Model.ControlShipInfo.Remarks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Row -->

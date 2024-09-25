@@ -1,0 +1,106 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.MachineryRunningInfoViewModel
+@{
+    ViewBag.Title = (Model.MachineryRunningInfo.MachineryRunningIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm("Save", "MachineryRunningInfo", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        Machinery Running Information
+                    </legend>
+                    <br />
+                    @if (ViewBag.Title == "Edit")
+                    {
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Serial Number:</label>
+                                    <div class="col-md-8">
+                                        @Html.DisplayFor(x => x.MachineryRunningInfo.MachineryRunningIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                        @Html.HiddenFor(x => x.MachineryRunningInfo.MachineryRunningIdentity)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Ship Name:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.MachineryRunningInfo.ShipId, Model.ShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">No of Hours Run:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.MachineryRunningInfo.HourRunTime, Model.CommonCodeSelectListType, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Type :</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.MachineryRunningInfo.Type, Model.TypeSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+
+                            </div>
+                        </div>
+            
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Hours:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryRunningInfo.Hour, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Minute :</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MachineryRunningInfo.Minute, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("NavTab", "MachineryRunningInfo")'">Back to List </button></div>
+
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+
+
+    }
+</div>
+
+
+
+

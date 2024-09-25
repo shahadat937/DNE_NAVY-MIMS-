@@ -1,0 +1,63 @@
+﻿
+@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.UserViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div style="text-align: center"><h4>User's Information</h4></div>
+    @using (Html.BeginForm("Search", "User", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+    {
+        <table>
+            <tr>
+                <td>
+                    @Html.Label("Search Option")
+                </td>
+                <td>
+                    @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+               </td>
+                <td>
+                    @Html.SearchButton()
+                </td>
+            </tr>
+        </table>
+    }
+<p>
+    @Html.ActionLink("Add New", "Edit","User", new { @class = "btn btn-primary" })
+</p>
+<div class="row">
+    @{
+    var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+    grid.Bind(Model.Users, rowCount: Model.Users.Count, autoSortAndPage: true);
+    grid.Pager(WebGridPagerModes.All);
+    @grid.GetHtml(htmlAttributes: new { UserId = "grid" },
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                columns: grid.Columns(
+                                       grid.Column("UserId", header: "User Id"),
+                                       grid.Column("UserName", header: "User Name"),
+                                       grid.Column("UserFullName", header: "User Full Name"),
+                                       grid.Column("PhoneNumber",header:"Phone Number"),
+                                       grid.Column("Email",header:"Email"),
+                       grid.Column("Role.RoleName", header: "RoleName"),
+                       grid.Column("BranchInfo1.BranchName",header:"Office Name"),
+                                                       grid.Column("LastActivityDate", header: "Last Activity Date", format: item => ((item.LastActivityDate == null) ? "" : item.LastActivityDate.ToString("dd MMM yyyy"))),
+                         grid.Column(header: "Edit", format: @<text> @Html.ActionLink("Edit", "Edit", "User", new { id = item.UserId }, null)</text>),
+                           grid.Column(header: "Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "User", new { id = item.UserId }, null)</text>)
+                
+    ));
+    }
+</div>
+
+@Scripts.Render("~/bundles/AppScripts")

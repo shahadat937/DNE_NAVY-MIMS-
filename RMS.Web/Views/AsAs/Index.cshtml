@@ -1,0 +1,103 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.As_AsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Hydrostatic Particulars</h3>
+                </div>
+                <div class="card-options">
+                    @Html.ActionLink("Add New", "Edit", "AsAs", new { @class = "btn btn-primary", style = "color:#fff;" })
+
+                </div>
+            </div>
+            <div class="card-body" style="max-height:100% !important">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th class="wd-15p" rowspan="2">Ship Name</th>
+                                <th class="wd-15p" rowspan="2">Description of AS & AS</th>
+                                <th class="wd-20p" rowspan="2">Class</th>
+                                <th class="wd-20p" rowspan="2">Authority</th>
+                                <th class="wd-20p">LWL</th>
+                                <th class="wd-20p">Delta</th>
+                                <th class="wd-20p">KM(t)</th>
+                                <th class="wd-20p">GM(t)</th>
+                                <th class="wd-20p">KG</th>
+                                <th class="wd-20p">LCF</th>
+                                <th class="wd-20p">LCG</th>
+                                <th class="wd-20p">TPC</th>
+                                <th class="wd-20p">MCT</th>
+                                <th class="wd-20p">Df</th>
+                                <th class="wd-20p">Da</th>
+                                <th class="wd-20p">TRIM</th>
+                                <th class="wd-20p">THETA</th>
+
+                                <th class="wd-20p" rowspan="2">Action</th>
+                            </tr>
+                            <tr>
+                                <th class="wd-20p">(m)</th>
+                                <th class="wd-20p">(ton)</th>
+                                <th class="wd-20p">(m)</th>
+                                <th class="wd-20p">(m)</th>
+                                <th class="wd-20p">(m)</th>
+                                <th class="wd-20p">(m)</th>
+                                <th class="wd-20p">(m)</th>
+                                <th class="wd-20p">(ton/cm)</th>
+                                <th class="wd-20p">(m)</th>
+                                <th class="wd-20p">(m)</th>
+                                <th class="wd-20p">(m)</th>
+                                <th class="wd-20p">(m)</th>
+                                <th class="wd-20p">(deg)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.AsAsInfos)
+                            {
+                            <tr>
+                                <td><a href="@Url.Action("ShipAsAs", "ASAs", new {SearchKey= item.ControlShipInfoId })">@item.ControlShipInfo.ControlName</a></td>
+                                <td>@item.DescriptionOfAsAs</td>
+                                <td>@item.ClassId</td>
+                                <td><button type="button" class="btn btn-pink" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="@item.AuthorityRemark">Authority Remark</button></td>
+                                <td>@item.LWLM</td>
+                                <td>@item.DeltaTon</td>
+                                <td>@item.KMTM</td>
+                                <td>@item.GMTM</td>
+                                <td>@item.KGM</td>
+                                <td>@item.LCFM</td>
+                                <td>@item.LCGM</td>
+                                <td>@item.TPCTonCm</td>
+                                <td>@item.MCTM</td>
+                                <td>@item.DFM</td>
+                                <td>@item.DAM</td>
+                                <td>@item.TRIMM</td>
+                                <td>@item.THETADeg</td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", "AsAs", new { id = item.AsAndAsIdentity }, null) |
+                                    @Html.ActionLink("Download", "Download", "AsAs", new { id = item.AsAndAsIdentity }, null)
+                                </td>
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->
+
+
+

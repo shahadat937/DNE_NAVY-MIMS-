@@ -1,0 +1,112 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.DamageMachineriesInfoViewModel
+@{
+    ViewBag.Title = (Model.DamageMachineriesInfo.MachineriesDescriptionIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm("Save", "DamageMachineriesInfo", FormMethod.Post, new { @class = "UserForm" }))
+    {
+       <br/>
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        অচল/ক্রটিপূন প্রকৌশল যন্ত্রপাতির তথ্য :
+                    </legend>
+                    <br />
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">ক্রমিক নম্বর:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.DamageMachineriesInfo.SerialNo, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                    @Html.HiddenFor(x => x.DamageMachineriesInfo.MachineriesDescriptionIdentity)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">জাহাজের নাম:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.DamageMachineriesInfo.ShipId, Model.ShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+                            </div>
+                        </div>
+                     
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">বিবরণ:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.DamageMachineriesInfo.Description, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">সচলতা:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.DamageMachineriesInfo.MobilityDescription, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+            
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">ক্রটির তারিখ:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.DamageMachineriesInfo.DamageDate, "{0:dd MMMM yyyy}", new { @class = "textBoxsize form-control datepicker" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">মেরামতের সময়:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.DamageMachineriesInfo.RepairTime, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">মন্তব্য:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.DamageMachineriesInfo.Remarks, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Nabvar", "DamageMachineriesInfo")'">Back to List </button></div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+
+
+    }
+</div>
+
+

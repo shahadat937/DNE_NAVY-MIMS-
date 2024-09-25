@@ -1,0 +1,93 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.MachineryInfoViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Machinery Maintenance Notification</h3>
+                </div>
+            </div>
+            <div class="card-body" style="max-height:100% !important">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th class="wd-15p" colspan="2">Machinery</th>
+                                <th class="wd-15p">Action</th>
+                                <th class="wd-15p">Ship Name</th>
+                                <th class="wd-15p">Total Running</th>
+                                <th class="wd-20p">TOH(Hrs)</th>
+                                <th class="wd-20p">MOH(Hrs)</th>
+                                <th class="wd-20p">Next TOH Time</th>
+                                <th class="wd-20p">Due TOH Time</th>
+                                <th class="wd-20p">Next MOH Time</th>
+                                <th class="wd-20p">Due MOH Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.MachineryInfos)
+                            {
+                                <tr>
+                                    <td style="border-right: none;">
+                                        <a href="@Url.Action("MachineryDetails", "MachineryInfo", new {id = item.MachineryInfoIdentity  })">@item.Machinery</a>
+                                    </td>
+                                    <td>
+                                        <div class="dimmer active">
+                                            <div class="spinner1" style="margin:0px !important;">
+                                                <div class="double-bounce1" style="background:red !important;"></div>
+                                                <div class="double-bounce2" style="background:red !important;"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @if (Model.UserName == "Ship User")
+                                        {
+                                            <label class="custom-switch">
+                                                <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
+                                                <span class="custom-switch-indicator"></span>
+                                            </label>
+                                        }
+                                        @if (Model.UserName == "DNE User")
+                                        {
+                                            <a class="btn btn-warning btn-sm mb-1">Done</a>
+                                        }
+                                        </td>
+                                    <td>@item.ControlShipInfo.ControlName</td>
+                                    <td>
+                                        @Convert.ToInt32(item.TotalRunningHr) Hrs  @Convert.ToInt32((item.TotalRunningHr % 1) * 60) Min
+                                    </td>
+                                    <td>@item.TOH</td>
+                                    <td>@item.MOH</td>
+                                    <td>
+                                        @Convert.ToInt32(item.DueTOHTime) Hrs  @Convert.ToInt32((item.DueTOHTime % 1) * 60) Min
+                                    </td>
+                                    <td>
+                                        @Convert.ToInt32(Convert.ToDouble(item.DueTOHTime) - item.TotalRunningHr) Hrs  @Convert.ToInt32(((Convert.ToDouble(item.DueTOHTime) - item.TotalRunningHr) % 1) * 60) Min
+                                    </td>
+                                    <td>
+                                        @Convert.ToInt32(item.DueMOHTime) Hrs  @Convert.ToInt32(((item.DueMOHTime) % 1) * 60) Min
+
+                                    </td>
+                                    <td>
+                                        @Convert.ToInt32(Convert.ToDouble(item.DueMOHTime) - item.TotalRunningHr) Hrs  @Convert.ToInt32(((Convert.ToDouble(item.DueMOHTime) - item.TotalRunningHr) % 1) * 60) Min
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->

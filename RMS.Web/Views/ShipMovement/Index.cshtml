@@ -1,0 +1,80 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipMovementViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Ship Employed During Quater</h5>
+        </div>
+        <div class="body">
+
+            <table>
+                <tr>
+                    <td>@Html.ActionLink("Add New", "Edit", "ShipMovement", new { @class = "btn btn-primary" })</td>
+                    <td>
+                        @using (Html.BeginForm("Search", "ShipMovement", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                        {
+
+                            <table>
+                                <tr>
+                                    <td>
+                                        @Html.Label("Search Key")
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </td>
+                                    <td>
+                                        @Html.SearchButton()
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.ShipMovements, rowCount: Model.ShipMovements.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { ShipMovementIdentity = "grid" },
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                columns: grid.Columns(
+                                        grid.Column("ShipEmployedIdentity", header: "Seril No"),
+                                        grid.Column("ShipInfo.ShipName", header: "Ship Name"),
+                                        grid.Column("CompletionDate", header: "CompletionDate", format: item => ((item.CompletionDate == null) ? "" : item.CompletionDate.ToString("dd MMM yyyy"))),
+
+                                        grid.Column("RefitDate", header: "RefitDate", format: item => ((item.RefitDate == null) ? "" : item.RefitDate.ToString("dd MMM yyyy"))),
+
+                                        grid.Column("UnrefitDate", header: "UnrefitDate", format: item => ((item.UnrefitDate == null) ? "" : item.UnrefitDate.ToString("dd MMM yyyy"))),
+                                        grid.Column("DockingDate", header: "DockingDate", format: item => ((item.DockingDate == null) ? "" : item.DockingDate.ToString("dd MMM yyyy"))),
+                                        grid.Column("UndockingDate", header: "UndockingDate", format: item => (item.UndockingDate == null) ? "" : item.UndockingDate.ToString("dd MMM yyyy")),
+                                        grid.Column(header: "Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "ShipMovement", new { id = item.ShipEmployedIdentity }, null)</text>, canSort: false),
+                                        grid.Column(header: "Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "ShipMovement", new { id = item.ShipEmployedIdentity }, null)</text>)
+                                @*grid.Column(header: "Download", format: @<text> @Html.ActionLink("Download", "Download", "ShipMovement", new { id = item.ShipId }, null)</text>)*@
+                                                                                                                                                                              ));
+}
+</div>
+
+
+

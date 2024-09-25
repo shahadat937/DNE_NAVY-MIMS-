@@ -1,0 +1,85 @@
+﻿
+@model RMS.Web.Models.ViewModel.ReportingViewModel
+@{
+    ViewBag.Title = "ReportView";
+    Layout = null;
+   
+}
+<h2>ReportView</h2>
+@using (Html.BeginForm("AspReport", "Reporting", FormMethod.Post, new { @class = "Reporting", target = "_blank" }))
+{
+    @Html.HiddenFor(x=>x.SlNo)
+
+    foreach (var par in Model.Parameters)
+    {
+        if (par.Key.ToLower().Contains("date"))
+        {
+            <div>
+
+                @Html.Label(par.Key)
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.Parameters[par.Key], "{0:dd MMM yyyy}", new { @class = "datePicker textBoxsize form-control" })
+
+            </div>
+
+        }
+
+        else if (par.Key.ToLower().Contains("exchangecompany"))
+        {
+            <div>
+
+                @Html.Label(par.Key)
+            </div>
+            <div>
+                @*@Html.TextBoxFor(x => x.Parameters[par.Key], new { @class = "textBoxsize form-control", placeholder = "80210F101" })*@
+                @Html.DropDownListFor(x => x.Parameters[par.Key], Model.ExchangeCompanyListItem, "--Select Exchange Company--", new { @class = "Type form-control", tabindex = 2 })
+            </div>
+        }
+        else if (par.Key.ToLower()=="bankcode")
+        {
+            <div>
+
+                @Html.Label(par.Key)
+            </div>
+            <div>
+                @*@Html.TextBoxFor(x => x.Parameters[par.Key], new { @class = "textBoxsize form-control", placeholder = "80210F101" })*@
+                @Html.DropDownListFor(x => x.Parameters[par.Key], Model.BankInfoListItem, "--Select Bank--", new { @class = "Type form-control", tabindex = 2 })
+            </div>
+        }
+        else if (par.Key.ToLower().Contains("userbankcode"))
+        {
+            <div>
+
+                @Html.Label(par.Key)
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.Parameters[par.Key], new { @class = "textBoxsize form-control", Value = "80", @readonly = "readonly" })
+                @*@Html.DropDownListFor(x => x.Parameters[par.Key], new SelectList(Model.ExchangeCompany, "BranchCode", "BranchName"), "--Select Exchange Company--", new { @class = "Type", tabindex = 2 })*@
+            </div>
+        }
+        else
+        {
+            <div>
+                @Html.Label(par.Key)
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.Parameters[par.Key], new { @class = "textBoxsize form-control"})
+            </div>
+        }
+}
+    <br/>
+    <div ><input type="submit" value="Preview" class="btn btn-primary" id="btnExport" /></div>
+}
+
+<script type="text/javascript">
+    $(function() {
+        $(".datePicker").datepicker({
+            dateFormat: 'dd MM yy',
+            yearRange: '1920:' + new Date().getFullYear(),
+            changeMonth: true,
+            changeYear: true,
+        });
+    })
+</script>
+

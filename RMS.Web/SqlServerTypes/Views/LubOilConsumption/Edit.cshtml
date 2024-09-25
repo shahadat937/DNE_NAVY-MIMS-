@@ -1,0 +1,150 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.LubOilConsumptionViewModel
+@{
+    ViewBag.Title = (Model.LubOilConsumption.LubOilConsumtionIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm("Save", "LubOilConsumption", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        LubOil Consumption Information
+                    </legend>
+                    <br />
+                    @if (ViewBag.Title == "Edit")
+                    {
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Serial Number:</label>
+                                    <div class="col-md-8">
+                                        @Html.DisplayFor(x => x.LubOilConsumption.LubOilConsumtionIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                        @Html.HiddenFor(x => x.LubOilConsumption.LubOilConsumtionIdentity)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Ship Name:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.LubOilConsumption.ShipId, Model.ShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">LubOil Type:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.LubOilConsumption.LubOilType, Model.CommonCodeSelectList, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Machinery:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.LubOilConsumption.Machinery, Model.MachineryInfoSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Quantity:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.LubOilConsumption.Quantity, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Unit:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.LubOilConsumption.Unit, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Price:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.LubOilConsumption.Price, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Date From:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.LubOilConsumption.DateFrom, "{0:dd MMMM yyyy}", new { @class = "textBoxsize form-control datepicker" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Date To:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.LubOilConsumption.DateTo, "{0:dd MMMM yyyy}", new { @class = "textBoxsize form-control datepicker" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Location:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.LubOilConsumption.Location, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Running Hour:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.LubOilConsumption.RunningHour, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div>@Html.ActionLink("Back to List", "Index", "FuelConsumption", new { @class = "btn btn-primary" })</div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+
+
+    }
+</div>
+
+
+
+

@@ -1,0 +1,140 @@
+/*------Navabar-------*/
+
+.navbar-nav .input-icon-addon {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 8px;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	min-width: 2.5rem;
+	pointer-events: none;
+	color: $white;
+}
+
+.navbar .form-inline .btn {
+	border-radius: 0;
+	padding: 5px 15px 6px 15px;
+	border: 2px solid #9d37f6;
+	box-shadow: none;
+	border-bottom-right-radius: 3px;
+	border-top-right-radius: 3px;
+}
+
+.navbar-collapse {
+	.input-group-btn {
+		.btn {
+			border: 0px solid $border !important;
+			background: transparent;
+			border-radius: 3px;
+			color: #212529;
+			height: 38px;
+			width: 38px;
+			line-height: 24px;
+			border-radius: 50px;
+			font-size: 22px;
+			&:hover {
+				color: $primary;
+				background: transparent;
+				i {
+					color: $primary;
+					background: transparent;
+				}
+			}
+		}
+		margin-top: 8px;
+	}
+	form[role="search"].active .input-group-btn {
+		margin-top: 13px;
+	}
+	.input-group-btn .btn i {
+		font-size: 1.2rem;
+		color: #212529;
+	}
+	.navbar-form.active .input-group-btn .btn i {
+		font-size: 1rem;
+		line-height: 27px;
+	}
+}
+
+.navbar-form.active .input-group-btn {
+	position: absolute;
+	right: 12px;
+	z-index: 9999;
+}
+
+.navbar-collapse form[role="search"] {
+	top: 0px;
+	right: 0;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	z-index: 0;
+	button {
+		padding: 5px 12px;
+		border-radius: 0px;
+		border-width: 0px;
+		color: #6f7282;
+		background-color: rgb(248, 248, 248);
+		border-color: $border;
+		box-shadow: none;
+		outline: none;
+		font-size: 14px;
+	}
+	input {
+		padding: 5px 12px;
+		border-radius: 0px;
+		border-width: 0px;
+		color: #6f7282;
+		background-color: rgb(248, 248, 248);
+		border-color: $border;
+		box-shadow: none;
+		outline: none;
+		font-size: 14px;
+		&:focus {
+			color: $color;
+		}
+	}
+	button[type="reset"] {
+		display: none;
+		background: transparent;
+		border: 0 !important;
+	}
+}
+
+@media (min-width: 768px) {
+	.navbar-collapse form[role="search"] {
+		width: 38px;
+		input {
+			font-size: 16px;
+			opacity: 0;
+			display: none;
+			height: 68px;
+			transition: all 05s;
+		}
+		&.active {
+			width: 100%;
+			z-index: 9999;
+			right: 0;
+			position: absolute;
+			button {
+				display: inline;
+				opacity: 1;
+			}
+			input {
+				display: inline;
+				opacity: 1;
+				width: 100%;
+				background: $white;
+				padding-left: 20px;
+				border-radius: 3px 3px 0 0;
+				transition: all 05s;
+				box-shadow: -8px 12px 18px 0 rgba(25, 42, 70, 0.13);
+			}
+		}
+	}
+}

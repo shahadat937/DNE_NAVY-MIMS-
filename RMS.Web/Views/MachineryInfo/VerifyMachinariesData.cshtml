@@ -1,0 +1,116 @@
+﻿@model RMS.Web.Models.ViewModel.MachineryInfoViewModel
+@{
+    ViewBag.Title = "User Rights";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading" style="text-align:center">
+       Machinary Informatin Verified
+    </div>
+
+    <div class="panel-body">
+        @using (Html.BeginForm("VerifyMachinariesSearch", "MachineryInfo", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Select Type</label>
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(x => x.VerifiedType, Model.VerifySelectListCategory, "-Select-", new { @class = "dropdownsize form-control verify" })
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(x => x.DateFrom, "{0: dd MMMM yyyy}", new { @class = "datefrom textBoxsize form-control", PlaceHolder = " Select Date" })
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(x => x.DateTo, "{0: dd MMMM yyyy}", new { @class = "dateto textBoxsize form-control", PlaceHolder = " Select Date" })
+                        </div>
+                        <div class="col-md-1">
+                            @Html.ActionLink("Go", "VerifyMachinariesSearch", "MachineryInfo", new { @class = "btn btn-info", id = "btnRole" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col-md-12">
+                            @if (Model.Message != null)
+                            {
+                                if (Model.IsSucceed == 1)
+                                {
+                                    <div style="color:green">@Model.Message</div>
+                                }
+                                else
+                                {
+                                    <div style="color:red">@Model.Message</div>
+                                }
+                            }
+                        </div>
+                </div>
+            </div>
+        }
+
+        @using (Html.BeginForm("StatusUpdate", "MachineryInfo", FormMethod.Post))
+        {
+
+            <div class="row">
+                <div class="table-responsive">
+                    <div class="text-right">
+                        <button id="btnUpdate" class=" btn btn-info ">Update</button>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead style="background-color: azure;">
+                            <tr style="background-color: #32CD32;">
+                                <th style="text-align:center"> @Html.Label("Ship Name")</th>
+                                <th class="text-center">@Html.Label("Machinery Name")</th>
+                                <th style="text-align: center;">@Html.Label("Location")</th>
+                                <th style="text-align: center;">@Html.Label("Model")</th>
+                                <th style="text-align: center;">@Html.Label("Power")</th>
+                                <th style="text-align: center;">@Html.Label("Power Unit")</th>
+                                <th style="text-align: center;">@Html.Label("Maker Address")</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var index = 0; index < Model.MachineryInfos.Count; index++)
+                            {
+                                <tr>
+
+                                    <td style="text-align:center;padding-top: 15px">
+                                        @Html.DisplayFor(modelItem => Model.MachineryInfos[index].ControlShipInfo.ControlName)
+                                        @Html.HiddenFor(modelItem => Model.MachineryInfos[index].MachineryInfoIdentity)
+                                        @Html.HiddenFor(modelItem => Model.MachineryInfos[index].ControlShipInfo.ControlName)
+                                    </td>
+                                    <td style="text-align:center;padding-top: 15px">@Html.DisplayFor(modelItem => Model.MachineryInfos[index].Machinery) </td>
+                                    @Html.HiddenFor(modelItem => Model.MachineryInfos[index].Machinery)
+                                    <td style="text-align:center;padding-top: 15px">@Html.DisplayFor(modelItem => Model.MachineryInfos[index].Location) </td>
+                                    @Html.HiddenFor(modelItem => Model.MachineryInfos[index].Location)
+                                    <td style="text-align:center;padding-top: 15px">@Html.DisplayFor(modelItem => Model.MachineryInfos[index].Model) </td>
+                                    @Html.HiddenFor(modelItem => Model.MachineryInfos[index].Model)
+                                    <td style="text-align:center;padding-top: 15px">@Html.DisplayFor(modelItem => Model.MachineryInfos[index].Power) </td>
+                                    @Html.HiddenFor(modelItem => Model.MachineryInfos[index].Power)
+                                    <td style="text-align:center;padding-top: 15px">@Html.DisplayFor(modelItem => Model.MachineryInfos[index].PowerUnit) </td>
+                                    @Html.HiddenFor(modelItem => Model.MachineryInfos[index].PowerUnit)
+                                    <td style="text-align:center;padding-top: 15px">@Html.DisplayFor(modelItem => Model.MachineryInfos[index].MakerAddress) </td>
+                                    @Html.HiddenFor(modelItem => Model.MachineryInfos[index].MakerAddress)
+                                    <td style="width: 50px;padding-top:15px">@Html.CheckBoxFor(modelItem => Model.MachineryInfos[index].IsVerified)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        $('#btnRole').click(function () {
+            var datef = $('.datefrom').val();
+            var dateTo = $('.dateto').val();
+            var verifyType = $('.verify').val();
+            
+            var url = $(this).attr('href') + '&VerifyType=' + verifyType + '&DateFrom=' + datef + '&DateTo=' + dateTo; // build new url
+            location.href = url; // redirect
+            return false; // cancel default redirect
+        });
+    </script>
+}

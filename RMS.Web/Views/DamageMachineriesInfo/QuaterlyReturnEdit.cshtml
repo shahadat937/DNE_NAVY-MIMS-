@@ -1,0 +1,1171 @@
+﻿@using System.Web.UI.WebControls
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.QuaterlyReturnViewModel
+@{
+    ViewBag.Title = (Model.QuaterlyReturn.QuaterlyReturnId > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+
+<style>
+    .deleteItem, .deleteItem1, .deleteItem2 {
+        background-color: #f44336;
+        color: white;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        border-radius: 3px;
+    }
+
+        .deleteItem:hover, .deleteItem1:hover, .deleteItem2:hover {
+            background-color: red;
+            color: white;
+        }
+
+    .update, .update1, .update2 {
+        background-color: #F0AD4E;
+        color: white;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        border-radius: 3px;
+    }
+
+        .update:hover, .update1:hover, .update2:hover {
+            background-color: red;
+            color: white;
+        }
+
+    th {
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+</style>
+
+<div>
+    @using (Html.BeginForm("SaveQuaterlyReturn", "DamageMachineriesInfo", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <br />
+
+        <fieldset class="scheduler-border" style="@(Model.viewCount == 0 ? "display:block" : "display:none")">
+            <legend class="scheduler-border">
+                Basic Information :
+            </legend>
+            <br />
+            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyReturnId, new { Type = "hidden", @class = "textBoxsize form-control", PlaceHolder = "Quaterly Return Id", id = "QuaterlyReturnId" })
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Ship Name<span style="color:red; font-size:16px;">*</span>:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.QuaterlyReturn.ShipId, Model.ShipInfoSelectListItems, "Select Ship Name", new { @class = "dropdownsize form-control shipName", @TargetClass = "DistrictName", @action = "/DamageMachineriesInfo/GetMachinariesInformation", id = "ShipId", required = "required" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Ship Status<span style="color:red; font-size:16px;">*</span>:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.QuaterlyReturn.ShipStatusId, Model.shipStatusSelectedListItem, "Select Ship Status", new { @class = "dropdownsize form-control", id = "ShipStatusId" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Quaterly Return No<span style="color:red; font-size:16px;">*</span>:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.QuaterlyReturn.ReturnReportNoId, Model.ReportNoSelectListItem, "Select Report No", new { @class = "dropdownsize form-control", id = "ReturnReportNoId", required = "required" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Return Report Year<span style="color:red; font-size:16px;">*</span>:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.QuaterlyReturn.ReportYearId, Model.ReportYearSelectListItem, "Select Report Year", new { @class = "dropdownsize form-control", id = "ReportYearId" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="scheduler-border" style="@(Model.viewCount == 1 ? "display:block" : "display:none")">
+            <legend class="scheduler-border">
+                A. SHIP'S EMPLOYEMENT DURING QUATER:
+            </legend>
+            <br />
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Undergoing Refit:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.UndergoingRefit, new { @class = "textBoxsize form-control", PlaceHolder = "Ship Monthly Running(hr)", id = "UndergoingRefit" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Refit:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.Refit, new { @class = "textBoxsize form-control", PlaceHolder = " Ship Monthly Running(min)", id = "Refit" })
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            In Docking:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.InDocking, new { @class = "textBoxsize form-control", PlaceHolder = "Refrigerant (Kg)", id = "InDocking" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            UnDocking:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.UnDocking, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Fresh Water (Tons)", id = "UnDocking" })
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Maintance Period:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.MaintancePeriod, new { @class = "textBoxsize form-control", PlaceHolder = " Non-operational During Month(hr)", id = "MaintancePeriod" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Full Power Trial</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.FullPowerTrial, new { @class = "textBoxsize form-control", placeholder = "Non-operational During Month(min)", id = "FullPowerTrial" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Non-Operational(For Other Reasons):
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.NonOplReason, new { @class = "textBoxsize form-control", PlaceHolder = "Enter At Sea During This Month(hr)", id = "NonOplReason" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">At Sea:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.AtSea, new { @class = "textBoxsize form-control", placeholder = "At Sea During This Month(min)", id = "AtSea" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Distance Run:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.DistanceRun, new { @class = "textBoxsize form-control", PlaceHolder = "Harbour During This Month(hr)", id = "DistanceRun" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">At Normal Notice:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.AtNormalNotice, new { @class = "textBoxsize form-control", placeholder = "Harbour During This Month(min)", id = "AtNormalNotice" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Time Underway:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.TimeUnderway, new { @class = "textBoxsize form-control", PlaceHolder = "Harbour During This Month(hr)", id = "TimeUnderway" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Time Awaiting Order:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.TimeAwaitingOrder, new { @class = "textBoxsize form-control", placeholder = "Harbour During This Month(min)", id = "TimeAwaitingOrder" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Total Number Of Days:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.TotalNoOfDay, new { type = "number", @class = "textBoxsize form-control", PlaceHolder = "Harbour During This Month(hr)", id = "TotalNoOfDay" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+
+                </div>
+
+            </div>
+        </fieldset>
+
+
+
+
+
+        <fieldset class="scheduler-border" style="@(Model.viewCount == 2 ? "display:block" : "display:none")">
+            <legend class="scheduler-border">
+                B. CONSUMPTION DATA FOR THE QUATER:
+            </legend>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Main Engine Fuel Name:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.QuaterlyReturn.MainEngineFuelNameId, Model.OilNameSelectListItems, "Select POL Name", new { @class = "dropdownsize form-control shipName", id = "MainEngineFuelNameId" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Main Engine Fuel Quantity:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.MainEngineFuelQuantity, new { @class = "textBoxsize form-control", placeholder = "Enter At Sea (Hr)", id = "MainEngineFuelQuantity" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Main Engine Lub Oil Name:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.QuaterlyReturn.MainEngineLubOilNameId, Model.OilNameSelectListItems, "Select POL Name", new { @class = "dropdownsize form-control shipName", id = "MainEngineLubOilNameId" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Main Engine Lub Oil Quantity:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.MainEngineLubOilQuantity, new { @class = "textBoxsize form-control", placeholder = "Enter At Sea (Hr)", id = "MainEngineLubOilQuantity" })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            DG Lub Oil Name:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.QuaterlyReturn.DGLubOilNameId, Model.OilNameSelectListItems, "Select POL Name", new { @class = "dropdownsize form-control shipName", id = "DGLubOilNameId" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            DG Lub Oil Quantity:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.DGLubOilQuantity, new { @class = "textBoxsize form-control", placeholder = "Enter At Sea (Hr)", id = "DGLubOilQuantity" })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            DG & Others Fuel Name:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.QuaterlyReturn.DGAndOthersFuelNameId, Model.OilNameSelectListItems, "Select POL Name", new { @class = "dropdownsize form-control shipName", id = "DGAndOthersFuelNameId" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            DG & Others Fuel Quantity:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.DGAndOthersFuelQuantity, new { @class = "textBoxsize form-control", placeholder = "Enter At Sea (Hr)", id = "DGAndOthersFuelQuantity" })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Others Lub Oil Name:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.QuaterlyReturn.OthersLubOilNameId, Model.OilNameSelectListItems, "Select POL Name", new { @class = "dropdownsize form-control shipName", id = "OthersLubOilNameId" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Others Lub Oil Quantity:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.OthersLubOilQuantity, new { @class = "textBoxsize form-control", placeholder = "Enter At Sea (Hr)", id = "OthersLubOilQuantity" })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            % Of lub oil to fuel oil:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.PercentOfLubOilQuaterlyConsumption, new { @class = "textBoxsize form-control", placeholder = "Enter At Sea (Hr)", id = "PercentOfLubOilQuaterlyConsumption" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Average Load At Sea:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.LoadAtSeaQuaterlyConsumption, new { @class = "textBoxsize form-control", placeholder = "Enter At Sea (Hr)", id = "LoadAtSeaQuaterlyConsumption" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Average Load At Harbour:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.LoadAtHarbourQuaterlyConsumption, new { @class = "textBoxsize form-control", placeholder = "Enter At Sea (Hr)", id = "LoadAtHarbourQuaterlyConsumption" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Refrigerant:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.RefrigerantQuaterlyConsumption, new { @class = "textBoxsize form-control", placeholder = "Enter At Sea (Hr)", id = "RefrigerantQuaterlyConsumption" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            FreshWater:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.FreshWaterQuaterlyConsumption, new { @class = "textBoxsize form-control", placeholder = "Enter At Sea (Hr)", id = "FreshWaterQuaterlyConsumption" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="scheduler-border" style="@(Model.viewCount == 3 ? "display:block" : "display:none")">
+            <legend class="scheduler-border">
+                C. MAIN ENGINES & GENERATORS:
+            </legend>
+            <br />
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Machinery Name:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().MachineGeneratorId, Model.MachinarySelectListItem, "Select Machinery Status", new { @class = "dropdownsize form-control DistrictName", id = "MachineGeneratorId" })
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().QuaterlyMainEnginesGeneratorsRunningHourId, new { Type = "hidden", @class = "textBoxsize form-control", PlaceHolder = "Report Month", id = "QuaterlyMainEnginesGeneratorsRunningHourId" })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">During Quater:</label>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().DuringQuaterHr, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Hour", style = "width: 80px;", id = "DuringQuaterHr" })
+                        </div>
+                        <label class="col-md-2">Miniutes:</label>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().DuringQuaterMin, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Minute", style = "width: 80px;", id = "DuringQuaterMin" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Since Last LO Change:</label>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastLOChangeHr, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Hour", style = "width: 80px;", id = "SinceLastLOChangeHr" })
+                        </div>
+                        <label class="col-md-2">Miniutes:</label>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastLOChangeHr, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Minute", style = "width: 80px;", id = "SinceLastLOChangeMin" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Since Last Top Overhaul:</label>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastTopOverhaulHr, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Hour", style = "width: 80px;", id = "SinceLastTopOverhaulHr" })
+                        </div>
+                        <label class="col-md-2">Miniutes:</label>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastTopOverhaulMin, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Minute", style = "width: 80px;", id = "SinceLastTopOverhaulMin" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Since Last Major Overhaul:</label>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastTopOverhaulMin, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Hour", style = "width: 80px;", id = "SinceLastMajorOverhaulHr" })
+                        </div>
+                        <label class="col-md-2">Miniutes:</label>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastTopOverhaulMin, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Minute", style = "width: 80px;", id = "SinceLastMajorOverhaulMin" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Since Commission In BN:</label>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastTopOverhaulMin, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Hour", style = "width: 80px;", id = "SinceCommissionInBNHr" })
+                        </div>
+                        <label class="col-md-2">Miniutes:</label>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastTopOverhaulMin, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Minute", style = "width: 80px;", id = "SinceCommissionInBNMin" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Since Installation:</label>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastTopOverhaulMin, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Hour", style = "width: 80px;", id = "SinceInstallationHr" })
+                        </div>
+                        <label class="col-md-2">Miniutes:</label>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastTopOverhaulMin, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Minute", style = "width: 80px;", id = "SinceInstallationMin" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Remarks:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastTopOverhaulMin, new { @class = "textBoxsize form-control ", PlaceHolder = " Initial Stock (Ltr/Unit)", id = "Remarks" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <a id="AddQuaterlyMainEnginesGeneratorsRunningHours" class="btn btn-primary" style="float:right">+Add</a>
+            </div>
+            <div class="row table-responsive hidden" id="hideOnEmpty1">
+                <table class="table-bordered text-center" id="QuaterlyMainEnginesGeneratorsRunningHoursTable">
+                    <thead>
+                        <tr style="text-align:center">
+                            <th>Machinery Name</th>
+                            <th colspan="2">During Quater</th>
+                            <th colspan="2"> Since Last LO ChangeHr</th>
+                            <th colspan="2"> Since Last Top Overhaul</th>
+                            <th colspan="2">Since Last Major Overhaul </th>
+                            <th colspan="2"> Since Commission In BN</th>
+                            <th colspan="2">Since Installation</th>
+                            <th>Remarks</th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="QuaterlyMainEnginesGeneratorsRunningHours"></tbody>
+                </table>
+            </div>
+        </fieldset>
+        <fieldset class="scheduler-border" style="@(Model.viewCount == 4 ? "display:block" : "display:none")">
+            <legend class="scheduler-border">
+                D. MACHINERY UNDER TRAIL:
+            </legend>
+
+            <!--Row-->
+            <div class="row">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Remarks On Performance of Machinery/Equipment On Trial Stating Occasion of Trial:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.QuaterlyReturn.MachineryUnderTrialRemarks, new { @class = "textBoxsize form-control ", PlaceHolder = "Enter Value", id = "MachineryUnderTrialRemarks" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Row-->
+        </fieldset>
+
+
+        <fieldset class="scheduler-border" style="@(Model.viewCount == 5 ? "display:block" : "display:none")">
+            <legend class="scheduler-border">
+                E. REMARKS OF THE ENGINEER OFFICER:
+            </legend>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Remark Title:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastTopOverhaulMin, new { @class = "textBoxsize form-control ", PlaceHolder = " Initial Stock (Ltr/Unit)", id = "RemarkTitle" })
+                            @Html.TextBoxFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastTopOverhaulMin, new { Type = "hidden", @class = "textBoxsize form-control ", PlaceHolder = " Initial Stock (Ltr/Unit)", id = "QuaterlyReturnEngineerOfficerRemarkId" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Remark Details:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.QuaterlyReturn.QuaterlyMainEnginesGeneratorsRunningHours.FirstOrDefault().SinceLastTopOverhaulMin, new { @class = "textBoxsize form-control ", PlaceHolder = " Initial Stock (Ltr/Unit)", id = "RemarkDetails" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <a id="AddEngineerOfficerRemark" class="btn btn-primary" style="float:right">+Add</a>
+            </div>
+            <div class="row table-responsive hidden" id="hideOnEmpty1">
+                <table class="table-bordered text-center" id="EngineerOfficerRemarkTable">
+                    <thead>
+                        <tr style="text-align:center">
+                            <th>Remarks Title</th>
+                            <th> Remark Details</th>
+                            <th colspan="2"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="EngineerOfficerRemarkTableBody"></tbody>
+                </table>
+            </div>
+
+        </fieldset>
+
+
+        <fieldset class="scheduler-border" style="@(Model.viewCount == 5 ? "display:block" : "display:none")">
+            <legend class="scheduler-border">
+                F. REMARKS OF THE ADMINISTRATIVE AUTHORITY:
+            </legend>
+
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            @Html.TextAreaFor(x => x.QuaterlyReturn.RemarksOfAdministrativeAuthority, new { @class = "textBoxsize form-control ", PlaceHolder = "Enter Value", id = "RemarksOfAdministrativeAuthority" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form_group">
+            <div style="float: right">
+                <button id="saveOrder" type="submit" class="btn btn-danger">Save Order</button>
+                @*<button type="submit" value="Save" class="btn btn-primary" id="saveOrder" />*@
+            </div>
+        </div>
+
+
+        <div><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("QuaterlyReturnIndex", "DamageMachineriesInfo")'">Back to List </button></div>
+        <div class="row">
+            <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                <p id="message"></p>
+            </div>
+        </div>
+
+    }
+</div>
+
+
+
+
+@section scripts{
+    <script>
+            function getOrder(id) {
+                return $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetQuaterlyReturnById", "DamageMachineriesInfo", new { area = "" })',
+                    data: "id=" + id
+                });
+            }
+
+
+
+        $(document).ready(function () {
+            var id = $("#QuaterlyReturnId").val();
+            if (id != 'undifined' && id != null) {
+            $.when(getOrder(id)).then(function (res) {
+                //console.log(res.result.MachinaryRunningHours);
+                var QuaterlyMainEnginesGeneratorsRunningHours = [];
+                var QuaterlyReturnEngineerOfficerRemarks = [];
+                console.log(res.result.QuaterlyReturnEngineerOfficerRemarks);
+
+                $.each(res.result.QuaterlyMainEnginesGeneratorsRunningHours, function (i, v) {
+                    QuaterlyMainEnginesGeneratorsRunningHours.push('<tr><td style = "display:none">' + v.QuaterlyMainEnginesGeneratorsRunningHourId + '</td><td style = "display:none">' + v.MachineGeneratorId + '</td><td>' + v.MachineGeneratorName + '</td><td>' + v.DuringQuaterHr + '</td><td>' + v.DuringQuaterMin + '</td><td>' + v.SinceLastLOChangeHr + '</td><td>' + v.SinceLastLOChangeMin + '</td><td>' + v.SinceLastTopOverhaulHr + '</td><td>' + v.SinceLastTopOverhaulMin + '</td><td>' + v.SinceLastMajorOverhaulHr + '</td><td>' + v.SinceLastMajorOverhaulMin + '</td><td>' + v.SinceCommissionInBNHr + '</td><td>' + v.SinceCommissionInBNMin + '</td><td>' + v.SinceInstallationHr + '</td><td>' + v.SinceInstallationMin + '</td><td>' + v.Remarks + '</td><td><a data-itemId="0" href="#" class="deleteItem1"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td><a data-itemId="0" href="#" class="update1"><i class="fa fa-pencil" aria-hidden="true"></i></a></td></tr>')
+                });
+                $("#QuaterlyMainEnginesGeneratorsRunningHoursTable tbody").append(QuaterlyMainEnginesGeneratorsRunningHours);
+                checkIfNoMachineryRunningHours();
+
+                $.each(res.result.QuaterlyReturnEngineerOfficerRemarks, function (i, v) {
+                    QuaterlyReturnEngineerOfficerRemarks.push('<tr><td style = "display:none">' + v.QuaterlyReturnEngineerOfficerRemarkId + '</td><td>' + v.RemarkTitle + '</td><td>' + v.RemarkDetails + '</td><td><a data-itemId="0" href="#" class="deleteItem1"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td><a data-itemId="0" href="#" class="update1"><i class="fa fa-pencil" aria-hidden="true"></i></a></td></tr>')
+                });
+                $("#EngineerOfficerRemarkTable tbody").append(QuaterlyReturnEngineerOfficerRemarks);
+                checkIfNoMachineryRunningHours();
+
+            }).fail(function (err) {
+                console.log(err);
+            });
+            }
+
+        });
+
+
+        //Auto Hide QuaterlyMainEnginesGeneratorsRunningHours
+        function checkIfNoMachineryRunningHours() {
+            if (document.querySelectorAll(".QuaterlyMainEnginesGeneratorsRunningHours > tr > td").length <= 0) {
+                document.querySelector("#hideOnEmpty1").classList.add("hidden");
+            } else {
+                document.querySelector("#hideOnEmpty1").classList.remove("hidden");
+            }
+        }
+        //===============Add QuaterlyMainEnginesGeneratorsRunningHours=====================
+        $("#AddQuaterlyMainEnginesGeneratorsRunningHours").click(function (e) {
+            e.preventDefault();
+            if ($.trim($("#MachineGeneratorId").val()) == "" || $.trim($("#DuringQuaterHr").val()) == "" || $.trim($("#DuringQuaterMin").val()) == "") return;
+
+            var QuaterlyMainEnginesGeneratorsRunningHourId = $("#QuaterlyMainEnginesGeneratorsRunningHourId").val(),
+                MachineGeneratorId = $("#MachineGeneratorId").val(),
+                MachineGeneratorName = $("#MachineGeneratorId option:selected").text(),
+                DuringQuaterHr = $("#DuringQuaterHr").val(),
+                DuringQuaterMin = $("#DuringQuaterMin").val(),
+                SinceLastLOChangeHr = $("#SinceLastLOChangeHr").val(),
+                SinceLastLOChangeMin = $("#SinceLastLOChangeMin").val(),
+                SinceLastTopOverhaulHr = $("#SinceLastTopOverhaulHr").val(),
+                SinceLastTopOverhaulMin = $("#SinceLastTopOverhaulMin").val(),
+                SinceLastMajorOverhaulHr = $("#SinceLastMajorOverhaulHr").val(),
+                SinceLastMajorOverhaulMin = $("#SinceLastMajorOverhaulMin").val(),
+                SinceCommissionInBNHr = $("#SinceCommissionInBNHr").val(),
+                SinceCommissionInBNMin = $("#SinceCommissionInBNMin").val(),
+                SinceInstallationHr = $("#SinceInstallationHr").val(),
+                SinceInstallationMin = $("#SinceInstallationMin").val(),
+                Remarks = $("#Remarks").val(),
+                QuaterlyMainEnginesGeneratorsRunningHoursTableBody = $("#QuaterlyMainEnginesGeneratorsRunningHoursTable tbody");
+
+            var productItem = '<tr><td style="display:none">' + QuaterlyMainEnginesGeneratorsRunningHourId + '</td><td style="display:none">' + MachineGeneratorId + '</td><td>' + MachineGeneratorName + '</td><td>' + DuringQuaterHr + '</td><td>' + DuringQuaterMin + '</td><td>'
+                + SinceLastLOChangeHr + '</td><td>' + SinceLastLOChangeMin + '</td><td>' + SinceLastTopOverhaulHr + '</td><td>' + SinceLastTopOverhaulMin + '</td><td>' + SinceLastMajorOverhaulHr
+                + '</td><td>' + SinceLastMajorOverhaulMin + '</td><td>' + SinceCommissionInBNHr + '</td><td>' + SinceCommissionInBNMin + '</td><td>' + SinceInstallationHr + '</td><td>'
+                + SinceInstallationMin + '</td><td>' + Remarks + '</td><td><a data-itemId="0" href="#" class="deleteItem1"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td><a data-itemId="0" href="#" class="update1"><i class="fa fa-pencil" aria-hidden="true"></i></a></td></tr>';
+
+            QuaterlyMainEnginesGeneratorsRunningHoursTableBody.append(productItem);
+            clearItem2();
+            checkIfNoMachineryRunningHours();
+        });
+
+        //After Add A New MQuaterlyMainEnginesGeneratorsRunningHours In The List, Clear Clean The Form For Add More Machinery Running Hours
+        function clearItem2() {
+            $("#QuaterlyMainEnginesGeneratorsRunningHourId").val('');
+            $("#MachineGeneratorId").val('');
+            $("#DuringQuaterHr").val('');
+            $("#DuringQuaterMin").val('');
+            $("#SinceLastLOChangeHr").val('');
+            $("#SinceLastLOChangeMin").val('');
+            $("#SinceLastTopOverhaulMin").val('');
+            $("#SinceLastMajorOverhaulHr").val('');
+            $("#SinceLastMajorOverhaulMin").val('');
+            $("#SinceCommissionInBNHr").val('');
+            $("#SinceCommissionInBNMin").val('');
+            $("#SinceInstallationHr").val('');
+            $("#SinceInstallationMin").val('');
+            $("#Remarks").val('');
+            $("#SinceLastTopOverhaulHr").val('');
+
+        }
+
+        // After Add A New QuaterlyMainEnginesGeneratorsRunningHours In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem1', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoMachineryRunningHours();
+                });
+            }
+        });
+
+
+        // update data
+        $(document).on('click', 'a.update1', function (e) {
+            var _tr = $(this).closest('tr');
+            var QuaterlyMainEnginesGeneratorsRunningHourId = $(_tr).find('td:eq(0)').text();
+            var MachineGeneratorId = $(_tr).find('td:eq(1)').text();
+            var DuringQuaterHr = $(_tr).find('td:eq(3)').text();
+            var DuringQuaterMin = $(_tr).find('td:eq(4)').text();
+            var SinceLastLOChangeHr = $(_tr).find('td:eq(5)').text();
+            var SinceLastLOChangeMin = $(_tr).find('td:eq(6)').text();
+            var SinceLastTopOverhaulHr = $(_tr).find('td:eq(7)').text();
+            var SinceLastTopOverhaulMin = $(_tr).find('td:eq(8)').text();
+            var SinceLastMajorOverhaulHr = $(_tr).find('td:eq(9)').text();
+            var SinceLastMajorOverhaulMin = $(_tr).find('td:eq(10)').text();
+            var SinceCommissionInBNHr = $(_tr).find('td:eq(11)').text();
+            var SinceCommissionInBNMin = $(_tr).find('td:eq(12)').text();
+            var SinceInstallationHr = $(_tr).find('td:eq(13)').text();
+            var SinceInstallationMin = $(_tr).find('td:eq(14)').text();
+            var Remarks = $(_tr).find('td:eq(15)').text();
+            $("#QuaterlyMainEnginesGeneratorsRunningHourId").val(QuaterlyMainEnginesGeneratorsRunningHourId);
+            $("#MachineGeneratorId").val(MachineGeneratorId);
+            $("#DuringQuaterHr").val(DuringQuaterHr);
+            $("#DuringQuaterMin").val(DuringQuaterMin);
+            $("#SinceLastLOChangeHr").val(SinceLastLOChangeHr);
+            $("#SinceLastLOChangeMin").val(SinceLastLOChangeMin);
+            $("#SinceLastLOChangeMin").val(SinceLastLOChangeMin);
+            $("#SinceLastTopOverhaulHr").val(SinceLastTopOverhaulHr);
+            $("#SinceLastTopOverhaulHr").val(SinceLastTopOverhaulHr);
+            $("#SinceLastTopOverhaulMin").val(SinceLastTopOverhaulMin);
+            $("#SinceLastTopOverhaulMin").val(SinceLastTopOverhaulMin);
+            $("#SinceLastMajorOverhaulHr").val(SinceLastMajorOverhaulHr);
+            $("#SinceLastMajorOverhaulHr").val(SinceLastMajorOverhaulHr);
+            $("#SinceLastMajorOverhaulMin").val(SinceLastMajorOverhaulMin);
+            $("#SinceLastMajorOverhaulMin").val(SinceLastMajorOverhaulMin);
+            $("#SinceCommissionInBNHr").val(SinceCommissionInBNHr);
+            $("#SinceCommissionInBNMin").val(SinceCommissionInBNMin);
+            $("#SinceInstallationHr").val(SinceInstallationHr);
+            $("#SinceInstallationMin").val(SinceInstallationMin);
+            $("#Remarks").val(Remarks);
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoMachineryRunningHours();
+                });
+            }
+        });
+
+        //After Add A New QuaterlyMainEnginesGeneratorsRunningHours In The List, Clear Clean The Form For Add More QuaterlyMainEnginesGeneratorsRunningHours
+        function clearItem() {
+            $("#OilName").val('');
+            $("#InitialStockLtrOrUnit").val('');
+            $("#ReceivedQtyLtrorUnit").val('');
+            $("#HandoverLtrOrUnit").val('');
+            $("#MonthlyUseltrOrUnit").val('');
+            $("#StockAfterUseLtrOrUnit").val('');
+            $("#OilPerLtRate").val('');
+        }
+        // After Add A New QuaterlyMainEnginesGeneratorsRunningHours In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem2', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoPOLState();
+                });
+            }
+        });
+        // update data
+        $(document).on('click', 'a.update2', function (e) {
+            e.preventDefault();
+            var table = $('table');
+            var row = [];
+            table.find('tr').each(function (i, el) {
+                // no thead
+                if (i != 0) {
+                    var $tds = $(this).find('td');
+                    $tds.each(function (i, el) {
+                        row.push($(this).text());
+                    });
+                }
+            });
+            $("#OilName").val(row[0]);
+            $("#InitialStockLtrOrUnit").val(row[1]);
+            $("#ReceivedQtyLtrorUnit").val(row[2]);
+            $("#HandoverLtrOrUnit").val(row[3]);
+            $("#MonthlyUseltrOrUnit").val(row[4]);
+            $("#StockAfterUseLtrOrUnit").val(row[5]);
+            $("#OilPerLtRate").val(row[6]);
+
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoPOLState();
+                });
+            }
+        });
+
+        //Add Engineer Officer Remark
+        $("#AddEngineerOfficerRemark").click(function (e) {
+            e.preventDefault();
+
+            if ($.trim($("#RemarkTitle").val()) == "" || $.trim($("#RemarkDetails").val()) == "") return;
+
+            var RemarkTitle = $("#RemarkTitle").val(),
+                RemarkDetails = $("#RemarkDetails").val(),
+                EngineerOfficerRemarkTableBody = $("#EngineerOfficerRemarkTable tbody");
+
+            var productItem = '<tr><td  style="display: none;">' + QuaterlyReturnEngineerOfficerRemarkId  + '</td><td>' + RemarkTitle + '</td><td>' + RemarkDetails + '</td><td><a data-itemId="0" href="#" class="deleteItem1"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td><a data-itemId="0" href="#" class="update1"><i class="fa fa-pencil" aria-hidden="true"></i></a></td></tr>';
+            EngineerOfficerRemarkTableBody.append(productItem);
+            clearItem2();
+            checkIfNoMachineryRunningHours();
+        });
+
+        //After Add A New Engineer Officer Remark In The List, Clear Clean The Form For Add More Machinery Running Hours
+        function clearItem2() {
+            $("#QuaterlyReturnEngineerOfficerRemarkId").val('');
+            $("#RemarkTitle").val('');
+            $("#RemarkDetails").val('');
+        }
+
+        //return data;
+        // After Add A New Engineer Officer Remark In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem1', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoMachineryRunningHours();
+                });
+            }
+        });
+        // update data
+        $(document).on('click', 'a.update1', function (e) {
+            var _tr = $(this).closest('tr');
+            var QuaterlyReturnEngineerOfficerRemarkId = $(_tr).find('td:eq(0)').text();
+            var RemarkTitle = $(_tr).find('td:eq(1)').text();
+            var RemarkDetails = $(_tr).find('td:eq(2)').text();
+            $("#QuaterlyReturnEngineerOfficerRemarkId").val(QuaterlyReturnEngineerOfficerRemarkId);
+            $("#RemarkTitle").val(RemarkTitle);
+            $("#RemarkDetails").val(RemarkDetails);
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoMachineryRunningHours();
+                });
+            }
+        });
+
+
+        //Add Engineer Officer Remark
+        $("#AddEngineerOfficerRemark").click(function (e) {
+            e.preventDefault();
+
+            if ($.trim($("#RemarkTitle").val()) == "" || $.trim($("#RemarkDetails").val()) == "") return;
+
+            var RemarkTitle = $("#RemarkTitle").val(),
+                RemarkDetails = $("#RemarkDetails").val(),
+                EngineerOfficerRemarkTableBody = $("#EngineerOfficerRemarkTable tbody");
+
+            var productItem = '<tr><td  style="display: none;">' + QuaterlyReturnEngineerOfficerRemarkId + '</td><td>' + RemarkTitle + '</td><td>' + RemarkDetails + '</td><td><a data-itemId="0" href="#" class="deleteItem1"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td><a data-itemId="0" href="#" class="update1"><i class="fa fa-pencil" aria-hidden="true"></i></a></td></tr>';
+            EngineerOfficerRemarkTableBody.append(productItem);
+            clearItem2();
+            checkIfNoMachineryRunningHours();
+        });
+
+        //After Add A New Engineer Officer Remark In The List, Clear Clean The Form For Add More Machinery Running Hours
+        function clearItem2() {
+            $("#QuaterlyReturnEngineerOfficerRemarkId").val('');
+            $("#RemarkTitle").val('');
+            $("#RemarkDetails").val('');
+        }
+
+        //return data;
+        // After Add A New Engineer Officer Remark In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem1', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoMachineryRunningHours();
+                });
+            }
+        });
+        // update data
+        $(document).on('click', 'a.update1', function (e) {
+            var _tr = $(this).closest('tr');
+            var QuaterlyReturnEngineerOfficerRemarkId = $(_tr).find('td:eq(0)').text();
+            var RemarkTitle = $(_tr).find('td:eq(1)').text();
+            var RemarkDetails = $(_tr).find('td:eq(2)').text();
+            $("#QuaterlyReturnEngineerOfficerRemarkId").val(QuaterlyReturnEngineerOfficerRemarkId);
+            $("#RemarkTitle").val(RemarkTitle);
+            $("#RemarkDetails").val(RemarkDetails);
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoMachineryRunningHours();
+                });
+            }
+        });
+
+
+        //After Click Save Button Pass All Data View To Controller For Save Database
+        function saveOrder(data) {
+            console.log(data);
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/DamageMachineriesInfo/SaveQuaterlyReturn",
+                data: data,
+                success: function (result) {
+                    if (result.ShipId != null) {
+                        window.location.href = "/DamageMachineriesInfo/QuaterlyReturnIndexByShipName?ShipId=" + result.ShipId;
+                    } else {
+                        alert(result.SaveData);
+                    }
+                },
+                error: function () {
+                    document.getElementById("message").innerHTML = "Quaterly Return Information Is Not Correct";
+                }
+            });
+        }
+        //Collect Multiple Data List For Pass To Controller
+        $("#saveOrder").click(function (e) {
+            e.preventDefault();
+            console.log($("#EngineerOfficerRemarks").val());
+
+            var quaterlyMainEnginesGeneratorsRunningHoursArr = [];
+            var quaterlyReturnEngineerOfficerRemarkArr = [];
+            quaterlyMainEnginesGeneratorsRunningHoursArr.length = 0;
+            $.each($("#QuaterlyMainEnginesGeneratorsRunningHoursTable tbody tr"), function () {
+                quaterlyMainEnginesGeneratorsRunningHoursArr.push({
+                    QuaterlyMainEnginesGeneratorsRunningHourId: $(this).find('td:eq(0)').html(),
+                    MachineGeneratorId: $(this).find('td:eq(1)').html(),
+                    DuringQuaterHr: $(this).find('td:eq(3)').html(),
+                    DuringQuaterMin: $(this).find('td:eq(4)').html(),
+                    SinceLastLOChangeHr: $(this).find('td:eq(5)').html(),
+                    SinceLastLOChangeMin: $(this).find('td:eq(6)').html(),
+                    SinceLastTopOverhaulHr: $(this).find('td:eq(7)').html(),
+                    SinceLastTopOverhaulMin: $(this).find('td:eq(8)').html(),
+                    SinceLastMajorOverhaulHr: $(this).find('td:eq(9)').html(),
+                    SinceLastMajorOverhaulMin: $(this).find('td:eq(10)').html(),
+                    SinceCommissionInBNHr: $(this).find('td:eq(11)').html(),
+                    SinceCommissionInBNMin: $(this).find('td:eq(12)').html(),
+                    SinceInstallationHr: $(this).find('td:eq(13)').html(),
+                    SinceInstallationMin: $(this).find('td:eq(14)').html(),
+                    Remarks: $(this).find('td:eq(15)').html(),
+                });
+            });
+            $.each($("#EngineerOfficerRemarkTable tbody tr"), function () {
+                quaterlyReturnEngineerOfficerRemarkArr.push({
+                    QuaterlyReturnEngineerOfficerRemarkId: $(this).find('td:eq(0)').html(),
+                    RemarkTitle: $(this).find('td:eq(1)').html(),
+                    RemarkDetails: $(this).find('td:eq(2)').html()
+                });
+            });
+            var data = JSON.stringify({
+                ShipId: $("#ShipId").val(),
+                ShipStatusId: $("#ShipStatusId").val(),
+                ReturnReportNoId: $("#ReturnReportNoId").val(),
+                ReportYearId: $("#ReportYearId").val(),
+                QuaterlyReturnId: $("#QuaterlyReturnId").val(),
+                UndergoingRefit: $("#UndergoingRefit").val(),
+                Refit: $("#Refit").val(),
+                InDocking: $("#InDocking").val(),
+                UnDocking: $("#UnDocking").val(),
+                MaintancePeriod: $("#MaintancePeriod").val(),
+                FullPowerTrial: $("#FullPowerTrial").val(),
+                NonOplReason: $("#NonOplReason").val(),
+                AtSea: $("#AtSea").val(),
+                DistanceRun: $("#DistanceRun").val(),
+                AtNormalNotice: $("#AtNormalNotice").val(),
+                TimeUnderway: $("#TimeUnderway").val(),
+                TimeAwaitingOrder: $("#TimeAwaitingOrder").val(),
+                PercentOfLubOilQuaterlyConsumption: $("#PercentOfLubOilQuaterlyConsumption").val(),
+                LoadAtSeaQuaterlyConsumption: $("#LoadAtSeaQuaterlyConsumption").val(),
+                LoadAtHarbourQuaterlyConsumption: $("#LoadAtHarbourQuaterlyConsumption").val(),
+                RefrigerantQuaterlyConsumption: $("#RefrigerantQuaterlyConsumption").val(),
+                FreshWaterQuaterlyConsumption: $("#FreshWaterQuaterlyConsumption").val(),
+                MainEngineFuelNameId: $("#MainEngineFuelNameId").val(),
+                MainEngineFuelQuantity: $("#MainEngineFuelQuantity").val(),
+                MainEngineLubOilNameId: $("#MainEngineLubOilNameId").val(),
+                MainEngineLubOilQuantity: $("#MainEngineLubOilQuantity").val(),
+                DGLubOilNameId: $("#DGLubOilNameId").val(),
+                DGLubOilQuantity: $("#DGLubOilQuantity").val(),
+                DGAndOthersFuelNameId: $("#DGAndOthersFuelNameId").val(),
+                DGAndOthersFuelQuantity: $("#DGAndOthersFuelQuantity").val(),
+                OthersLubOilNameId: $("#OthersLubOilNameId").val(),
+                OthersLubOilQuantity: $("#OthersLubOilQuantity").val(),
+                TotalNoOfDay: $("#TotalNoOfDay").val(),
+                MachineryUnderTrialRemarks: $("#MachineryUnderTrialRemarks").val(),
+                EngineerOfficerRemarks: $("#EngineerOfficerRemarks").val(),
+                RemarksOfAdministrativeAuthority: $("#RemarksOfAdministrativeAuthority").val(),
+
+                quaterlyMainEnginesGeneratorsRunningHours: quaterlyMainEnginesGeneratorsRunningHoursArr,
+                QuaterlyReturnEngineerOfficerRemarks: quaterlyReturnEngineerOfficerRemarkArr
+            });
+
+            $.when(saveOrder(data)).then(function (response) {
+
+                console.log(response);
+            }).fail(function (err) {
+
+                    document.getElementById("message").innerHTML = "Quaterly Return Information Is Not Correct";
+                });
+        });
+
+
+
+
+
+
+
+
+        //Casecading
+        $('.shipName').change(function () {
+
+            var $BankNamedropdown = $(this);
+            var targetClass = $BankNamedropdown.attr('TargetClass');
+            var url = $BankNamedropdown.attr('action');
+
+            var bankCode = $BankNamedropdown.val();
+            var option = {
+                url: url,
+                type: 'GET',
+                dataType: 'JSON',
+                data: { shipId: bankCode }
+            };
+
+            // aminul vai
+            //var saveShow = document.getElementById("saveOrder");
+            //saveShow.removeAttribute("disabled");
+            //element.setAttribute("disabled", "disabled");
+            $.ajax(option).done(function (districts) {
+
+                if (districts.length > 0) {
+                    ClearDropDownList(targetClass);
+                    $.each(districts, function () {
+
+                        $("." + targetClass).append($("<option />").val(this.Value).text(this.Text));
+                    });
+                } else {
+                    ClearDropDownList(targetClass);
+                    NotFoundData(targetClass);
+                }
+
+            });
+        });
+        function ClearDropDownList(selector) {
+            $('.' + selector)
+                .find('option').remove()
+                .end().append($('<option>').text("-নির্বাচন করুন-").attr('value', ""));
+        };
+
+        function NotFoundData(targetClass) {
+            $('.' + targetClass)
+                .append($('<option>').text("Not Found").attr('value', ""));
+        };
+
+
+
+    </script>
+}
+
+
+
+
+
+
+
+
+

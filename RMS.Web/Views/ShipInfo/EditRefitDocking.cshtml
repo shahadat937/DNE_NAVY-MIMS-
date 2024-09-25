@@ -1,0 +1,164 @@
+﻿
+@model RMS.Web.Models.ViewModel.ShipInfoViewModel
+@{
+    ViewBag.Title = (Model.ShipInfo.ShipInfoIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+
+<div>
+    @using (Html.BeginForm("SaveRefitDocking", "ShipInfo", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">
+                Refit / Docking Interval and Duration
+            </legend>
+            <br />
+            @if (ViewBag.Title == "Edit")
+            {
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8"Serial Number:</label>
+                            <div class="col-md-8">
+                                @Html.DisplayFor(x => x.ShipInfo.ShipInfoIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                                @Html.HiddenFor(x => x.ShipInfo.ShipInfoIdentity)
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"Ship Name:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.ShipInfo.ControlShipInfoId, Model.ControlShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"Refit Interval:</label>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(x => x.ShipInfo.RefitInterval, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                        </div>
+                        <label class="col-md-1"> Type:</label>
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(x => x.ShipInfo.RefitIntervalType, Model.TimeDurationItemList, "-Select-", new { @class = "dropdownsize form-control", tabindex = 3, style = "width: 110px;", required = "required" })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"Refit Duration:</label>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(x => x.ShipInfo.RefitDuration, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                        </div>
+                        <label class="col-md-1"> Type:</label>
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(x => x.ShipInfo.RefitDurationType, Model.TimeDurationItemList, "-Select-", new { @class = "dropdownsize form-control", tabindex = 3, style = "width: 110px;", required = "required" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"Docking Duration:</label>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(x => x.ShipInfo.DockingDuration, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                        </div>
+
+                        <label class="col-md-1"> Type:</label>
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(x => x.ShipInfo.DockingDurationType, Model.TimeDurationItemList, "-Select-", new { @class = "dropdownsize form-control", tabindex = 3, style = "width: 110px;", required = "required" })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"Last Refit Date:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipInfo.LastRefitDate, "{0:dd MMMM yyyy}", new { @class = "datefrom textBoxsize form-control", id = "LastRefit", tabindex = 5, placeholder = "Enter Date" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"Last Docking Date:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipInfo.LastDockingDate, "{0:dd MMMM yyyy}", new { @class = "datefrom1 textBoxsize form-control", id = "LastDocking", tabindex = 5, placeholder = "Enter Date" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"Next Refit Date:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipInfo.NextRefitDate, "{0:dd MMMM yyyy}", new { @class = "dateto form-control", id = "NextRefit", tabindex = 5, placeholder = "Enter Date" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"Next Docking Date:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipInfo.NextDockingDate, "{0:dd MMMM yyyy}", new { @class = "dateto1 form-control", id = "NextDocking", tabindex = 5, placeholder = "Enter Date" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8"Remarks:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipInfo.Remarks, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+        <div class="form_group">
+            <div style="float: right">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+        <div>@Html.ActionLink("Back to List", "RefitDockingIndex", "ShipInfo", new { @class = "btn btn-primary" })</div>
+        <div class="row">
+            <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                <p>@TempData["message"]</p>
+            </div>
+        </div>
+
+    }
+</div>
+<script type="text/javascript">
+    //onkeypress = " return isNumberKey(event)",
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+</script>

@@ -1,0 +1,99 @@
+﻿@using System.Activities.Expressions
+@using DocumentFormat.OpenXml.Office2010.Excel
+@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.FortnightlyInfoViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading" style="text-align:center">
+        FortNightly Information
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("SearchFortnightlyInfo", "FortnightlyInfo", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-2">
+                            @Html.ActionLink("Add New", "Create", "FortnightlyInfo", new { @class = "btn btn-primary" })
+                        </div>
+                        @*<label class="col-md-2 control-label">Application Role</label>*@
+                        <div class="col-md-5">
+                            @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.ActionLink("Go", "SearchFortnightlyInfo", "FortnightlyInfo", new { @class = "btn btn-info", id = "btnRole" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @using (Html.BeginForm("Update", "FortnightlyInfo", FormMethod.Post))
+        {
+
+            <div class="row">
+                <div class="table-responsive">
+                    <div class="text-right">
+                        <button id="btnUpdate" class=" btn btn-info ">Update</button>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead style="background-color: azure;">
+                            <tr style="background-color: #32CD32;">
+                                <th style="text-align:center"> @Html.Label("Ship Name")</th>
+                                <th class="text-center">@Html.Label("Section")</th>
+                                <th style="text-align: center;">@Html.Label("Work Description")</th>
+                                <th style="text-align: center;">@Html.Label("DR No")</th>
+                                <th style="text-align: center;">@Html.Label("25 %")</th>
+                                <th style="text-align: center;">@Html.Label("50 %")</th>
+                                <th style="text-align: center;">@Html.Label("75 %")</th>
+                                <th style="text-align: center;">@Html.Label("100 %")</th>
+                                <th style="text-align: center;">@Html.Label("Remarks")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var index = 0; index < Model.FortnightlyInfos.Count; index++)
+                            {
+                                <tr>
+
+                                    <td style="text-align:center;padding-top: 15px">
+                                        @Html.DisplayFor(modelItem => Model.FortnightlyInfos[index].ControlShipInfo.ControlName)
+                                        @Html.HiddenFor(modelItem => Model.FortnightlyInfos[index].FortNightlyIdentity )
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => Model.FortnightlyInfos[index].CommonCode.TypeValue)</td>
+                                    <td>@Html.DisplayFor(modelItem => Model.FortnightlyInfos[index].Description)</td>
+                                    <td>@Html.DisplayFor(modelItem => Model.FortnightlyInfos[index].No)</td>
+                                    <td>@Html.CheckBoxFor(modelItem => Model.FortnightlyInfos[index].TwentyFive)</td>
+                                    <td>@Html.CheckBoxFor(modelItem => Model.FortnightlyInfos[index].Fifty)</td>
+                                    <td>@Html.CheckBoxFor(modelItem => Model.FortnightlyInfos[index].SeventyFive)</td>
+                                    <td>@Html.CheckBoxFor(modelItem => Model.FortnightlyInfos[index].Complete)</td>
+                                    <td>
+                                        @Html.TextBoxFor(modelItem => Model.FortnightlyInfos[index].Remarks, new { @class = "form-control long-textbox",style = "width:100%",id ="remark" })
+                                        @Html.HiddenFor(modelItem => Model.FortnightlyInfos[index].Remarks)
+                                    </td>
+                               
+                                   
+                               @if (Model.FortnightlyInfos[index].TwentyFive != true && Model.FortnightlyInfos[index].Fifty != true && Model.FortnightlyInfos[index].SeventyFive != true && Model.FortnightlyInfos[index].Complete !=  true)
+                               {
+                                  <td>
+                                        @Html.ActionLink("Edit", "Create", new { id = Model.FortnightlyInfos[index].FortNightlyIdentity }, new { @class = "btn btn-info" })
+                                    </td>  
+                               }
+                                   
+                                    @*<td>
+                                        @Html.ActionLink("Update", "Update", new { id = Model.FortnightlyInfos[index].FortNightlyIdentity }, new { @class = "btn btn-info" ,id ="btnUpdate"})
+                                    </td>*@
+                                  
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>

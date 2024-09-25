@@ -1,0 +1,84 @@
+﻿@model RMS.Web.Models.ViewModel.BooksAndBrViewModel
+@{
+    ViewBag.Title = (Model.BooksAndBr.BooksAndBrIdentity > 0) ? "Edit" : "Add";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm("Save", "BooksAndBr", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="container">
+                <div class="panel panel-info">
+                    <div class="panel-heading custom-panel-heading">
+                        <h4> Books and BR Information </h4>
+                    </div>
+                    <div class="panel-body">
+                        @if (ViewBag.Title == "Edit")
+                        {
+
+                            <div class="row">
+                                <div class="col-sm-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Serial Number:</label>
+                                        <div class="col-md-8">
+                                            @Html.DisplayFor(x => x.BooksAndBr.BooksAndBrIdentity, "-Select-", new { @class = "dropdownsize form-control cl" })
+                                            @Html.HiddenFor(x => x.BooksAndBr.BooksAndBrIdentity)
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                        <div class="row">
+                       
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Books Name:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.BooksAndBr.BooksAndBrName, new { @class = "textBoxsize form-control cl refno", placeholder = "Enter Books Name", required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Store (PDF File):</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(m => m.ImageUpload, new { type = "file",accept="application/pdf", @class = "btn btn-info form-control", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.BooksAndBr.UrlLink)
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form_group">
+                    <div style="float: right;padding-left: 5px">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div>@Html.ActionLink("Back to List", "Index", "BooksAndBr", new { @class = "btn btn-primary" })</div>
+                <div class="row">
+                    <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                        <p>@TempData["message"]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $(".cl").focus(function () {
+            $(this).css("background-color", "#cccccc");
+        });
+        $(".cl").blur(function () {
+            $(this).css("background-color", "#ffffff");
+        });
+    });
+</script>
+

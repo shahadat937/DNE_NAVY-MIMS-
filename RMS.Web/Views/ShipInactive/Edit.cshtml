@@ -1,0 +1,250 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipInactiveViewModel
+@{
+    ViewBag.Title = (Model.ShipInactive.SInactiveIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+<div>
+    @using (Html.BeginForm("Save", "ShipInactive", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <div class="raw">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">
+                    জাহাজ/ সাবমেরিন সমূহের  সচলতার বিবরণ
+                </legend>
+                <br />
+                @if (ViewBag.Title == "Edit")
+                {
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-8">ক্রমিক নং:</label>
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(x => x.ShipInactive.SInactiveIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                                    @Html.HiddenFor(x => x.ShipInactive.SInactiveIdentity)
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+                <div class="row">
+                    @*<div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-8">Machine Name:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.ShipInactive.MachineryId, Model.MachinerySelectListItems, "-নির্বাচন করুন-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                                </div>
+                            </div>
+                        </div>*@
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">জাহাজের নাম:</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.ShipInactive.ControlShipInfoIdentity, Model.ShipInactiveSelectListItems, "-নির্বাচন করুন-", new { @class = "BankName dropdownsize form-control", tabindex = 9, required = "required", @TargetClass = "DistrictName", @action = "/ShipInactive/GetDistrictByBankCode" })
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-8">ক্রটিপূর্ণ যন্ত্র :</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.ShipInactive.MechineLevel2, Model.ShipSecSelectListItems, "-নির্বাচন করুন-", new { @class = "DistrictName dropdownsize form-control", tabindex = 9, required = "required", @TargetClass = "BranchName", @action = "/ShipInactive/GetBranchNameByDistrict" })
+                                </div>
+
+                            </div>
+                        </div>*@
+                    @*</div>*@
+                    @*<div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-8">ক্রটিপূর্ণ যন্ত্র :</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.ShipInactive.MechineLevel3, Model.ShipThirdSelectListItems, "-নির্বাচন করুন-", new { @class = "BranchName dropdownsize form-control", tabindex = 9, required = "required" })
+                                </div>
+                            </div>
+                        </div>*@
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">ক্রটির বিবরণ:</label>
+                            <div class="col-md-8">
+                                @Html.TextAreaFor(x => x.ShipInactive.CrashDetails, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "বাংলায় লিখুন", required = "required" })
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">ক্রটির তারিখ:</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.ShipInactive.InactiveDate, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control", placeholder = "তারিখ নির্বাচন করুন" })
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">জাহাজের অবস্থা :</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.ShipInactive.ShipStatus, Model.shipStatusSelectedListItem, "-নির্বাচন করুন-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">গৃহীত পদক্ষেপ:</label>
+                            <div class="col-md-8">
+                                @Html.TextAreaFor(x => x.ShipInactive.TakenStap, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "বাংলায় লিখুন", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">Signal Reference:</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.ShipInactive.Reference, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "বাংলায় লিখুন" })
+                                @*@Html.ValidationMessageFor(x=>x.ShipInactive.Reference)*@
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div>@Html.ActionLink("Back to List", "Index", "ShipInactive", new { @class = "btn btn-primary" })</div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section scripts{
+    <script type="text/javascript">
+        //onkeypress = " return isNumberKey(event)",
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+
+
+        //function myFunction() {
+        //    var uri = "http://localhost:6023/User/Edit";
+        //    var res = encodeURI(uri);
+        //    document.getElementById("demo").innerHTML = res;
+        //}
+
+        //$(document).ready(function () {
+        //    $('[data-toggle="tooltip"]').tooltip();
+        //});
+
+        //function showhide() {
+        //    var div = document.getElementById("newpost");
+        //    if (div.style.display !== "none") {
+        //        div.style.display = "none";
+        //    }
+        //}
+
+        //function toUnicode(elmnt) {
+        //    var next;
+        //    if (elmnt.value.length == elmnt.maxLength) {
+        //        next = elmnt.tabIndex + 1;
+        //        //look for the fields with the next tabIndex
+        //        var f = elmnt.form;
+        //        for (var i = 0; i < f.elements.length; i++) {
+        //            if (next <= f.elements[i].tabIndex) {
+        //                f.elements[i].focus();
+        //                break;
+        //            }
+        //        }
+        //    }
+        //}
+
+
+
+
+        $('.BankName').change(function () {
+            var $BankNamedropdown = $(this);
+            var targetClass = $BankNamedropdown.attr('TargetClass');
+            var url = $BankNamedropdown.attr('action');
+
+            var bankCode = $BankNamedropdown.val();
+            var option = {
+                url: url,
+                type: 'GET',
+                dataType: 'JSON',
+                data: { bankCode: bankCode }
+            };
+            $.ajax(option).done(function (districts) {
+                if (districts.length > 0) {
+                    ClearDropDownList(targetClass);
+                    $.each(districts, function () {
+                        $("." + targetClass).append($("<option />").val(this.BranchCode).text(this.BranchName));
+                    });
+                } else {
+                    NotFoundData(targetClass);
+                }
+
+            });
+        });
+
+        $('.DistrictName').change(function () {
+            var $DistrictNamedropdown = $(this);
+            var targetClass = $DistrictNamedropdown.attr('TargetClass');
+            var url = $DistrictNamedropdown.attr('action');
+            var districtCode = $DistrictNamedropdown.val();
+            var option = {
+                url: url,
+                type: 'GET',
+                dataType: 'JSON',
+                data: { districtCode: districtCode }
+            };
+            $.ajax(option).done(function (brnchList) {
+                if (brnchList.length > 0) {
+                    ClearDropDownList(targetClass);
+                    $.each(brnchList, function () {
+                        $("." + targetClass).append($("<option />").val(this.BranchCode).text(this.BranchName));
+                    });
+                } else {
+                    NotFoundData(targetClass);
+                }
+
+            });
+        });
+        function ClearDropDownList(selector) {
+            $('.' + selector)
+                .find('option').remove()
+                .end().append($('<option>').text("-Select-").attr('value', ""));
+        };
+
+        function NotFoundData(targetClass) {
+            $('.' + targetClass)
+                .append($('<option>').text("Not Found").attr('value', ""));
+        };
+    </script>
+}
+

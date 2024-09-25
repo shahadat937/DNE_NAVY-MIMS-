@@ -1,0 +1,101 @@
+﻿@using System.Globalization
+@model RMS.Web.Models.ViewModel.DailyTransactionViewModel
+
+@{
+    ViewBag.Title = "Transaction Reverse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Reverse", "DailyTransaction", FormMethod.Post, new { @class = "verifyTransaction" }))
+{
+    <div class="container">
+        <h4>Transaction Reversal</h4>
+        <div class="row">
+            <div class="col-md-2 col-lg-2">@Html.Label("Total No of Transaction:")</div>
+            <div class="col-md-1 col-lg-1 text-left">@Html.Label(Model.DailyTransactions.Count.ToString(CultureInfo.InvariantCulture))</div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" style="font-size:12px;">
+                <thead style="background-color: mintcream">
+                    <tr>
+                        <th style="background-color:blueviolet"><input type="checkbox" id="selectAll" /></th>
+                        <th>Sl No</th>
+                        <th>Account Code</th>
+                        <th>Voucher No</th>
+                        <th>Transaction Date</th>
+                        <th>Amount(Cr.) in BDT</th>
+                        <th>Amount(Dr.) in BDT</th>
+                        <th>Exchange Rate</th>
+                        <th>Amount(Cr.) in USD</th>
+                        <th>Amount(Dr.) in USD</th>
+                        <th>Currency Code</th>
+                        <th>Description</th>
+                        <th>User ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.DailyTransactions)
+                    {
+                        <tr class="table-hover">
+                            <td><input type="checkbox" value="@item.IdentityNo" name="NoOfTransaction" /></td>
+                            <td>@Html.DisplayFor(modelItem => item.IdentityNo)</td>
+                            <td>@Html.DisplayFor(modelItem => item.AccountCode)</td>
+                            <td>@Html.DisplayFor(modelItem => item.VoucherNo)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TransDate)</td>
+                            <td style="text-align: right">@Html.DisplayFor(modelItem => item.FCredit)</td>
+                            <td style="text-align: right">@Html.DisplayFor(modelItem => item.FDebit)</td>
+                            <td style="text-align: right">@Html.DisplayFor(modelitem => item.ExchangeRate)</td>
+                            <td style="text-align: right">@Html.DisplayFor(modelItem => item.Credit)</td>
+                            <td style="text-align: right">@Html.DisplayFor(modelItem => item.Debit)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Currency)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div><button id="verifyButton" style="height: 30PX;float:right" class="btn btn-primary">Reverse</button></div>
+        <p style="color:red">@Model.Message</p>
+    </div>
+
+}
+
+@section scripts
+{
+
+    <script type="text/javascript">
+        $("tr:odd").css("background-color", "#bbf");
+        $(function () {
+            $('#verifyTransaction').unbind('click').bind('click', function () {
+                var form = $(this).parents("form:first");
+                var url = form.attr('action');
+                var type = form.attr('method');
+                var option = {
+                    url: url,
+                    dataType: 'html',
+                    type: type,
+                    data: form.serialize(),
+                };
+
+                if ($.validator && $.validator.unobtrusive) {
+                    form.validate();
+                    if (!form.valid()) {
+                        return false;
+                    } else {
+                        $.ajax(option).done(function (htmlRespons) {
+                            $("#containnerInfo").html("");
+                            $("#containnerInfo").append(htmlRespons);
+                        });
+                    }
+                }
+            });
+            $('#selectAll').click(function (e) {
+                $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+            });
+        });
+
+    </script>
+}

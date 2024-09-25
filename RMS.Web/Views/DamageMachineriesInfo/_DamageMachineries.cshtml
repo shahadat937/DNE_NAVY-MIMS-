@@ -1,0 +1,120 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.DamageMachineriesInfoViewModel
+@{
+                /**/
+
+                ViewBag.Title = "Index";
+                Layout = null;
+}
+<script src="~/Scripts/APP/datepicker.js"></script>
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>ক্রটিপূর্ণ  প্রকৌশল  যন্ত্রপাতির বিবরণ </h5>
+        </div>
+        <div class="body">
+            <table>
+                <tr>
+                    <td class="col-md-1"><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "DamageMachineriesInfo")'">Add New</button></td>
+
+                    <td class="col-md-11">
+                        @using (Html.BeginForm("SearchByKey", "DamageMachineriesInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                        {
+
+                            <table>
+                                <tr>
+                                    <td class="col-md-3.25">
+                                        <div class="form-group">
+                                            <label class="col-md-5 control-label">Date From:</label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(x => x.DateFrom, "{0: dd MMMM yyyy}", new { @class = "datefrom textBoxsize form-control", PlaceHolder = " Select Date" })
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    @*<td class="col-md-3.25">
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label">Date To:</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.DateTo, "{0: dd MMMM yyyy}", new { @class = "dateto textBoxsize form-control", PlaceHolder = " Select Date" })
+                                                </div>
+
+                                            </div>
+                                        </td>*@
+
+                                    <td class="col-md-1.5">
+                                        @Html.Label("Search Key")
+                                    </td>
+                                    <td class="col-md-2.5">
+                                        @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control search", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </td>
+                                    <td class="col-md-1"> <input type="button" onclick="saveForm(this)" class="btn btn-primary pull-right " data-target="#prev" value="Search" /></td>
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.DamageMachineriesInfos, rowCount: Model.DamageMachineriesInfos.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { MachineriesDescriptionIdentity = "grid" },
+            tableStyle: "webgrid-table webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            firstText: "First",
+            lastText: "Last",
+            nextText: "Next",
+            mode: WebGridPagerModes.All,
+            previousText: "Previous",
+            columns: grid.Columns(
+                                  grid.Column("ক্রমিক নম্বর.", format: item => item.WebGrid.Rows.IndexOf(item) + 1 + Math.Round(Convert.ToDouble(grid.TotalRowCount / grid.PageCount) / grid.RowsPerPage) * grid.RowsPerPage * grid.PageIndex),
+                         grid.Column("ControlShipInfo.ControlName", header: "জাহাজের নাম"),
+                                  grid.Column("MachineryInfo.Machinery", header: "বিবরণ"),
+                                  grid.Column("CommonCode.TypeValue", header: "সচলতা"),
+                grid.Column("DamageDate", header: "ক্রটির তারিখ", format: item => ((item.DamageDate == null) ? "" : item.DamageDate.ToString("dd MMM yyyy"))),
+                grid.Column("RepairTime", header: "সম্ভাব্য মেরামতের সময়"),
+                grid.Column("Remarks", header: "মন্তব্য"),
+                //grid.Column("Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "DamageMachineriesInfo", new { id = item.MachineriesDescriptionIdentity }, null)</text>),
+                                @*grid.Column("Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "DamageMachineriesInfo", new { id = item.MachineriesDescriptionIdentity }, null)</text>),
+                                    grid.Column("Download", format: @<text> @Html.ActionLink("Download", "Download", "DamageMachineriesInfo", new { id1 = item.ShipId, DateFrom2=item.ReportDate }, null)</text>)*@
+                                grid.Column("Edit", format: (m) =>
+                                              {
+
+                                                  return @Html.ActionLink("Edit", "Edit", "DamageMachineriesInfo", new { id = m.MachineriesDescriptionIdentity }, null)
+                                            ;
+
+                                              }, canSort: true),
+            grid.Column("", format: (m) =>
+                                     {
+
+                                         return @Html.ActionLink("Complited", "RunningStatusUpdate", "DamageMachineriesInfo", new { id = m.MachineriesDescriptionIdentity }, null)
+                                   ;
+
+                                     }, canSort: true),
+                    grid.Column("", format: (m) =>
+                                                      {
+
+                                                          return @Html.ActionLink("Inactive", "DamageStatusUpdate", "DamageMachineriesInfo", new { id = m.MachineriesDescriptionIdentity }, null)
+                                                    ;
+
+                                                      }, canSort: true)
+                                     ));
+    }
+</div>
+
+
+

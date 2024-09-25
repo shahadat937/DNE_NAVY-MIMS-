@@ -1,0 +1,154 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.MessageInfoViewModel
+@{
+    ViewBag.Title = (Model.MessageInfo.MessageInfoIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="~/Scripts/jquery-1.12.4.js"></script>
+</head>
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+<div>
+    @using (Html.BeginForm("Save", "MessageInfo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">
+                Message Information
+            </legend>
+            <br />
+            @if (ViewBag.Title == "Edit")
+            {
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">Serial Number:</label>
+                            <div class="col-md-8">
+                                @Html.DisplayFor(x => x.MessageInfo.MessageInfoIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                @Html.HiddenFor(x => x.MessageInfo.MessageInfoIdentity, new { id = "identity" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Message From Date:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MessageInfo.MessageFromDate, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Message To Date:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MessageInfo.MessageToDate, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Message For:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.MessageInfo.MessageFor, Model.RoleSelectListType, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Message:</label>
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.MessageInfo.Message, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Ref:</label>
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.MessageInfo.Remark, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Is Message For All:</label>
+                        <div class="col-md-2">
+                            @Html.CheckBoxFor(x => x.MessageInfo.IsActive, new { id = "IsDefect", @class = "form-control" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form_group">
+            <div style="float: right">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+        <div>@Html.ActionLink("Back to List", "Index", "MessageInfo", new { @class = "btn btn-primary" })</div>
+        <div class="row">
+            <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                <p>@TempData["message"]</p>
+            </div>
+        </div>
+
+
+    }
+</div>
+@section scripts{
+    <script>
+        $('#IsDefect').change(function () {
+            if (this.checked)
+                //$('#defectStatus').fadeIn('slow');
+                $('#defectStatus').show();
+            else {
+                $('.MacDes').val("");
+                $('.MacState').val("");
+                $('#defectStatus').hide();
+            }
+        });
+
+        $(document).ready(function () {
+
+            if ($('#IsDefect').val() == 'true' && $('#identity').val() > 0)
+                //$('#defectStatus').fadeIn('slow');
+                $('#defectStatus').show();
+            else {
+                $('.MacDes').val("");
+                $('.MacState').val("");
+                $('#defectStatus').hide();
+            }
+
+        });
+    </script>
+
+}

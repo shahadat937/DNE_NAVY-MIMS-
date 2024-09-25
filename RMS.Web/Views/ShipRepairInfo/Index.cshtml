@@ -1,0 +1,62 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipRepairViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Ships/Crafts Repair Cost</h3>
+                </div>
+                <div class="card-options">
+                    @Html.ActionLink("Add New", "Edit", "ShipRepairInfo", new { @class = "btn btn-primary", style = "color:#fff;"})
+                </div>
+            </div>
+            <div class="card-body" style="max-height:100% !important">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th class="wd-15p">Ship Name</th>
+                                <th class="wd-20p">Finantial Year</th>
+                                <th class="wd-20p">Docking Start</th>
+                                <th class="wd-20p">Docking End</th>
+                                <th class="wd-20p">Docking Place</th>
+                                <th class="wd-20p">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ShipRepairInfoes)
+                            {
+                            <tr>
+                                <td><a href="@Url.Action("RepairCostDetails", "ShipRepairInfo", new { id = item.ShipRepairIdentity }, null)">@item.ControlShipInfo.ControlName</a></td>
+                                <td>@item.FinantialYear</td>
+                                <td>@string.Format("{0:dd MMM yyyy}", item.DockingStart)</td>
+                                <td>@string.Format("{0:dd MMM yyyy}", item.DockingEnd)</td>
+                                <td>@item.DockingPlace</td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", "ShipRepairInfo", new { id = item.ShipRepairIdentity }, null)
+                                    @Html.ActionLink("Delete", "Delete", "ShipRepairInfo", new { id = item.ShipRepairIdentity }, null)
+                                    @Html.ActionLink("Download", "Download", "ShipRepairInfo", new { id = item.ShipRepairIdentity }, null)
+                                </td>
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->
+
+
+
+

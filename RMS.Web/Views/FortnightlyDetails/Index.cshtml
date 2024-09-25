@@ -1,0 +1,159 @@
+﻿@model RMS.Web.Models.ViewModel.FortnightlyDetailsViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Download", "FortnightlyDetails", FormMethod.Get, new { @class = "UserForm" }))
+    {
+        <br />
+        <div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>রিফিট/ডকিং অগ্রগতি বিবরণ তথ্য</h5>
+        </div>
+       
+    </div>
+</div>
+}
+@using (Html.BeginForm("Save", "FortnightlyDetails", FormMethod.Post, new { @class = "UserForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x=>x.FortnightlyDetail.FortnightlyDeatailsId)
+        <div class="row">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        রিফিট/ডকিং অগ্রগতি বিবরণ তথ্য :
+                    </legend>
+                    <br />
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">রিফিট/ডকিং নির্ধারিত সময়সূচী শুরু তারিখ:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.FortnightlyDetail.RefitDockSelectedStartDate, new { @class = "textBoxsize form-control datefrom", tabindex = 1, placeholder = "তারিখ নির্বাচন করুন" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">রিফিট/ডকিং নির্ধারিত সময়সূচী শেষ তারিখ:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.FortnightlyDetail.RefitDockSelectedEndDate, new { @class = "textBoxsize form-control dateto", tabindex = 2, placeholder = "তারিখ নির্বাচন করুন" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">রিফিট শুরু তারিখ:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.FortnightlyDetail.RefitStartDate, "{0:dd MMMM yyyy}", new { @class = "textBoxsize form-control datefrom1", tabindex = 3, placeholder = "তারিখ নির্বাচন করুন" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">রিফিট শেষ তারিখ:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.FortnightlyDetail.RefitEndDate, new { @class = "textBoxsize form-control dateto1", tabindex = 4, placeholder = "তারিখ নির্বাচন করুন" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">ডকিং শুরু তারিখ:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.FortnightlyDetail.DockingDate, new { @class = "textBoxsize form-control datefrom2", tabindex = 5, placeholder = "তারিখ নির্বাচন করুন" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">আন ডকিং তারিখ:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.FortnightlyDetail.UnDockingDate, new { @class = "textBoxsize form-control dateto2", tabindex = 6, placeholder = "তারিখ নির্বাচন করুন" })
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">অতিবাহিত সময়:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.FortnightlyDetail.ProgressTime, new { @class = "textBoxsize form-control", tabindex = 7, placeholder = "বাংলায় সংখ্যা  লিখুন" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">কার্যের সার্বিক অগ্রগতি:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.FortnightlyDetail.TotalWorkProgress, new { @class = "textBoxsize form-control", tabindex = 8, placeholder = "বাংলায় লিখুন" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">অসামপ্ত কাজ:</label>
+                                
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.FortnightlyDetail.FortnightlyId, Model.FortnightlyInfoListItem, "-Select-", new { @class = "dropdownsize form-control", tabindex = 8 })
+                                </div>
+
+                                @*<div class="col-md-10">
+                                    @foreach (var info in Model.FortnightlyInfos)
+                                    {
+                                        <table class="table table-bordered table-condensed">
+                                            <tr>
+                                                <td class="col-md-4">
+                                                    <label>@Html.DisplayFor(modelItem => info.FortnightlyId)</label>
+                                                   
+                                                </td>
+                                                <td class="col-md-2">
+                                                    <input type="checkbox" name="FortnightlyId" checked="checked" value="@info.FortnightlyId">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    }
+                                </div>*@
+                            </div>
+                        </div>
+                        @*<div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">মন্তব্য:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.FortnightlyInfo.Remarks, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                    </div>
+                                </div>
+                            </div>*@
+
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "FortnightlyDetail")'">Back to List </button></div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+    }

@@ -1,0 +1,217 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.As_AsViewModel
+@{
+    ViewBag.Title = (Model.AsAsInfo.AsAndAsIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+<div>
+    @using (Html.BeginForm("Save", "AsAs", FormMethod.Post, new { enctype = "multipart/form-data", @class = "UserForm" }))
+    {
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">
+            As&As Information
+        </legend>
+        <br />
+        @if (ViewBag.Title == "Edit")
+        {
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Serial Number:</label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(x => x.AsAsInfo.AsAndAsIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                            @Html.HiddenFor(x => x.AsAsInfo.AsAndAsIdentity)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">Ship Name:</label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(x => x.AsAsInfo.ControlShipInfoId, Model.ControlShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">Description Of As As:</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(x => x.AsAsInfo.DescriptionOfAsAs, new { @class = "textBoxsize form-control", id = "DescriptionOfAsAs", placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">Class:</label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(x => x.AsAsInfo.ClassId, Model.ClassSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">Authority:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.AuthorityRemark, new { @class = "textBoxsize form-control", id = "AuthorityRemark", placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">LWL(m):</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.LWLM, new { @class = "textBoxsize form-control", id = "LWLM", placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">Delta(ton):</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.DeltaTon, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">KM(t)(m):</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.KMTM, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">GM(t)(m):</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.GMTM, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">KG(m):</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.KGM, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">LCF(m):</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.LCFM, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">LCG(m):</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.LCGM, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">TPC(ton/cm):</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.TPCTonCm, new { @class = " textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">MCT(m):</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.MCTM, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">Df(m):</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.DFM, new { @class = " textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">Da(m):</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.DAM, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">TRIM(m):</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.MCTM, new { @class = " textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">THETA(deg):</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AsAsInfo.THETADeg, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-md-8">Image Upload:</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.ImageUpload, new { type = "file" })
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+        <div class="form_group">
+            <div style="float: right">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+        <div>@Html.ActionLink("Back to List", "Index", "AsAs", new { @class = "btn btn-primary" })</div>
+        <div class="row">
+            <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                <p>@TempData["message"]</p>
+            </div>
+        </div>
+
+
+    }
+</div>
+
+
+

@@ -1,0 +1,78 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipPowerViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Ship Power Information</h5>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.ActionLink("Add New", "Edit", "ShipPower", new { @class = "btn btn-primary" })
+                </div>
+                <div class="col-md-10">
+                    @using (Html.BeginForm("SearchByKey", "ShipPower", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                    {
+                        <div>
+                            <div class="pull-right">
+                              &nbsp;&nbsp; @Html.SearchButton()&nbsp;
+                            </div>
+                            <div class="pull-right">
+                                @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.ShipPowers, rowCount: Model.ShipPowers.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { shipPowerIdentity = "grid" },
+            tableStyle: "webgrid-table webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            firstText: "First",
+            lastText: "Last",
+            nextText: "Next",
+            mode: WebGridPagerModes.All,
+            previousText: "Previous",
+            columns: grid.Columns(
+                grid.Column("ShipPowerIdentity", header: "Serial No"),
+                grid.Column("ShipId", header: "Ship Id"),
+                grid.Column("ControlShipInfo.ControlName", header: "Ship Name"),
+                grid.Column("Description"),
+                grid.Column("Speed", header: "Speed Kts"),
+                grid.Column("Duration", header: "Duration hrs"),
+                grid.Column("EnduranceHr", header: "Endurance Hr"),
+                grid.Column("EnduranceNm", header: "Endurance Nm"),
+                grid.Column("ShaftSpeed", header: "Shaft RPM"),
+                grid.Column("Power", header: "Power kwb"),
+                grid.Column("FuelConsumption", header: "Consumption ltr/hrs"),
+                grid.Column("Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "ShipPower", new { id = item.shipPowerIdentity }, null)</text>
+                    ),
+                grid.Column("Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "ShipPower", new { id = item.shipPowerIdentity }, null)</text>)
+                                                                                                                                                                                                      
+                ));
+    }
+</div>
+<div>
+    @Html.ActionLink("<<", "ShipControlIndex", "ShipPower", new { @class = "btn btn-primary" })
+</div>
+

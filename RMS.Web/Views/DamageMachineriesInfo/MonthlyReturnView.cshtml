@@ -1,0 +1,284 @@
+﻿@using RMS.Utility
+@using System.Web.UI.WebControls
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.MonthlyReturnViewModel
+@{
+    /**/
+
+    /**/
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (Model.SearchELement != "hide")
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Monthly Return</h3>
+                    </div>
+                    <div class="card-options">
+                        @Html.ActionLink("Add New", "MonthlyReturnEdit", "DamageMachineriesInfo", new { @class = "btn btn-primary", style = "color:#ffffff" })
+                    </div>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("MonthlyReturnView", "DamageMachineriesInfo", FormMethod.Get, new { @class = "submit-allow validation" }))
+                    {
+                        <div class="row row-sm">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group mg-b-0">
+                                    <label class="form-label">Report No: <span class="text-danger">*</span></label>
+                                    @Html.DropDownListFor(x => x.ReportMonthId, Model.ReportMonthSelectListItem, "-Select-", new { @class = "dropdownsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group mg-b-0">
+                                    <label class="form-label">Report Year: <span class="text-danger">*</span></label>
+                                    @Html.DropDownListFor(x => x.ReportYearId, Model.ReportYearSelectListItem, "-Select-", new { @class = "dropdownsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group mg-b-0">
+                                    <label class="form-label">Ship: <span class="text-danger">*</span></label>
+                                    @Html.DropDownListFor(x => x.SearchKey, Model.ShipInfoSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-12">
+                                <label class="form-label"> <span class="text-danger"></span></label>
+                                <button class="btn btn-primary" style="margin-top:22px"><i class="fa fa-search" aria-hidden="true"></i>Search</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-12">
+        <div class="expanel expanel-primary">
+            <div class="expanel-heading">
+                <h3 class="expanel-title" style="text-align:center;">@Model.ShipName</h3>
+                <h3 class="expanel-title" style="text-align:center;">@Model.ReportMonth</h3>
+            </div>
+            <div class="expanel-body">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">1. Defect Machinary Information</h3>
+                            </div>
+                        </div>
+                        <div class="card-body" style="max-height:100% !important">
+                            <div class="table-responsive">
+                                <table id="" class="table table-striped table-bordered text-nowrap w-100">
+                                    <thead>
+                                        <tr>
+                                            <th class="wd-15p">Machine Name</th>
+                                            <th class="wd-15p">Defect Date</th>
+                                            <th class="wd-15p">Defect Reason Detail</th>
+                                            <th class="wd-20p">Defect Action</th>
+                                            <th class="wd-20p">Remarks</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.defectMachinaries)
+                                        {
+                                        <tr>
+                                            <td>@item.MachineryInfo.Machinery</td>
+                                            <td>@string.Format("{0:dd MMM yyyy}", item.DefectDate)</td>
+
+                                            <td>
+                                                <!-- Button trigger modal -->
+                                                <a class="btn btn-primary" data-toggle="modal" data-target="#@("a"+Convert.ToString(item.MachineId))">
+                                                    Defect Reason Detail
+                                                </a>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="@("a"+Convert.ToString(item.MachineId))" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">@item.MachineryInfo.Machinery Defect Reason Detail</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>@item.DefectReasonDetail</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                @*<button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-popover-color="default" data-placement="left" title="" data-content="@item.DefectReasonDetail" data-original-title="Popover bottom" aria-describedby="popover34944">Defect Detail</button>*@
+                                            </td>
+                                            <td>@item.DefectSolution</td>
+                                            <td>@item.Remarks</td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">2. Machinary Running Hours</h3>
+                            </div>
+                        </div>
+                        <div class="card-body" style="max-height:100% !important">
+                            <div class="table-responsive">
+                                <table id="" class="table table-striped table-bordered text-nowrap w-100">
+                                    <thead>
+                                        <tr>
+                                            <th class="wd-15p">Machine Name</th>
+                                            <th class="wd-15p">Hours</th>
+                                            <th class="wd-20p">Minutes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.machinaryRunningHours)
+                                        {
+                                            <tr>
+                                                <td>@item.Machinery</td>
+                                                <td>@item.RunningHr</td>
+                                                <td>@item.RunningMin</td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">3. POL Expense Information</h3>
+                            </div>
+                        </div>
+                        <div class="card-body" style="max-height:100% !important">
+                            <div class="table-responsive">
+                                <table id="" class="table table-striped table-bordered text-nowrap w-100">
+                                    <thead>
+                                        <tr>
+                                            <th class="wd-15p">Oil Name</th>
+                                            <th class="wd-15p">Initial Stock</th>
+                                            <th class="wd-20p">Received</th>
+                                            <th class="wd-20p">Handover</th>
+                                            <th class="wd-20p">Monthly Use</th>
+                                            <th class="wd-20p">Last Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.polExpenseInfos)
+                                        {
+                                            <tr>
+                                                <td>@item.CommonCode.TypeValue</td>
+                                                <td>@item.InitialStockLtrOrUnit</td>
+                                                <td>@item.ReceivedQtyLtrorUnit</td>
+                                                <td>@item.HandoverLtrOrUnit</td>
+                                                <td>@item.MonthlyUseltrOrUnit</td>
+                                                <td>@item.StockAfterUseLtrOrUnit</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">4. POL Unit Price Information</h3>
+                            </div>
+                        </div>
+                        <div class="card-body" style="max-height:100% !important">
+                            <div class="table-responsive">
+                                <table id="" class="table table-striped table-bordered text-nowrap w-100">
+                                    <thead>
+                                        <tr>
+                                            <th class="wd-15p">Oil Name</th>
+                                            <th class="wd-15p">Monthly Use</th>
+                                            <th class="wd-20p">POL Unit Price</th>
+                                            <th class="wd-20p">Total Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.polExpenseInfos)
+                                        {
+                                            <tr>
+                                                <td>@item.CommonCode.TypeValue</td>
+                                                <td>@item.MonthlyUseltrOrUnit</td>
+                                                <td>@item.OilPerLtRate</td>
+                                                <td>@item.OilTotalPrice</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->
+
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <div class="col-md-8">
+                @Html.ActionLink("Approved", "MonthlyReturnAction", "DamageMachineriesInfo", new { id = Model.MonthlyReturnId }, new { @class = "btn btn-success btn-lg" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+        <p>@TempData["message"]</p>
+    </div>
+</div>
+
+
+<style>
+    thead > tr > th {
+        text-align: center;
+        white-space: pre-wrap;
+    }
+
+
+
+    tbody > tr > td {
+        white-space:pre-wrap;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+/*------Pagination-------*/
+
+.page-breadcrumb .breadcrumb-item {
+	color: #868ca2;
+	&.active {
+		color: #6e7687;
+	}
+}
+
+.pagination-simple .page-item {
+	.page-link {
+		background: none;
+		border: none;
+	}
+	&.active .page-link {
+		color: #495057;
+		font-weight: 700;
+	}
+}
+
+.pagination-pager {
+	.page-prev {
+		margin-right: auto;
+	}
+	.page-next {
+		margin-left: auto;
+	}
+}
+
+.page-total-text {
+	margin-right: 1rem;
+	-ms-flex-item-align: center;
+	align-self: center;
+	color: #6e7687;
+}

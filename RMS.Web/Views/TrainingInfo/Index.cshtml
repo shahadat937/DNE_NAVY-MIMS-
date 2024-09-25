@@ -1,0 +1,86 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.TrainingInfoViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Training Information</h5>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.ActionLink("Add New", "Edit", "TrainingInfo", new { @class = "btn btn-primary" })
+                </div>
+                <div class="col-md-10">
+                    @using (Html.BeginForm("Search", "TrainingInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                    {
+                       
+                        <div>
+                            @*<div class="pull-left">
+                                <label>&nbsp;&nbsp;Course Name: &nbsp;&nbsp;</label>
+                            </div>
+                            <div class="pull-left">
+                                @Html.DropDownListFor(x => x.S, Model.NameOfCoursesListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                            </div>
+                            <div class="pull-left">
+                                <label>&nbsp;&nbsp;Rank: &nbsp;&nbsp;</label>
+                            </div>
+                            <div class="pull-left">
+                                @Html.DropDownListFor(x => x.R, Model.RanksListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                            </div>*@
+
+                            <div class="pull-right">
+                                &nbsp;&nbsp;@Html.SearchButton()&nbsp;
+                            </div>
+                            <div class="pull-right">
+                                @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.TrainingInfos, rowCount: Model.TrainingInfos.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { TrainingInfoId = "grid" },
+            tableStyle: "webgrid-table webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            firstText: "First",
+            lastText: "Last",
+            nextText: "Next",
+            mode: WebGridPagerModes.All,
+            previousText: "Previous",
+            columns: grid.Columns(
+                         //grid.Column("TrainingInfoId", header: "Serial No"),
+                         grid.Column("ONOorPNO", header: "P/O NO"),
+                         grid.Column("TrainerName", header: "Name"),
+                         grid.Column("CommonCode.TypeValue", header: "Rank"),
+                         
+                         grid.Column("TrainingType", header: "Type of Training"),
+                         grid.Column("CommonCode1.TypeValue", header: "Name of Course"),
+                                  grid.Column("CommonCode2.TypeValue", header: "Location of Training"),
+                         grid.Column("TrainingFrom", header: "Start Date", format: item => ((item.TrainingFrom == null) ? "" : item.TrainingFrom.ToString("dd MMM yyyy"))),
+                          grid.Column("TrainingTo", header: "End Date", format: item => ((item.TrainingTo == null) ? "" : item.TrainingTo.ToString("dd MMM yyyy"))),
+                         grid.Column("Remarks", header: "Remarks"),
+                grid.Column( "Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "TrainingInfo", new { id = item.TrainingInfoId }, null)</text>),
+                grid.Column( "Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "TrainingInfo", new { id = item.TrainingInfoId }, new { onclick = "return confirm('Are you sure to delete this training information?');" })</text>),
+         grid.Column("Download", format: @<text> @Html.ActionLink("Download", "Download", "TrainingInfo", new { id = item.NameofCourse }, null)</text>)
+                                           ));
+}
+</div>

@@ -1,0 +1,117 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.DeckInfoViewModel
+@{
+    ViewBag.Title = "Add New";
+    Layout = "~/Views/Shared/_Layout.Dialog.cshtml";
+}
+<style type="text/css">
+    .ui-dialog {
+        left: 100px;
+        top: 50px;
+    }
+
+    ul.ui-autocomplete {
+        z-index: 1100;
+    }
+</style>
+@using (Html.BeginForm("Save", "DeckInfo", FormMethod.Post, new { @class = "VoucherForm", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <table style="font-size: 12px">
+        <tr>
+            <td>@Html.Label("Ship Name")</td>
+            <td>@Html.DropDownListFor(x => x.DeckInfo.ShipInfoIdentity, Model.ShipinSelectListItems, "-Select Ship-", new { @class = "dropdownsize form-control", tabindex = 9 })</td>
+            <td>@Html.Label("Deck No")</td>
+            <td>@Html.EditorFor(model=>model.DeckInfo.DechNo,new {htmlAttributes=new{@class="text ui-widget-content ui-corner-all"}})</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Compartment")</td>
+            <td>@Html.EditorFor(model=>model.DeckInfo.Compartment,new{htmlAttributes=new{@class="text ui-widget-content ui-corner-all"}})</td>
+            <td>@Html.Label("Location")</td>
+            <td>@Html.EditorFor(model=>model.DeckInfo.Location,new {htmlAttributes=new{@class="text ui-widget-content ui-corner-all"}})</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Examination Date")</td>
+            <td>@Html.TextBoxFor(model => model.DeckInfo.CheckDate, "{0:dd MMMM yyyy}", new { @class = "datepicker text ui-widget-content ui-corner-all" })</td>
+            <td>@Html.Label("State Plates")</td>
+            <td>@Html.EditorFor(model=>model.DeckInfo.StatePlates,new{htmlAttributes=new{@class="text ui-widget-content ui-corner-all"}})</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("State Frames")</td>
+            <td>@Html.EditorFor(model => model.DeckInfo.StateFrames, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+            <td>@Html.Label("State Rivets")</td>
+            <td>@Html.EditorFor(model => model.DeckInfo.StateRivets, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Cements (If any)")</td>
+            <td>@Html.EditorFor(model => model.DeckInfo.StateCement, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+            <td>@Html.Label("Paint's Description")</td>
+            <td>@Html.EditorFor(model => model.DeckInfo.PaintDescriptio, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+        </tr>
+        <tr>
+            <td >Suction and Discharge Line</td>
+        </tr>
+        <tr>
+            
+            <td>@Html.Label("Weather Clear")</td>
+            <td>@Html.EditorFor(model => model.DeckInfo.PaintState, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+            <td>@Html.Label("State")</td>
+            <td>@Html.EditorFor(model => model.DeckInfo.SanctionDisLineW, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+        </tr>
+        <tr>
+            <td>Suction and Discharge</td>
+        </tr>
+        <tr>
+            <td>and Non Return Values</td>
+        </tr>
+        <tr>
+
+            <td>@Html.Label("Weather Tested")</td>
+            <td>@Html.EditorFor(model => model.DeckInfo.SanctDisNonRW, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+            <td>@Html.Label("State")</td>
+            <td>@Html.EditorFor(model => model.DeckInfo.SanctDisNonRS, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+        </tr>
+        <tr>
+            <td>Watertight Doors,Hatchers,</td>
+        </tr>
+        <tr>
+            <td>Scuttles & Manhole Cover</td>
+        </tr>
+        <tr>
+
+            <td>@Html.Label("Weather Tested")</td>
+            <td>@Html.EditorFor(model => model.DeckInfo.HeadCoverWT, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+            <td>@Html.Label("State")</td>
+            <td>@Html.EditorFor(model => model.DeckInfo.HeadCoverS, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+        </tr>
+        <tr>
+            <td>Defects/Damage</td>
+        </tr>
+        <tr>
+
+            <td>@Html.Label("Description")</td>
+            <td>@Html.EditorFor(model => model.DeckInfo.DefectDes, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+            <td>@Html.Label("Proposal for Repair")</td>
+            <td>@Html.EditorFor(model => model.DeckInfo.DefectActionTaken, new { htmlAttributes = new { @class = "text ui-widget-content ui-corner-all" } })</td>
+        </tr>
+    </table>
+
+    <div class="form_group">
+        <div style="float: right">
+            @Html.SaveButton()
+        </div>
+
+    </div>
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".datepicker").datepicker({
+            dateFormat: 'dd MM yy',
+            yearRange: '1920:' + (new Date().getFullYear() + 5),
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+</script>

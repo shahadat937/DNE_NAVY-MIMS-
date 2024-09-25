@@ -1,0 +1,252 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.RefitDockingScheduleViewModel
+@{
+    ViewBag.Title = (Model.RefitDockingSchedule.RefitDockingIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+<div>
+    <script src="~/Scripts/APP/DateFormat.js"></script>
+    @using (Html.BeginForm("Save", "RefitDockingSchedule", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">
+                Yearly Refit Docking Schedule
+            </legend>
+            <br />
+            @if (ViewBag.Title == "Edit")
+            {
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-4">Serial Number:</label>
+                            <div class="col-md-8">
+                                @Html.DisplayFor(x => x.RefitDockingSchedule.RefitDockingIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                @Html.HiddenFor(x => x.RefitDockingSchedule.RefitDockingIdentity)
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4">Ship Name:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.RefitDockingSchedule.ControlShipInfoId, Model.ControlShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control shipName", tabindex = 9, required = "required", @action = "/RefitDockingSchedule/PreviousDatefind" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4">Docked Name:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.RefitDockingSchedule.Docked, Model.DockedSelectList, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4">Last Refit From:</label>
+                        <div class="col-md-8">
+
+                            @Html.TextBoxFor(x => x.RefitDockingSchedule.LastRefitFrom, "{0: dd MMMM yyyy}", new { @class = " datefrom textBoxsize form-control lrefFrom", placeholder = "Enter Date" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4">Last Refit To:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.RefitDockingSchedule.LastRefitTo, "{0: dd MMMM yyyy}", new { @class = " dateto textBoxsize form-control lrefTo", placeholder = "Enter Date" })
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4">Last Docking From:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.RefitDockingSchedule.LastDockingFrom, "{0: dd MMMM yyyy}", new { @class = " datefrom1 textBoxsize form-control ldocFrom", placeholder = "Enter Date" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4">Last Docking To:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.RefitDockingSchedule.LastDockingTo, "{0: dd MMMM yyyy}", new { @class = " dateto1 textBoxsize form-control ldocTo", placeholder = "Enter Date" })
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4">Planed Next Refit From:</label>
+                        <div class="col-md-8">
+
+                            @Html.TextBoxFor(x => x.RefitDockingSchedule.PNextRefitFrom, "{0: dd MMMM yyyy}", new { @class = " datefrom3 textBoxsize form-control ", placeholder = "Enter Date" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4">Planed Next Refit To:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.RefitDockingSchedule.PNextRefitTo, "{0: dd MMMM yyyy}", new { @class = " dateto3 textBoxsize form-control ", placeholder = "Enter Date" })
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4">Planed Next Docking From:</label>
+                        <div class="col-md-8">
+
+                            @Html.TextBoxFor(x => x.RefitDockingSchedule.PNextDockingFrom, "{0: dd MMMM yyyy}", new { @class = " datefrom2 textBoxsize form-control ", placeholder = "Enter Date" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4">Planed Next Docking To:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.RefitDockingSchedule.PNextDockingTo, "{0: dd MMMM yyyy}", new { @class = " dateto2 textBoxsize form-control ", placeholder = "Enter Date" })
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4">Status :</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.RefitDockingSchedule.StatusId, Model.StatusSelectList, "-Select-", new { @class = "dropdownsize form-control ", tabindex = 9, required = "required", @action = "/RefitDockingSchedule/PreviousDatefind" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-4">Reason:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.RefitDockingSchedule.Reason, new { @class = "textBoxsize form-control", tabindex = 1, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </fieldset>
+
+        <div class="form_group">
+            <div style="float: right">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+        <div>@Html.ActionLink("Back to List", "Index", "RefitDockingSchedule", new { @class = "btn btn-primary" })</div>
+        <div class="row">
+            <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                <p>@TempData["message"]</p>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        function ConvertJsonDateString(jsonDate) {
+            var shortDate = null;
+            if (jsonDate) {
+                var regex = /-?\d+/;
+                var matches = regex.exec(jsonDate);
+                var dt = new Date(parseInt(matches[0]));
+                var month = dt.getMonth() + 1;
+                var monthString = month > 9 ? month : '0' + month;
+                var day = dt.getDate();
+                var dayString = day > 9 ? day : '0' + day;
+                var year = dt.getFullYear();
+                shortDate = monthString + '/' + dayString + '/' + year;
+            }
+            return shortDate;
+        };
+
+
+        $('.shipName').change(function () {
+            var $BankNamedropdown = $(this);
+            var targetClass = $BankNamedropdown.attr('TargetClass');
+            var url = $BankNamedropdown.attr('action');
+
+            var controlCode = $BankNamedropdown.val();
+            var option = {
+                url: url,
+                type: 'GET',
+                dataType: 'JSON',
+                data: { controlCode: controlCode }
+            };
+            $.ajax(option).done(function (districts) {
+
+                if (districts.Result != "1") {
+                    $('.ldocFrom').val('');
+                    $('.ldocTo').val('');
+                    $('.lrefTo').val('');
+                    $('.lrefFrom').val('');
+
+
+                    $('.ldocFrom').prop('readonly', false);
+                    $('.ldocTo').prop('readonly', false);
+                    $('.lrefTo').prop('readonly', false);
+                    $('.lrefFrom').prop('readonly', false);
+                    //$('#sample').css('background-color', '#DEDEDE');
+                }
+                else {
+                    var date = districts.PNextDockingFrom;
+                    var nowDate = new Date(parseInt(date.substr(6)));
+                    $('.ldocFrom').val(nowDate.format("d mmm yyyy"));
+                    var dateto = districts.PNextDockingTo;
+                    var nowDateto = new Date(parseInt(dateto.substr(6)));
+                    $('.ldocTo').val(nowDateto.format("d mmm yyyy"));
+                    var refto = districts.PNextRefitTo;
+                    var nowrefto = new Date(parseInt(refto.substr(6)));
+                    $('.lrefTo').val(nowrefto.format("d mmm yyyy"));
+                    var refFrom = districts.PNextRefitFrom;
+                    var nowrefFrom = new Date(parseInt(refFrom.substr(6)));
+                    $('.lrefFrom').val(nowrefFrom.format("d mmm yyyy"));
+
+
+                    $('.ldocFrom').prop('readonly', true);
+                    $('.ldocTo').prop('readonly', true);
+                    $('.lrefTo').prop('readonly', true);
+                    $('.lrefFrom').prop('readonly', true);
+
+                }
+
+            });
+        });
+    </script>
+}
+
+
+

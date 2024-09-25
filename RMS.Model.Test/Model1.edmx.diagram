@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9c221cfaaf9040b39c8470600a22696d" Name="Diagram1" ZoomLevel="54">
+        <EntityTypeShape EntityType="DNEModel.AccountInformation" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="DNEModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" />
+        <EntityTypeShape EntityType="DNEModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="3.625" />
+        <EntityTypeShape EntityType="DNEModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="DNEModel.AspNetUser" Width="1.5" PointX="3" PointY="2.125" />
+        <EntityTypeShape EntityType="DNEModel.BooksAndBr" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DNEModel.DailyTransaction" Width="1.5" PointX="4.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DNEModel.DamageMachineriesInfo" Width="1.5" PointX="13.5" PointY="81.125" />
+        <EntityTypeShape EntityType="DNEModel.DeckInfo" Width="1.5" PointX="17.25" PointY="75.625" />
+        <EntityTypeShape EntityType="DNEModel.DefectMachinary" Width="1.5" PointX="22.5" PointY="77.75" />
+        <EntityTypeShape EntityType="DNEModel.Documentation" Width="1.5" PointX="14.25" PointY="77.375" />
+        <EntityTypeShape EntityType="DNEModel.EventLog" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DNEModel.FortNightly" Width="1.5" PointX="20.25" PointY="81.5" />
+        <EntityTypeShape EntityType="DNEModel.FortnightlyDetail" Width="1.5" PointX="13.5" PointY="94.875" />
+        <EntityTypeShape EntityType="DNEModel.FortnightlyInfo" Width="1.5" PointX="11.25" PointY="88" />
+        <EntityTypeShape EntityType="DNEModel.FuelConsumption" Width="1.5" PointX="8.25" PointY="146.625" />
+        <EntityTypeShape EntityType="DNEModel.LubOilConsumption" Width="1.5" PointX="11.25" PointY="82.875" />
+        <EntityTypeShape EntityType="DNEModel.MachinaryRunningHour" Width="1.5" PointX="16.5" PointY="72.125" />
+        <EntityTypeShape EntityType="DNEModel.MachineryRunningInfo" Width="1.5" PointX="14.25" PointY="89.75" />
+        <EntityTypeShape EntityType="DNEModel.MajorDemandOrProcure" Width="1.5" PointX="8.25" PointY="112.125" />
+        <EntityTypeShape EntityType="DNEModel.OilRate" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DNEModel.POLExpenseInfo" Width="1.5" PointX="19.5" PointY="76.75" />
+        <EntityTypeShape EntityType="DNEModel.ProcurementSchedule" Width="1.5" PointX="3" PointY="132.125" />
+        <EntityTypeShape EntityType="DNEModel.RefitDockingDefectList" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DNEModel.Reporting" Width="1.5" PointX="8.75" PointY="9.75" />
+        <EntityTypeShape EntityType="DNEModel.RunningHourInfo" Width="1.5" PointX="10.5" PointY="95.25" />
+        <EntityTypeShape EntityType="DNEModel.ShipAndDocking" Width="1.5" PointX="16.25" PointY="83.875" />
+        <EntityTypeShape EntityType="DNEModel.ShipDetail" Width="1.5" PointX="8.25" PointY="75.25" />
+        <EntityTypeShape EntityType="DNEModel.ShipInactive" Width="1.5" PointX="11.25" PointY="77.875" />
+        <EntityTypeShape EntityType="DNEModel.ShipInactiveOrg" Width="1.5" PointX="19.5" PointY="71.125" />
+        <EntityTypeShape EntityType="DNEModel.ShipInfo" Width="1.5" PointX="11.25" PointY="68.75" />
+        <EntityTypeShape EntityType="DNEModel.ShipMovement" Width="1.5" PointX="8.25" PointY="178.125" />
+        <EntityTypeShape EntityType="DNEModel.ShipPower" Width="1.5" PointX="8.25" PointY="167.5" />
+        <EntityTypeShape EntityType="DNEModel.ShipRepairInfo" Width="1.5" PointX="8.25" PointY="189.875" />
+        <EntityTypeShape EntityType="DNEModel.ShipSpeedTrial" Width="1.5" PointX="8.25" PointY="91.25" />
+        <EntityTypeShape EntityType="DNEModel.TrainingInfo" Width="1.5" PointX="3" PointY="126.875" />
+        <EntityTypeShape EntityType="DNEModel.UserLogInfo" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DNEModel.ZoneInfo" Width="1.5" PointX="1.5" PointY="93.75" />
+        <EntityTypeShape EntityType="DNEModel.ApprovedRefitDockingSchedule" Width="1.5" PointX="10.75" PointY="4.75" />
+        <EntityTypeShape EntityType="DNEModel.BankInfo" Width="1.5" PointX="10.75" PointY="8.75" />
+        <EntityTypeShape EntityType="DNEModel.GetNotDoneMachinariesInfo" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DNEModel.MEInfo" Width="1.5" PointX="2.75" PointY="12.75" />
+        <EntityTypeShape EntityType="DNEModel.Org" Width="1.5" PointX="4.75" PointY="12.75" />
+        <EntityTypeShape EntityType="DNEModel.Orgnaization1" Width="1.5" PointX="12.75" PointY="5.75" />
+        <EntityTypeShape EntityType="DNEModel.ProcurementByDNE" Width="1.5" PointX="12.75" PointY="10.75" />
+        <EntityTypeShape EntityType="DNEModel.ShipcommOrgnaization" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DNEModel.ShipInactiveDescription" Width="1.5" PointX="14.75" PointY="5.75" />
+        <EntityTypeShape EntityType="DNEModel.ShipOrgnaization" Width="1.5" PointX="14.75" PointY="9.75" />
+        <EntityTypeShape EntityType="DNEModel.signal" Width="1.5" PointX="12.75" PointY="14.75" />
+        <EntityTypeShape EntityType="DNEModel.UpdateOPlState" Width="1.5" PointX="14.75" PointY="14.75" />
+        <EntityTypeShape EntityType="DNEModel.UpdateOPlState1" Width="1.5" PointX="6.75" PointY="15.75" />
+        <EntityTypeShape EntityType="DNEModel.UserBankInfo" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DNEModel.vAccountInfo" Width="1.5" PointX="8.75" PointY="16.75" />
+        <EntityTypeShape EntityType="DNEModel.View_1" Width="1.5" PointX="16.75" PointY="9.75" />
+        <EntityTypeShape EntityType="DNEModel.vwPontoon" Width="1.5" PointX="10.75" PointY="17.75" />
+        <EntityTypeShape EntityType="DNEModel.vwRefitDokingNotification" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DNEModel.vwShipBankInfo" Width="1.5" PointX="18.75" PointY="5.75" />
+        <EntityTypeShape EntityType="DNEModel.vwShipBranchInfo" Width="1.5" PointX="18.75" PointY="12.75" />
+        <EntityTypeShape EntityType="DNEModel.vwUserProfile" Width="1.5" PointX="12.75" PointY="18.75" />
+        <AssociationConnector Association="DNEModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" />
+        <AssociationConnector Association="DNEModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="DNEModel.FK_FortnightlyDetails_FortnightlyInfo" />
+        <AssociationConnector Association="DNEModel.FK_ShipAndDocking_ZoneInfo" />
+        <AssociationConnector Association="DNEModel.FK_ShipInactiveOrg_ShipInfo" />
+        <AssociationConnector Association="DNEModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="DNEModel.ReturnReportNo" Width="1.5" PointX="12" PointY="65" />
+        <EntityTypeShape EntityType="DNEModel.ReturnReportYear" Width="1.5" PointX="5.375" PointY="19.875" />
+        <EntityTypeShape EntityType="DNEModel.QuaterlyMainEnginesGeneratorsRunningHour" Width="1.5" PointX="21.5" PointY="114.625" />
+        <EntityTypeShape EntityType="DNEModel.AsAndAsInfo" Width="1.5" PointX="8.25" PointY="117.75" />
+        <EntityTypeShape EntityType="DNEModel.RefitDockingSchedule" Width="1.5" PointX="14.25" PointY="116.375" />
+        <EntityTypeShape EntityType="DNEModel.QuaterlyReturn" Width="1.5" PointX="22.25" PointY="65.75" />
+        <EntityTypeShape EntityType="DNEModel.QuaterlyReturnEngineerOfficerRemark" Width="1.5" PointX="24.5" PointY="70.25" />
+        <AssociationConnector Association="DNEModel.FK_QuaterlyMainEnginesGeneratorsRunningHour_QuaterlyReturn" />
+        <AssociationConnector Association="DNEModel.FK_QuaterlyReturn_ReturnReportNo" />
+        <AssociationConnector Association="DNEModel.FK_QuaterlyReturn_ReturnReportYear" />
+        <AssociationConnector Association="DNEModel.FK_QuaterlyReturnEngineerOfficerRemark_QuaterlyReturn" />
+        <EntityTypeShape EntityType="DNEModel.ControlShipInfo" Width="1.5" PointX="6" PointY="92.25" />
+        <AssociationConnector Association="DNEModel.FK_AsAndAsInfo_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_DamageMachineriesInfo_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_DeckInfo_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_Documentation_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_FortNightly_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_FortnightlyInfo_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_FuelConsumption_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_LubOilConsumption_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_MachineryRunningInfo_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_MajorDemandOrProcure_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_QuaterlyMainEnginesGeneratorsRunningHour_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_QuaterlyReturn_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_RefitDockingSchedule_ControlShipId" />
+        <AssociationConnector Association="DNEModel.FK_ShipAndDocking_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_ShipDetails_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_ShipInactive_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_ShipInfo_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_ShipMovement_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_ShipPower_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_ShipRepairInfo_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_ShipSpeedTrial_ControlShipInfo" />
+        <EntityTypeShape EntityType="DNEModel.YearlyReturn" Width="1.5" PointX="8.25" PointY="99.125" />
+        <AssociationConnector Association="DNEModel.FK_YearlyReturn_ControlShipInfo" />
+        <EntityTypeShape EntityType="DNEModel.YearlyReturnDetail" Width="1.5" PointX="10.5" PointY="100.125" />
+        <AssociationConnector Association="DNEModel.FK_YearlyReturnDetails_YearlyReturn" />
+        <EntityTypeShape EntityType="DNEModel.CommonCode" Width="1.5" PointX="0.75" PointY="97" />
+        <EntityTypeShape EntityType="DNEModel.ICE" Width="1.5" PointX="13.25" PointY="100.375" />
+        <AssociationConnector Association="DNEModel.FK_AsAndAsInfo_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_ControlShipInfo_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_ControlShipInfo_CommonCode1" />
+        <AssociationConnector Association="DNEModel.FK_ControlShipInfo_CommonCode2" />
+        <AssociationConnector Association="DNEModel.FK_ControlShipInfo_CommonCode3" />
+        <AssociationConnector Association="DNEModel.FK_DamageMachineriesInfo_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_DeckInfo_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_DefectMachinary_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_Documentation_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_FortNightly_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_FortNightly_CommonCode1" />
+        <AssociationConnector Association="DNEModel.FK_FortnightlyInfo_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_ICE_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_LubOilConsumption_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_MachineryRunningInfo_CommonCode2" />
+        <AssociationConnector Association="DNEModel.FK_MachineryRunningInfo_CommonCode3" />
+        <AssociationConnector Association="DNEModel.FK_POLExpenseInfo_POLExpenseInfo" />
+        <AssociationConnector Association="DNEModel.FK_ProcurementSchedule_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_QuaterlyReturn_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_QuaterlyReturn_CommonCode1" />
+        <AssociationConnector Association="DNEModel.FK_QuaterlyReturn_CommonCode2" />
+        <AssociationConnector Association="DNEModel.FK_QuaterlyReturn_CommonCode3" />
+        <AssociationConnector Association="DNEModel.FK_QuaterlyReturn_CommonCode4" />
+        <AssociationConnector Association="DNEModel.FK_QuaterlyReturn_CommonCode5" />
+        <AssociationConnector Association="DNEModel.FK_RefitDockingSchedule_BranchInfo" />
+        <AssociationConnector Association="DNEModel.FK_ShipDetails_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_ShipInactive_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_ShipInactiveOrg_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_ShipInfo_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_ShipInfo_CommonCode1" />
+        <AssociationConnector Association="DNEModel.FK_ShipInfo_CommonCode2" />
+        <AssociationConnector Association="DNEModel.FK_TrainingInfo_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_TrainingInfo_CommonCode1" />
+        <AssociationConnector Association="DNEModel.FK_TrainingInfo_CommonCode2" />
+        <AssociationConnector Association="DNEModel.FK_YearlyReturn_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_ICE_ControlShipInfo" />
+        <EntityTypeShape EntityType="DNEModel.UserURLRight" Width="1.5" PointX="21.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DNEModel.MonthlyReturn" Width="1.5" PointX="17.25" PointY="87.375" />
+        <AssociationConnector Association="DNEModel.FK_MonthlyReturn_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_MonthlyReturn_ShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_DefectMachinary_DefectMachinary" />
+        <AssociationConnector Association="DNEModel.FK_MachinaryRunningHour_MonthlyReturn" />
+        <AssociationConnector Association="DNEModel.FK_MonthlyReturn_ReturnReportNo" />
+        <AssociationConnector Association="DNEModel.FK_POLExpenseInfo_MonthlyReturn" />
+        <EntityTypeShape EntityType="DNEModel.RoleUserURLRightMapping" Width="1.5" PointX="15.375" PointY="19.75" />
+        <EntityTypeShape EntityType="DNEModel.User" Width="1.5" PointX="6" PointY="81.375" />
+        <EntityTypeShape EntityType="DNEModel.BranchInfo" Width="1.5" PointX="3.75" PointY="85" />
+        <EntityTypeShape EntityType="DNEModel.UserProfile" Width="1.5" PointX="8.25" PointY="85.75" />
+        <AssociationConnector Association="DNEModel.FK_BranchInfo_ZoneInfo" />
+        <AssociationConnector Association="DNEModel.FK_ControlShipInfo_BranchInfo" />
+        <AssociationConnector Association="DNEModel.FK_User_BranchInfo" />
+        <AssociationConnector Association="DNEModel.FK_UserProfile_CommonCode_Designation" />
+        <AssociationConnector Association="DNEModel.FK_UserProfile_CommonCode_Sex" />
+        <AssociationConnector Association="DNEModel.FK_UserProfile_User" />
+        <EntityTypeShape EntityType="DNEModel.MachineryInfo" Width="1.5" PointX="16.25" PointY="95.375" />
+        <AssociationConnector Association="DNEModel.FK_MachineryInfo_CommonCode" />
+        <AssociationConnector Association="DNEModel.FK_MachineryInfo_CommonCode1" />
+        <AssociationConnector Association="DNEModel.FK_MachineryInfo_ControlShipInfo" />
+        <AssociationConnector Association="DNEModel.FK_DamageMachineriesInfo_MachineryInfo" />
+        <AssociationConnector Association="DNEModel.FK_DamageMachineriesInfo_MachineryInfo1" />
+        <AssociationConnector Association="DNEModel.FK_DefectMachinary_MachineryInfo" />
+        <AssociationConnector Association="DNEModel.FK_MachinaryRunningHour_MachineryInfo" />
+        <AssociationConnector Association="DNEModel.FK_QuaterlyMainEnginesGeneratorsRunningHour_MachineryInfo" />
+        <AssociationConnector Association="DNEModel.FK_RunningHourInfo_MachineryInfo" />
+        <EntityTypeShape EntityType="DNEModel.vwNotification" Width="1.5" PointX="0.75" PointY="21.75" />
+        <EntityTypeShape EntityType="DNEModel.Role" Width="1.5" PointX="3.75" PointY="80.375" />
+        <AssociationConnector Association="DNEModel.FK_User_Role" />
+        <EntityTypeShape EntityType="DNEModel.RefitDockingReportExcell" Width="1.5" PointX="21.375" PointY="6.75" />
+        <EntityTypeShape EntityType="DNEModel.MessageInfo" Width="1.5" PointX="6" PointY="76.75" />
+        <AssociationConnector Association="DNEModel.FK_MessageInfo_Role" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

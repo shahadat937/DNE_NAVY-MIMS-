@@ -1,0 +1,172 @@
+﻿@model RMS.Web.Models.ViewModel.AccountInformationViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/App/treeViewNode.css" rel="stylesheet" />
+<style type="text/css">
+    .control-label {
+        text-align: right;
+        margin-top: 10px;
+    }
+</style>
+<br/>
+<div class="container">
+    <div class="col-md-4 col-lg-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">                  
+                    <h3 class="panel-title">Chart Of Accounts List</h3>
+                </div>
+            
+            <div class="panel-body" style="overflow-x:scroll;overflow-y:scroll;height:430px; width:337px">
+                <div class="tree">
+                    <ul>
+                        @foreach (var firstLevel in Model.AccountInformationTreeViews)
+                        {
+                            <li>
+                                <a></a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span style="font-size: 14px; color: #006400">
+                                    @Html.ActionLink(firstLevel.AccountHead + "[" + firstLevel.AccountCode + "]", "Index", "AccountInformation", new { AccountCode = firstLevel.AccountCode }, null)
+                                </span>
+                                <ul>
+                                    @foreach (var secondLevel in firstLevel.AccountInfoTrees)
+                                    {
+                                        <li>
+                                            <a></a><span>&nbsp;&nbsp;</span>
+                                            <span style="font-size: 14px; color: #800000">
+                                                @Html.ActionLink(secondLevel.AccountHead + "[" + secondLevel.AccountCode + "]", "Index", "AccountInformation", new { AccountCode = secondLevel.AccountCode }, null)
+                                            </span>
+                                            <ul>
+                                                @foreach (var thirdLevel in secondLevel.AccountInfoTrees)
+                                                {
+                                                    <li>
+                                                        <a></a><span>&nbsp;&nbsp;</span>
+                                                        <span style="font-size: 14px; color: #1e90ff">
+                                                            @Html.ActionLink(thirdLevel.AccountHead + "[" + thirdLevel.AccountCode + "]", "Index", "AccountInformation", new { AccountCode = thirdLevel.AccountCode }, null)
+                                                        </span>
+                                                        <ul>
+                                                            @foreach (var fourthLevel in thirdLevel.AccountInfoTrees)
+                                                            {
+                                                                <li>
+                                                                    <a></a><span>&nbsp;&nbsp;</span>
+                                                                    <span style="font-size: 14px; color: #1e90ff">
+                                                                        @Html.ActionLink(fourthLevel.AccountHead + "[" + fourthLevel.AccountCode + "]", "Index", "AccountInformation", new { AccountCode = fourthLevel.AccountCode }, null)
+                                                                    </span>
+                                                                </li>
+                                                            }
+                                                        </ul>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-8 col-lg-8">
+@using (Html.BeginForm("Save", "AccountInformation", FormMethod.Post, new { @class = "UserForm" }))
+{
+    @*@Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)*@
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Chart Of Accounts Information </h3>
+            </div>
+            <div class="panel-body" style="height:430px">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="UserName" class="col-md-4 control-label">Parent Code :</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.FirstLevel, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Parent Code" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="UserName" class="col-md-4 control-label">Account Code :</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.AccountCode, new { @class = "textBoxsize form-control", tabindex = 2, autofocus = "autofocus", placeholder = "Account Code" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="UserName" class="col-md-4 control-label">Account Head :</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.AccountHead, new { @class = "textBoxsize form-control", tabindex = 3, autofocus = "autofocus", placeholder = "Account Head" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="UserName" class="col-md-4 control-label">Category :</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.Category, Model.CategoryListItem, "--Select--", new { @class = "Type dropdownsize form-control", tabindex = 4 })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="UserName" class="col-md-4 control-label">Account Status :</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.AccountStatusCode, Model.AccountStatusListItem, "--Select--", new { @class = "Type dropdownsize form-control", tabindex = 5 })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <p style="color:green">@TempData["message"]</p>
+                            </div>
+
+                            <div class="col-md-2">
+                                <input type="submit" id="btnSave" value="Save" class="btn btn-primary" tabindex=16 />
+                            </div>
+
+                            <div class="col-md-5">
+                                @Html.HiddenFor(model => model.AccountCode)
+                                @Html.ActionLink("Delete", "Delete", "AccountInformation",new{AccountCode=Model.AccountCode}, new { @class = "btn btn-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pull-left" id="reportContainner">
+                </div>
+            </div>
+        </div>
+}
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/APP/treeView.js"></script>
+    <script type="text/javascript">
+        $('.showReportParameterFor').click(function () {
+            var url = $(this).attr('action');
+            $('#reportContainner').load(url);
+        });
+    </script>
+}

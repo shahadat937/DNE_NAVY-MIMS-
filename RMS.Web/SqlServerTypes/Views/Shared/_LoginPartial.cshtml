@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNet.Identity
+@using RMS.Utility
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @*@Html.ActionLink("Hello " + User.Identity.GetUserId()+ "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+        
+        <li>
+            <table>
+                <tr>
+                    <td ><img src="~/images/User.png" /></td>
+                    <td><h2 style="color: white">@Html.Label(PortalContext.CurrentUser.UserFullName)</h2></td>
+                </tr>
+            </table>
+        </li>
+
+        @*<li><h4><span class="badge">  @Html.Label(PortalContext.CurrentUser.UserName + ", " + PortalContext.CurrentUser.UserFullName + ", " + PortalContext.CurrentUser.BranchName + ", " + PortalContext.CurrentUser.BankName) </span> </h4>   </li>*@
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        <li><h4 style="color: white"><a href="javascript:document.getElementById('logoutForm').submit()"><img src="~/images/SignOut.png" /></a>Sign Out</h4></li>
+        <li style="margin-left: 5px">
+            <table>
+                <tr>
+                    @*<td ><img src="~/images/a2i.png" /></td>*@
+                    @*<td><h2 style="color: white">@Html.Label(PortalUser.UserName)</h2></td>*@
+                </tr>
+            </table>
+        </li>
+    </ul>
+    }
+}
+

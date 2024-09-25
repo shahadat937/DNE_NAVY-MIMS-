@@ -1,0 +1,111 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.As_AsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">
+                        Hydrostatic Particulars of<span class="badge badge-danger-light">
+                            @if (Model.AsAsInfos.Count > 0)
+                            {
+                                @Model.AsAsInfos.FirstOrDefault().ControlShipInfo.ControlName
+
+                            }
+                        </span>
+                    </h3>
+                </div>
+                <div class="card-options">
+                    @Html.ActionLink("Add New", "Edit", "AsAs", new { @class = "btn btn-primary", style = "color:#fff;" })
+
+                </div>
+            </div>
+            @if (Model.AsAsInfos.Count > 0)
+            {
+                <div class="card-body" style="max-height:100% !important">
+                    <div class="table-responsive">
+                        <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                            <thead>
+                                <tr>
+                                    @*<th rowspan="2">Ship Name</th>*@
+                                    <th rowspan="2">Description of AS & AS</th>
+                                    <th rowspan="2">Class</th>
+                                    <th rowspan="2">Authority</th>
+                                    <th>LWL</th>
+                                    <th>Delta</th>
+                                    <th>KM(t)</th>
+                                    <th>GM(t)</th>
+                                    <th>KG</th>
+                                    <th>LCF</th>
+                                    <th>LCG</th>
+                                    <th>TPC</th>
+                                    <th>MCT</th>
+                                    <th>Df</th>
+                                    <th>Da</th>
+                                    <th>TRIM</th>
+                                    <th>THETA</th>
+
+                                    <th class="wd-20p" rowspan="2">Action</th>
+                                </tr>
+                                <tr>
+                                    <th>(m)</th>
+                                    <th>(ton)</th>
+                                    <th>(m)</th>
+                                    <th>(m)</th>
+                                    <th>(m)</th>
+                                    <th>(m)</th>
+                                    <th>(m)</th>
+                                    <th>(ton/cm)</th>
+                                    <th>(m)</th>
+                                    <th>(m)</th>
+                                    <th>(m)</th>
+                                    <th>(m)</th>
+                                    <th>(deg)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.AsAsInfos)
+                                {
+                                    <tr>
+                                        @*<td>@item.ControlShipInfo.ControlName</td>*@
+                                        <td><button type="button" class="btn btn-pink" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="@item.DescriptionOfAsAs">AsAs Description</button></td>
+                                        <td>@item.CommonCode.TypeValue</td>
+                                        <td>@item.AuthorityRemark</td>
+                                        <td>@item.LWLM</td>
+                                        <td>@item.DeltaTon</td>
+                                        <td>@item.KMTM</td>
+                                        <td>@item.GMTM</td>
+                                        <td>@item.KGM</td>
+                                        <td>@item.LCFM</td>
+                                        <td>@item.LCGM</td>
+                                        <td>@item.TPCTonCm</td>
+                                        <td>@item.MCTM</td>
+                                        <td>@item.DFM</td>
+                                        <td>@item.DAM</td>
+                                        <td>@item.TRIMM</td>
+                                        <td>@item.THETADeg</td>
+                                        <td class="text-center align-middle">
+                                            <div class="btn-group align-top">
+                                                <a href="@Url.Action("Edit", "AsAs", new { id = item.AsAndAsIdentity }, null)" class="btn btn-sm btn-primary badge">Edit</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- Row End-->

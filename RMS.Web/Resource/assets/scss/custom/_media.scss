@@ -1,0 +1,111 @@
+/*------Media-------*/
+
+.media {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: start;
+	align-items: flex-start;
+	margin-top: 15px;
+}
+
+.mediaicon {
+	font-size: 18px;
+	border: 1px solid $primary;
+	background: $primary;
+	color: $white;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	padding: 5px 0px;
+	border-radius: 20px;
+}
+
+.media-body {
+	-ms-flex: 1;
+	flex: 1;
+}
+
+.mediafont {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.media-icon {
+	width: 2rem;
+	height: 2rem;
+	line-height: 2rem;
+	text-align: center;
+	border-radius: 100%;
+}
+
+.media-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+
+/*------ Media object ------*/
+
+.media,
+.media-body {
+	zoom: 1;
+	overflow: hidden;
+}
+
+.media-object {
+	display: block;
+}
+
+.media {
+	img {
+		width: 40px !important;
+		height: 40px !important;
+	}
+	&.media-lg img {
+		width: 70px !important;
+		height: 70px !important;
+	}
+}
+
+.media-right,
+.media>.pull-right {
+	padding-left: 10px;
+}
+
+.media-body,
+.media-left,
+.media-right {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.media-left,
+.media>.pull-left {
+	padding-right: 10px;
+}
+
+.media-heading {
+	margin-top: 0;
+	margin-bottom: 5px;
+}
+
+.media-body h4 {
+	font-weight: 600;
+	font-size: 16px;
+}
+
+.media-middle {
+	vertical-align: middle;
+}
+
+.media-bottom {
+	vertical-align: bottom;
+}
+
+.media-body .dropdown-toggle::after {
+	margin-left: 0 !important;
+}
+
+
+/*------End Media object ------*/

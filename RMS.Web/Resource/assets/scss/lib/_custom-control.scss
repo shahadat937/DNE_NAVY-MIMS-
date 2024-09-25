@@ -1,0 +1,27 @@
+/*------Custom-control-------*/
+
+.custom-controls-stacked .custom-control {
+	margin-bottom: .25rem;
+}
+
+.custom-control-label {
+	margin-bottom: 0;
+	position: unset;
+	vertical-align: middle !important;
+	&:before {
+		border: 1px solid #cacacc;
+		background-color: #eef1f7 ;
+		background-size: .5rem;
+	}
+}
+
+.custom-control-description {
+	line-height: 1.5rem;
+}
+
+.custom-header.card-header {
+	padding: 20px;
+	.card-title {
+		margin-bottom: 1rem;
+	}
+}

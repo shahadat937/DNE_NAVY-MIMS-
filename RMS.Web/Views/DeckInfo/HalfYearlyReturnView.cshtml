@@ -1,0 +1,111 @@
+﻿@using RMS.Utility
+@using System.Web.UI.WebControls
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.YearlyReturnViewModel
+@{
+    /**/
+
+    /**/
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .description {
+        text-align: justify;
+    }
+</style>
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-12">
+        <div class="expanel expanel-primary">
+            <div class="expanel-heading">
+                <h3 class="expanel-title" style="text-align:center;">@Model.ShipName</h3>
+                <h3 class="expanel-title" style="text-align:center;">
+                    Hull & Stracture: @Model.ReportYear
+                </h3>
+            </div>
+            <div class="expanel-body">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                @*<h3 class="card-title">1. Defect Machinary Information</h3>*@
+                            </div>
+                        </div>
+                        <div class="card-body" style="max-height:100% !important">
+                            <div class="table-responsive">
+                                @foreach (var yearlyReturn in Model.YearlyReturns)
+                                {
+                                    <h3 style="font-size:12pt; font-weight:bold;"><u> @(yearlyReturn.CommonCode != null ? yearlyReturn.CommonCode.TypeValue : null ) (@yearlyReturn.FrameNo)</u></h3>
+                                    if (yearlyReturn.YearlyReturnDetails.Count() > 0)
+                                    {
+                                        <table id="" class="table table-striped table-bordered text-nowrap w-100">
+                                            <thead>
+                                                <tr>
+                                                    <th class="wd-15p" rowspan="2">Compartment And Location</th>
+                                                    <th class="wd-15p" rowspan="2">Date of Examination And Air Presure Test</th>
+                                                    <th class="wd-15p" colspan="4">State</th>
+                                                    <th class="wd-15p" colspan="2">Paint</th>
+                                                    <th class="wd-15p" colspan="2">Suction and Discharge Line</th>
+                                                    <th class="wd-15p" colspan="2">Suction, Discharge & Non Return Valves</th>
+                                                    <th class="wd-15p" colspan="2">Watertight Doors, Hatches, Scuttles, & Manhole Cover</th>
+                                                    <th class="wd-15p" colspan="2">Defects/ Damge</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="wd-15p">Plates</th>
+                                                    <th class="wd-15p">Frames</th>
+                                                    <th class="wd-15p">Riverts</th>
+                                                    <th class="wd-15p">Cements</th>
+                                                    <th class="wd-15p">Description</th>
+                                                    <th class="wd-15p">State</th>
+                                                    <th class="wd-15p"> Weather Clear</th>
+                                                    <th class="wd-15p"> State</th>
+                                                    <th class="wd-15p">Weather Tested</th>
+                                                    <th class="wd-15p">State</th>
+                                                    <th class="wd-15p">Weather Tested</th>
+                                                    <th class="wd-15p">State</th>
+                                                    <th class="wd-15p">Description</th>
+                                                    <th class="wd-15p">Action Taken Or Proposal for Repair</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in yearlyReturn.YearlyReturnDetails)
+                                                {
+                                                <tr>
+                                                    <td>@item.CompartmentAndLocation</td>
+                                                    <td>@string.Format("{0:dd MMM yyyy}", item.ExmAndAirPreTestDate)</td>
+                                                    <td>@item.Plates</td>
+                                                    <td>@item.Frames</td>
+                                                    <td>@item.Rivets</td>
+                                                    <td>@item.Cements</td>
+                                                    <td>@item.PaintsDescription</td>
+                                                    <td>@item.PaintsState</td>
+                                                    <td>@item.SuctionAndDischargeLineWhetherClear</td>
+                                                    <td>@item.SuctionAndDischargeLineState</td>
+                                                    <td>@item.SuctionAndDischargeNonReturnValvesWhetherState</td>
+                                                    <td>@item.SuctionAndDischargeNonReturnValvesState</td>
+                                                    <td>@item.WatertightDoorWhetherTested</td>
+                                                    <td>@item.WatertightDoorState</td>
+                                                    <td>@item.DefectsDescription</td>
+                                                    <td>@item.DefectsActionTaken</td>
+                                                </tr>
+                                                }
+
+
+                                            </tbody>
+
+
+                                        </table>
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->

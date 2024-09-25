@@ -1,0 +1,67 @@
+﻿@model IEnumerable<RMS.Model.Role>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="table-responsive">
+        <header>
+            <h2 class="col-sm-offset-5"></h2>
+        </header>
+        <p>
+            @Html.ActionLink("Create Role", "Create", FormMethod.Post, new { @class = "btn btn-primary pull-left" })
+        </p>
+
+        <div style="width:50px;" class="row">
+            .
+        </div>
+        <table class="table table-hover table-bordered">
+            <thead style="background-color: rgba(25, 153, 248, 0.69);">
+                <tr>
+                    <th>
+                        @Html.DisplayName("Role Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Lower Role Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Description")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Active")
+                    </th>
+                    <th>
+                        @Html.Label("Edit")
+                    </th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoleName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LoweredRoleName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsActive)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.RoleId })
+                        </td>
+                    </tr>
+                </tbody>
+            }
+
+        </table>
+
+    </div>
+
+

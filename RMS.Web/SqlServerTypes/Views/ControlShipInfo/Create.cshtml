@@ -1,0 +1,100 @@
+﻿@model  RMS.Web.Models.ViewModel.ControlAccountViewModel
+@{
+    ViewBag.Title = (Model.ControlShipInfoId) > 0 ? "Edit" : "Add New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+<div>
+    @using (Html.BeginForm("SaveControlAccount", "ControlShipInfo", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        @Html.HiddenFor(model => model.ControlShipInfoId)
+        @Html.HiddenFor(model => model.SortOrder)
+        @Html.HiddenFor(model => model.ControlLevel)
+        @Html.HiddenFor(model => model.IsActive)
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        Ship General Information
+                    </legend>
+                    <br />
+                    @if (ViewBag.Title == "Edit")
+                    {
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Serial Number:</label>
+                                <div class="col-md-10" style="text-align:left">
+                                    @Html.DisplayFor(x => x.ControlShipInfoId, "-Select-", new { @class = "dropdownsize form-control", tabindex = 1 })
+                                    @Html.HiddenFor(x => x.ControlShipInfoId)
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Parent Code:</label>
+                            <div class="col-md-10" style="text-align:left">
+                                @Html.TextBoxFor(x => x.ParentCode, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Control Code:</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(x => x.ControlCode, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Control Name:</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(x => x.ControlName, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Control Value:</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(x => x.ControlValue, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Additional Value:</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(x => x.AdditionalValue, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Remarks:</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(x => x.Remarks, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+                <div>@Html.ActionLink("Back to List", "Index", "ControlShipInfo", new { @class = "btn btn-primary" })</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["Msg"]</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+

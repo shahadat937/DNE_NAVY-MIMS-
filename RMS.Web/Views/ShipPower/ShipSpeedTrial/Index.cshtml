@@ -1,0 +1,70 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipSpeedTrialViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Ship Speed Trial Information</h5>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.ActionLink("Add New", "Edit", "ShipSpeedTrial", new { @class = "btn btn-primary" })
+                </div>
+                <div class="col-md-10">
+                    @using (Html.BeginForm("SearchByKey", "ShipSpeedTrial", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                    {
+                        <div>
+                            <div class="pull-right">
+                                &nbsp;&nbsp;@Html.SearchButton()&nbsp;
+                            </div>
+                            <div class="pull-right">
+                                @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.ShipSpeedTrials, rowCount: Model.ShipSpeedTrials.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { ShipSpeedTrialIdentity = "grid" },
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                columns: grid.Columns(
+                                                 grid.Column("ShipSpeedTrialIdentity", header: "Seril No"),
+                                                 grid.Column("ShipInfo.ShipName", header: "Ship Name"),
+                                                 grid.Column("Description", header: "Description"),
+                                                 grid.Column("PortSpeed", header: "PortSpeed"),
+                                                 grid.Column("StbdSpeed", header: "StbdSpeed"),
+                                                 grid.Column("StableSpeed", header: "StableSpeed"),
+                                                 grid.Column("Remarks", header: "Remarks"),
+                                                 //grid.Column("UserId", header: "UserId"),
+                                                 grid.Column("Lastupdate", header: "Lastupdate", format: item => (item.Lastupdate == null) ? "" : item.Lastupdate.ToString("dd MMM yyyy")),
+                                grid.Column("Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "ShipSpeedTrial", new { id = item.ShipSpeedTrialIdentity }, null)</text>),
+                                grid.Column( "Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "ShipSpeedTrial", new { id = item.ShipSpeedTrialIdentity }, null)</text>)
+                                                                                                                                    ));
+    }
+</div>
+

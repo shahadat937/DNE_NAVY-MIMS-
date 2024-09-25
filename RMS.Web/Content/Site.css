@@ -1,0 +1,134 @@
+﻿body {
+
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    color: black;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width:830px ;/*280px*/  /*/////////////change//////////////*/
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+button.edit {
+    background-image: url(icons/32x32/edit.png);
+}
+
+button.delete {
+    background-image: url(icons/32x32/delete.png);
+}
+
+.webgrid button.edit {
+    background-image: url('icons/16x16/edit.png');
+}
+
+.webgrid button.delete {
+    background-image: url('icons/16x16/delete.png');
+}
+
+.ui-dialog {
+    left: 400px;
+    top: 188px;
+}
+
+    .ui-dialog .ui-dialog-titlebar {
+        background: #428bca;
+    }
+
+.alert-confirm .buttons {
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+    margin: 10px 0px 0px 0px;
+    border-top: 1px solid #333333;
+}
+
+    .alert-confirm .buttons span {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        margin: 0px 5px 5px 0px;
+    }
+
+        .alert-confirm .buttons span.ok, .alert-confirm .buttons span.yes {
+            background-image: url('icons/32x32/ok.png');
+        }
+
+        .alert-confirm .buttons span.no {
+            background-image: url('icons/32x32/cancel.png');
+        }
+
+section.search {
+    padding: 10px 0px 10px 10px;
+    border: 1px solid #afafaf;
+    border-radius: 5px;
+}
+
+button.search {
+    background-image: url(icons/24x24/search.png);
+    background-color: transparent;
+    top: 0px;
+    width: 24px;
+    height: 24px;
+}
+
+ul.search {
+    list-style: none;
+    display: inline-block;
+}
+
+    ul.search li {
+        width: auto;
+        float: left;
+        margin: 0px 5px 0px 0px;
+    }
+
+        ul.search li label, ul.search li select {
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        ul.search li input {
+            height: 20px;
+        }
+
+    ul.search button.add-new {
+        background-image: url(icons/24x24/add.png);
+        background-color: transparent;
+        top: 0px;
+        width: 24px;
+        height: 24px;
+    }

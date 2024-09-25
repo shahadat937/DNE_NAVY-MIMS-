@@ -1,0 +1,55 @@
+/*------Mail-------*/
+
+.mail-chats {
+	height: 100%;
+	min-height: 0;
+	border-top: 1px solid $border;
+	margin-top: 10px;
+	padding: 10px 50px 10px 0;
+	width: 100%;
+	list-style-type: none;
+	flex-direction: column !important;
+	display: flex ;
+	li.chat-persons {
+		padding: 10px;
+		display: block;
+	}
+}
+
+li.chat-persons a {
+	text-decoration: none;
+}
+
+.mail-chats li.chat-persons a {
+	span.pro-pic {
+		img {
+			max-width: 100%;
+			width: 100%;
+			-webkit-border-radius: 100%;
+			-moz-border-radius: 100%;
+			-ms-border-radius: 100%;
+			border-radius: 100%;
+			flex-direction: column !important;
+		}
+		display: inline-block;
+		padding: 0;
+		width: 20%;
+		max-width: 40px;
+		float: left;
+		margin-right: 20px;
+	}
+	div.user {
+		flex-direction: column !important;
+	}
+}
+
+ul.mail-chats li.chat-persons a div.user {
+	display: flex !important;
+}
+
+.mail-chats li.chat-persons.user {
+	width: 80%;
+	padding: 5px 10px 0px 15px;
+	flex-direction: column !important;
+	display: flex !important;
+}

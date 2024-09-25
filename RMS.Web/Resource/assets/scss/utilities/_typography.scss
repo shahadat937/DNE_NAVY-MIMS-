@@ -1,0 +1,473 @@
+/*------Typography-------*/
+
+.text-inherit {
+	color: inherit !important;
+}
+
+.text-default {
+	color: #606977 !important;
+}
+
+.text-muted-dark {
+	color: #6e7687 !important;
+}
+
+.tracking-tight {
+	letter-spacing: -0.05em !important;
+}
+
+.tracking-normal {
+	letter-spacing: 0 !important;
+}
+
+.tracking-wide {
+	letter-spacing: 0.05em !important;
+}
+
+.leading-none {
+	line-height: 1 !important;
+	padding-top: 11px;
+}
+
+.leading-tight {
+	line-height: 1.25 !important;
+}
+
+.leading-normal {
+	line-height: 1.5 !important;
+}
+
+.leading-loose {
+	line-height: 3 !important;
+}
+
+.text-blue {
+	color: $color !important;
+}
+
+.text-purple {
+	color: #9a32f9 !important;
+}
+
+.text-lightpink-red {
+	color: #ff7088 !important;
+}
+
+.text-lightgreen {
+	color: #26eda2 !important;
+}
+
+.text-pink {
+	color: #c120c5 !important;
+}
+
+.text-red {
+	color: $danger !important;
+}
+
+
+/*------- Alignments & values-------*/
+
+.text-monospace {
+	font-family: Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.text-justify {
+	text-align: justify !important;
+}
+
+.text-nowrap {
+	white-space: nowrap !important;
+}
+
+.text-truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.text-left {
+	text-align: left !important;
+}
+
+.text-right {
+	text-align: right !important;
+}
+
+.text-center {
+	text-align: center !important;
+}
+
+@media (min-width: 576px) {
+	.text-sm-left {
+		text-align: left !important;
+	}
+	.text-sm-right {
+		text-align: right !important;
+	}
+	.text-sm-center {
+		text-align: center !important;
+	}
+}
+
+@media (min-width: 768px) {
+	.text-md-left {
+		text-align: left !important;
+	}
+	.text-md-right {
+		text-align: right !important;
+	}
+	.text-md-center {
+		text-align: center !important;
+	}
+}
+
+@media (min-width: 992px) {
+	.text-lg-left {
+		text-align: left !important;
+	}
+	.text-lg-right {
+		text-align: right !important;
+	}
+	.text-lg-center {
+		text-align: center !important;
+	}
+}
+
+@media (min-width: 1280px) {
+	.text-xl-left {
+		text-align: left !important;
+	}
+	.text-xl-right {
+		text-align: right !important;
+	}
+	.text-xl-center {
+		text-align: center !important;
+	}
+}
+
+.text-lowercase {
+	text-transform: lowercase !important;
+}
+
+.text-uppercase {
+	text-transform: uppercase !important;
+}
+
+.text-capitalize {
+	text-transform: capitalize !important;
+}
+
+.font-weight-light {
+	font-weight: 300 !important;
+}
+
+.font-weight-normal {
+	font-weight: 400 !important;
+}
+
+.font-weight-semibold {
+	font-weight: 500 !important;
+}
+
+.font-weight-bold {
+	font-weight: 700 !important;
+}
+
+.font-italic {
+	font-style: italic !important;
+}
+
+.text-white {
+	color: $white !important;
+}
+
+.text-gray-white {
+	color: #323233;
+}
+
+.text-primary {
+	color: $primary !important;
+}
+
+a.text-primary {
+	&:hover,
+	&:focus {
+		color: $primary !important;
+	}
+}
+
+.text-secondary {
+	color: $secondary !important;
+}
+
+a.text-secondary {
+	&:hover,
+	&:focus {
+		color: #7d41de !important;
+	}
+}
+
+.text-success {
+	color: $success !important;
+}
+
+a.text-success {
+	&:hover,
+	&:focus {
+		color: #448700 !important;
+	}
+}
+
+.text-info {
+	color: $info !important;
+}
+
+a.text-info {
+	&:hover,
+	&:focus {
+		color: #25a1c0 !important;
+	}
+}
+
+.text-warning {
+	color: $warning !important;
+}
+
+a.text-warning {
+	&:hover,
+	&:focus {
+		color: #c29d0b !important;
+	}
+}
+
+.text-danger {
+	color: $danger !important;
+}
+
+a.text-danger {
+	&:hover,
+	&:focus {
+		color: #df0812 !important;
+	}
+}
+
+.text-light {
+	color: #f8f9fa !important;
+}
+
+a.text-light {
+	&:hover,
+	&:focus {
+		color: #dae0e5 !important;
+	}
+}
+
+.text-dark {
+	color: $color1 !important;
+}
+
+a.text-dark {
+	&:hover,
+	&:focus {
+		color: $color1 !important;
+	}
+}
+
+.text-body {
+	color: #495057 !important;
+}
+
+.text-muted {
+	color: $muted !important;
+}
+
+.text-black-50 {
+	color: $black-5 !important;
+}
+
+.text-white-50 {
+	color: $white-5 !important;
+}
+
+.text-primary-light {
+	color: rgba(215, 200, 234, 0.7);
+}
+
+.text-hide {
+	font: 0/0 a;
+	color: transparent;
+	text-shadow: none;
+	background-color: transparent;
+	border: 0;
+}
+
+.visible {
+	visibility: visible !important;
+}
+
+.invisible {
+	visibility: hidden !important;
+}
+
+.text-wrap {
+	font-size: 14px;
+	line-height: 1.66;
+	> {
+		 :first-child {
+			margin-top: 0;
+		}
+		 :last-child {
+			margin-bottom: 0;
+		}
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			margin-top: 1em;
+		}
+	}
+}
+
+.text-orange {
+	color: $orange !important;
+}
+
+.text-yellow {
+	color: #fdb901 !important;
+}
+
+.text-green {
+	color: $success !important;
+}
+
+.text-teal {
+	color: #2bcbba !important;
+}
+
+.text-cyan {
+	color: $cyan !important;
+}
+
+.text-gray {
+	color: #969696 !important;
+}
+
+.text-gray-dark {
+	color: $dark !important;
+}
+
+.text-azure {
+	color: #28afd0 !important;
+}
+
+.text-lime {
+	color: #7bd235 !important;
+}
+
+.o-auto {
+	overflow: auto !important;
+}
+
+.o-hidden {
+	overflow: hidden !important;
+}
+
+.shadow {
+	box-shadow: 0 1px 2px 0 $black-05 !important;
+}
+
+.shadow-none {
+	box-shadow: none !important;
+}
+
+.text-xxl {
+	font-size: 2rem !important;
+}
+
+
+/*----- Typography ------*/
+
+.fs-1 {
+	font-size: 1rem;
+}
+
+.fs-2 {
+	font-size: 2rem;
+}
+
+.fs-3 {
+	font-size: 3rem;
+}
+
+.fs-4 {
+	font-size: 4rem;
+}
+
+.fs-5 {
+	font-size: 5rem;
+}
+
+.fs-6 {
+	font-size: 6rem;
+}
+
+.heading-inverse {
+	background-color: #333;
+	color: $white;
+	padding: 5px;
+}
+
+.heading-primary {
+	background-color: $primary;
+	color: $white;
+	padding: 5px;
+}
+
+.heading-success {
+	background-color: $secondary;
+	color: $white;
+	padding: 5px;
+}
+
+.heading-info {
+	background-color: #28afd0;
+	color: $white;
+	padding: 5px;
+}
+
+.heading-warning {
+	background-color: #fdb901;
+	color: $white;
+	padding: 5px;
+}
+
+.heading-danger {
+	background-color: $danger;
+	color: $white;
+	padding: 5px;
+}
+
+
+/*----- EndTypography ------*/
+
+.text-right {
+	text-align: right;
+}
+
+.text-sm {
+	font-size: .875rem !important;
+}
+
+.text-white-transparent {
+	color: $white !important;
+	opacity: 0.7;
+}
+.text-blue {
+    color: $black !important;
+}
+.text-blue {
+    color: #0000ff !important;
+}

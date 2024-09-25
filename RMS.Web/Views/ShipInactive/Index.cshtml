@@ -1,0 +1,69 @@
+﻿@using System.Activities.Statements
+@*@using DocumentFormat.OpenXml.Office.CustomUI*@
+@*@using Microsoft.Office.Interop.Excel*@
+@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipInactiveViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lengthOfUserRights = Model.ShipInactives.Count;
+}
+
+
+
+<!-- Row -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">জাহাজ/ সাবমেরিন সমূহের  সচলতার বিবরণ</h3>
+                </div>
+                <div class="card-options">
+                    @Html.ActionLink("Add New", "Edit", "ShipInactive", new { @class = "btn btn-primary", style = "color:#fff;" })
+
+                </div>
+            </div>
+            <div class="card-body" style="max-height:100% !important">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th class="wd-15p">জাহাজের নাম</th>
+                                <th class="wd-15p">ক্রটির বিবরণ</th>
+                                <th class="wd-20p">ক্রটির তারিখ</th>
+                                <th class="wd-20p">গৃহীত পদক্ষেপ</th>
+                                <th class="wd-20p">রেফারেন্স</th>
+                                <th class="wd-20p">Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ShipInactives)
+                            {
+                                <tr>
+                                    <td>@item.ControlShipInfo.ControlName</td>
+                                    <td>@item.CrashDetails</td>
+                                    <td>@string.Format("{0:dd MMM yyyy}", item.InactiveDate)</td>
+                                    <td>@item.TakenStap</td>
+                                    <td>@item.Reference</td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", "ShipInactive", new { id = item.SInactiveIdentity }, null) |
+                                        @Html.ActionLink("Delete", "Delete", "ShipInactive", new { id = item.SInactiveIdentity }, null)
+                                        @if(item.IsCompeleted==false){
+                                         @Html.ActionLink(" | IsCompleted", "ShipInactiveUpdate", "ShipInactive", new { id = item.SInactiveIdentity }, null)
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row End-->

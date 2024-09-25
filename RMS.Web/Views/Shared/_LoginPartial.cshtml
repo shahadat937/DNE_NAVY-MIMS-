@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNet.Identity
+@using RMS.Utility
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+
+<ul class="nav navbar-top-links navbar-right pull-right">
+    <li style="margin-top:10px;">
+        @(PortalContext.CurrentUser.BranchName)
+    </li>
+    <li>
+        @if (@PortalContext.CurrentUser.IsValidate == false)
+        {
+            {
+                Html.RenderAction("Login", "Account");
+            }
+        }
+        else
+        {
+            <div class="dropdown">
+                @{ Html.RenderAction("Notification", "Home"); }
+            </div>
+        }
+    </li>
+    <li style="margin-top:10px;">
+        @Html.ActionLink("Home", "Index", "Home")
+    </li>
+
+    <li class="dropdown header-profile">
+        <span data-toggle="dropdown" class="avatar avatar-md brround cover-image" style="border: #fff !important"><i style="color:#6f6b6b" class="glyphicon glyphicon-off"></i></span>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow p-0">
+            <div class="drop-heading">
+                <div class="text-center">
+                    <h5 class="text-dark mb-0">@(PortalContext.CurrentUser.UserFullName)</h5>
+                    <small class="text-muted">@(PortalContext.CurrentUser.UserRole)</small>
+                </div>
+            </div>
+            <div class="dropdown-divider m-0"></div>
+            <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()" id="doubleLink"><i class="dropdown-icon fe fe-power"></i> Log Out</a>
+        </div>
+    </li>
+</ul>
+
+
+
+    }
+}
+
+<script>
+    document.getElementById("doubleLink").onclick = function () {
+        window.location.href= "/";
+    }
+</script>

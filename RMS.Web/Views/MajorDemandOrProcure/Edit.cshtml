@@ -1,0 +1,165 @@
+﻿
+@using DocumentFormat.OpenXml.Drawing.Charts
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.MajorDemandOrProcureViewModel
+@{
+    ViewBag.Title = (Model.MajorDemandOrProcure.MajorDemandIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    @using (Html.BeginForm("Save", "MajorDemandOrProcure", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <br />
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        অনিয়ন্ত্রিত যন্ত্রপাতি /সামগ্রী:
+                    </legend>
+                    <br />
+                    @if (ViewBag.Title == "Edit")
+                    {
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" style="font-size: .8em;font-family: sans-serif">ক্রমিক নম্বর:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.MajorDemandOrProcure.MajorDemandIdentity, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "বাংলায় সংখ্যা লিখুন " })
+                                        @Html.HiddenFor(x => x.MajorDemandOrProcure.MajorDemandIdentity)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" style="font-size: .8em;font-family: sans-serif">জাহাজের নাম:</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.MajorDemandOrProcure.ShipIdentity, Model.ShipSelectListItems, "-নির্বাচন করুন-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" style="font-size: .8em;font-family: sans-serif">নামমালা:</label>
+                                <div class="col-md-8">
+                                    @Html.TextAreaFor(x => x.MajorDemandOrProcure.MajorDemandName, new{@class = "textBoxsize form-control",tabindex = 5,placeholder = "বাংলায় লিখুন "@*, style = "font-size: 1em;font-family: Tahoma, Arial, Helvetica, sans-serif;"*@ })
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" style="font-size: .8em;font-family: sans-serif">প্রমিতকৃত সকল মডেল সমূহ:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MajorDemandOrProcure.MajorDemandModel, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "বাংলায় লিখুন " })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" style="font-size: .8em;font-family: sans-serif">প্রাধিকার (সংখ্যা):</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MajorDemandOrProcure.AuthorityNumber, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "বাংলায় সংখ্যা  লিখুন " })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" style="font-size: .8em;font-family: sans-serif">মজুদ (সংখ্যা):</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MajorDemandOrProcure.StockedNumber, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "বাংলায় সংখ্যা  লিখুন " })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" style="font-size: .8em;font-family: sans-serif">ক্রয়ের জন্য প্রস্তাবিত সংখ্যা:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MajorDemandOrProcure.ProposalBuyNumber, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "বাংলায় সংখ্যা  লিখুন " })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label " style="font-size: .8em;font-family: sans-serif">র্বর্ণিত আইটেমের জন্য নীতিগত অনুমোদন নেয়া হয়ে থাকলে এবং তা প্রক্রিয়াধীন থাকলে তার সংখ্যা:</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MajorDemandOrProcure.EthicalApprovalNumber, new { @class = "textBoxsize form-control", tabindex = 5, style = "height: 60px;", placeholder = "বাংলায় সংখ্যা  লিখুন " })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" style="font-size: .8em;font-family: sans-serif">একক প্রাক্কলিত/ পূর্ব  মূল্য (ক্রয় বৎসর উল্লেখসহ দেশীয় ও বৈদেশিক মুদ্রা )(একক টাকা):</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MajorDemandOrProcure.BeforePrice, new { @class = "textBoxsize form-control", style = "height: 60px;", tabindex = 5, placeholder = "বাংলায় সংখ্যা  লিখুন " })
+                                </div>
+
+                            </div>
+                        </div>
+              
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" style="font-size: .8em;font-family: sans-serif">ঘাটতি /অতিরিক্ত (সংখ্যা):</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MajorDemandOrProcure.DeficitOrExtraNumber, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "বাংলায় সংখ্যা  লিখুন " })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" style="font-size: .8em;font-family: sans-serif">মোট মূল্য (লক্ষ টাকা):</label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MajorDemandOrProcure.TotalPrice, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "বাংলায় লিখুন " })
+                                </div>
+                            </div>
+                        </div>
+                   
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" style="font-size: .8em;font-family: sans-serif">ক্রয়ের যুক্তিকতা ও মন্তব্য :</label>
+                                <div class="col-md-8">
+                                    @Html.TextAreaFor(x => x.MajorDemandOrProcure.Remarks, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "বাংলায় লিখুন " })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div>@Html.ActionLink("Back to List", "Index", "MajorDemandOrProcure", new { @class = "btn btn-primary" })</div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+
+
+    }
+</div>
+
+

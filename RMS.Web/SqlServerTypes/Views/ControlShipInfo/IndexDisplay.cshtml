@@ -1,0 +1,93 @@
+﻿@using AMS.BLL.TreeView
+@using AMS.Model
+@model AMS.Web.Models.ViewModel.ControlAccountViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@helper ShowCrudLink(ShipChartofAccount control)
+{
+    @*@Html.ActionLink("Create    ", "Create", "ControlShipInfo", new { @class = "AjaxPopup", @action = Url.Action("Create", "ControlShipInfo", new { ParentCode = control.ParentCode, ControlCode = control.ControlCode, SortOrder = control.SortOrder, ControlLevel = control.ControlLevel }), title = "Add" })
+        @Html.ActionLink("/ Edit", "Create", "ControlAccount", new { @class = "AjaxPopup", title = "Edit", @action = Url.Action("Create", "ControlShipInfo", new { ControlShipInfoId = control.ControlShipInfoId, ControlLevel = control.ControlLevel }) })*@
+}
+<link href="~/Content/App/treeView.css" rel="stylesheet" />
+<div style="width:auto; padding-left:260px; margin-top: 20px;">
+    <h2>Ship and Ship's Category Information</h2>
+</div>
+@using (Html.BeginForm())
+{
+    <section class="search">
+
+        <div class="tree panel-body" style="overflow-x:scroll;overflow-y:scroll;height:422px; width:auto">
+            <ul>
+
+                @foreach (var ch1 in Model.ChartofAccounts)
+                {
+                    <li>
+                        <a>  </a>
+
+                        &nbsp; &nbsp; &nbsp;<span style="margin-right: 5px;">
+                            @ch1.ControlName [@ch1.ControlValue]@ShowCrudLink(ch1)
+
+                        </span>
+                        <ul>
+                            @foreach (var ch2 in ch1.Nodes.OrderBy(x => x.ControlCode))
+                            {
+                                <li>
+                                    <a> </a>
+                                    <span> @ch2.ControlName @ShowCrudLink(ch2)</span>
+                                    <ul>
+                                        @foreach (var ch3 in ch2.Nodes.OrderBy(x => x.ControlCode))
+                                        {
+                                            <li>
+                                                <a>  </a>
+                                                <span> @ch3.ControlName = @ch3.ControlValue @ShowCrudLink(ch3)</span>
+
+                                                <ul>
+                                                    @foreach (var ch4 in ch3.Nodes)
+                                                    {
+                                                        <li>
+                                                            <a>   </a>
+                                                            -<span> @ch4.ControlName @ShowCrudLink(ch4)</span>
+
+                                                            <ul>
+                                                                @foreach (var ch5 in ch4.Nodes)
+                                                                {
+                                                                    <li>
+                                                                       
+                                                                        <span>
+                                                                            @ch5.ControlName
+                                                                            @Html.ActionLink("Edit", "Create", "ControlShipInfo", new { @class = "AjaxPopup", title = "Edit", @action = Url.Action("Create", "ControlShipInfo", new { ControlShipInfoId = ch5.ControlShipInfoId, ControlLevel = ch5.ControlLevel }) })
+
+                                                                        </span>
+                                                                    </li>
+                                                                }
+                                                            </ul>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+
+                            }
+                        </ul>
+
+                    </li>
+
+                }
+
+            </ul>
+        </div>
+    </section>
+
+}
+@section scripts
+{
+    <script src="~/Scripts/APP/treeView.js"></script>
+}
+
+
+

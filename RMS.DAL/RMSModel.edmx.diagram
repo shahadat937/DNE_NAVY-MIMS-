@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <edmx:Designer>
+    <edmx:Diagrams>
+      <edmx:Diagram DiagramId="d2e21985c9254307b9c87ed39547b568" Name="Diagram1" ZoomLevel="42">
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.AccountInformation" Width="1.5" PointX="0.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.BooksAndBr" Width="1.5" PointX="2.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.DailyTransaction" Width="1.5" PointX="2.75" PointY="3.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.DamageMachineriesInfo" Width="1.5" PointX="17.25" PointY="99" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.DeckInfo" Width="1.5" PointX="20.25" PointY="87.5" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.DefectMachinary" Width="1.5" PointX="25.5" PointY="78.625" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.Documentation" Width="1.5" PointX="20.25" PointY="83.375" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.EventLog" Width="1.5" PointX="4.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.FortNightly" Width="1.5" PointX="20.25" PointY="95.5" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.FortnightlyDetail" Width="1.5" PointX="25.5" PointY="87.875" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.FortnightlyInfo" Width="1.5" PointX="23.25" PointY="88" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.FuelConsumption" Width="1.5" PointX="11.25" PointY="107" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.LubOilConsumption" Width="1.5" PointX="14.25" PointY="81.875" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.MachinaryRunningHour" Width="1.5" PointX="28.5" PointY="81.25" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.MachineryRunningInfo" Width="1.5" PointX="17.25" PointY="93.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.MajorDemandOrProcure" Width="1.5" PointX="11.25" PointY="96.625" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.OilRate" Width="1.5" PointX="4.75" PointY="4.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.POLExpenseInfo" Width="1.5" PointX="22.5" PointY="95.125" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ProcurementSchedule" Width="1.5" PointX="3" PointY="97.375" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.QuaterlyMainEnginesGeneratorsRunningHour" Width="1.5" PointX="28.5" PointY="85.375" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.RefitDockingDefectList" Width="1.5" PointX="6.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.RefitDockingSchedule" Width="1.5" PointX="17.25" PointY="82.25" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.Reporting" Width="1.5" PointX="6.75" PointY="6.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ReturnReportNo" Width="1.5" PointX="12" PointY="80.625" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ReturnReportYear" Width="1.5" PointX="12" PointY="102.25" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.RunningHourInfo" Width="1.5" PointX="25.5" PointY="92.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ShipAndDocking" Width="1.5" PointX="11.25" PointY="83.875" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ShipDetail" Width="1.5" PointX="20.25" PointY="79.25" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ShipInactive" Width="1.5" PointX="17.25" PointY="88.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ShipInactiveOrg" Width="1.5" PointX="22.5" PointY="99.875" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ShipInfo" Width="1.5" PointX="14.25" PointY="95.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ShipMovement" Width="1.5" PointX="11.25" PointY="74" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ShipPower" Width="1.5" PointX="11.25" PointY="185.5" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ShipRepairInfo" Width="1.5" PointX="11.25" PointY="181.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ShipSpeedTrial" Width="1.5" PointX="11.25" PointY="135.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.TrainingInfo" Width="1.5" PointX="3" PointY="81.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ZoneInfo" Width="1.5" PointX="4.5" PointY="75.75" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_FortnightlyDetails_FortnightlyInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipAndDocking_ZoneInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipInactiveOrg_ShipInfo" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.UpdateOPlState" Width="1.5" PointX="0.75" PointY="9.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.vwShipBranchInfo" Width="1.5" PointX="3.375" PointY="9.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.BankInfo" Width="1.5" PointX="11.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.vwPontoon" Width="1.5" PointX="13.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.vwShipBankInfo" Width="1.5" PointX="0.75" PointY="13.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ApprovedRefitDockingSchedule" Width="1.5" PointX="8.375" PointY="13.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ShipInactiveDescription" Width="1.5" PointX="14.375" PointY="14.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ProcurementByDNE" Width="1.5" PointX="16.375" PointY="5.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.MEInfo" Width="1.5" PointX="10.375" PointY="13.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.UserBankInfo" Width="1.5" PointX="16.375" PointY="9.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.AsAndAsInfo" Width="1.5" PointX="17.25" PointY="72.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.vwRefitDokingNotification" Width="1.5" PointX="16.375" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.QuaterlyReturn" Width="1.5" PointX="25.25" PointY="96.875" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.QuaterlyReturnEngineerOfficerRemark" Width="1.5" PointX="27.5" PointY="101.375" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_QuaterlyMainEnginesGeneratorsRunningHour_QuaterlyReturn" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_QuaterlyReturn_ReturnReportNo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_QuaterlyReturn_ReturnReportYear" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_QuaterlyReturnEngineerOfficerRemark_QuaterlyReturn" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.YearlyReturnDetail" Width="1.5" PointX="13.5" PointY="67.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.UserLogInfo" Width="1.5" PointX="18.375" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ICE" Width="1.5" PointX="20.25" PointY="70" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.vwNotification" Width="1.5" PointX="5.375" PointY="12.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.MonthlyReturn" Width="1.5" PointX="14.25" PointY="86.875" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_DefectMachinary_DefectMachinary" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_MachinaryRunningHour_MonthlyReturn" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_MonthlyReturn_ReturnReportNo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_POLExpenseInfo_MonthlyReturn" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.CommonCode" Width="1.5" PointX="0.75" PointY="83.375" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.ControlShipInfo" Width="1.5" PointX="9" PointY="121.5" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.YearlyReturn" Width="1.5" PointX="11.25" PointY="112.125" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_AsAndAsInfo_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_AsAndAsInfo_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ControlShipInfo_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ControlShipInfo_CommonCode1" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ControlShipInfo_CommonCode2" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ControlShipInfo_CommonCode3" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_DamageMachineriesInfo_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_DeckInfo_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_DefectMachinary_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_Documentation_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_FortNightly_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_FortNightly_CommonCode1" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_FortnightlyInfo_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ICE_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_LubOilConsumption_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_MachineryRunningInfo_CommonCode2" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_MachineryRunningInfo_CommonCode3" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_MonthlyReturn_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_POLExpenseInfo_POLExpenseInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ProcurementSchedule_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_QuaterlyReturn_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_QuaterlyReturn_CommonCode1" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_QuaterlyReturn_CommonCode2" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_QuaterlyReturn_CommonCode3" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_QuaterlyReturn_CommonCode4" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_QuaterlyReturn_CommonCode5" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_RefitDockingSchedule_BranchInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipDetails_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipInactive_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipInactiveOrg_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipInfo_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipInfo_CommonCode1" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipInfo_CommonCode2" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_TrainingInfo_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_TrainingInfo_CommonCode1" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_TrainingInfo_CommonCode2" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_YearlyReturn_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_DamageMachineriesInfo_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_DeckInfo_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_Documentation_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_FortNightly_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_FortnightlyInfo_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_FuelConsumption_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ICE_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_LubOilConsumption_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_MachineryRunningInfo_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_MajorDemandOrProcure_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_MonthlyReturn_ShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_QuaterlyMainEnginesGeneratorsRunningHour_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_QuaterlyReturn_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_RefitDockingSchedule_ControlShipId" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipAndDocking_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipDetails_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipInactive_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipInfo_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipMovement_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipPower_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipRepairInfo_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ShipSpeedTrial_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_YearlyReturn_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_YearlyReturnDetails_YearlyReturn" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.MachineryInfo" Width="1.5" PointX="14.25" PointY="105.625" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_MachineryInfo_CommonCode" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_MachineryInfo_CommonCode1" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_MachineryInfo_ControlShipInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_DamageMachineriesInfo_MachineryInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_DamageMachineriesInfo_MachineryInfo1" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_DefectMachinary_MachineryInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_MachinaryRunningHour_MachineryInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_QuaterlyMainEnginesGeneratorsRunningHour_MachineryInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_RunningHourInfo_MachineryInfo" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.UserURLRight" Width="1.5" PointX="5.375" PointY="17.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.RoleUserURLRightMapping" Width="1.5" PointX="9.375" PointY="8.75" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.User" Width="1.5" PointX="9" PointY="88.625" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.BranchInfo" Width="1.5" PointX="6.75" PointY="125.875" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.UserProfile" Width="1.5" PointX="11.25" PointY="86.875" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_BranchInfo_ZoneInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_ControlShipInfo_BranchInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_User_BranchInfo" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_UserProfile_CommonCode_Designation" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_UserProfile_CommonCode_Sex" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_UserProfile_User" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.Role" Width="1.5" PointX="6.75" PointY="92.75" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_User_Role" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.MessageInfo" Width="1.5" PointX="9" PointY="95.125" />
+        <edmx:AssociationConnector Association="RM_AGBModel.FK_MessageInfo_Role" />
+        <edmx:EntityTypeShape EntityType="RM_AGBModel.RefitDockingReportExcell" Width="1.5" PointX="7.375" PointY="17.75" />
+        </edmx:Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

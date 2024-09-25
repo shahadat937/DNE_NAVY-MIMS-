@@ -1,0 +1,713 @@
+﻿@using System.Web.UI.WebControls
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.YearlyReturnViewModel
+@{
+    ViewBag.Title = (Model.YearlyReturn.YearlyReturnId > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+
+<style>
+    .deleteItem, .deleteItem1, .deleteItem2 {
+        background-color: #f44336;
+        color: white;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        border-radius: 3px;
+    }
+
+        .deleteItem:hover, .deleteItem1:hover, .deleteItem2:hover {
+            background-color: red;
+            color: white;
+        }
+
+    .update, .update1, .update2 {
+        background-color: #F0AD4E;
+        color: white;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        border-radius: 3px;
+    }
+
+        .update:hover, .update1:hover, .update2:hover {
+            background-color: red;
+            color: white;
+        }
+
+    th {
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+</style>
+
+<div>
+    @using (Html.BeginForm("SaveHalfYearlyReturn", "DeckInfo", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">
+                Basic Information :
+            </legend>
+            @Html.TextBoxFor(x => x.YearlyReturn.YearlyReturnId, new { Type = "hidden", @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "YearlyReturnId" })
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Ship Name<span style="color:red; font-size:16px;">*</span>:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.YearlyReturn.ShipId, Model.ShipInfoSelectListItems, "Select Ship Name", new { @class = "dropdownsize form-control shipName", @TargetClass = "DistrictName", @action = "/DamageMachineriesInfo/GetMachinariesInformation", id = "ShipId", required = "required" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Report Year<span style="color:red; font-size:16px;">*</span>:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.YearlyReturn.YearId, Model.ReportYearSelectListItem, "Select Report Year", new { @class = "dropdownsize form-control", id = "YearId" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Deck No<span style="color:red; font-size:16px;">*</span>:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.YearlyReturn.DeskNoId, Model.DeskNoSelectListItem, "Select Deck", new { @class = "dropdownsize form-control", id = "DeskNoId" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Frame No<span style="color:red; font-size:16px;">*</span>:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.YearlyReturn.FrameNo, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "FrameNo" })
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </fieldset>
+
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">
+                Yearly Return Details:
+            </legend>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Compartments & Location:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "CompartmentAndLocation" })
+                            @Html.TextBoxFor(x => x.ReportMonth, new { Type = "hidden", @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "YearlyReturnDetailsId" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Examination And Air Presure Test Date:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, "{0:dd MMMM yyyy}", new { @class = "textBoxsize form-control datepicker", PlaceHolder = "Enter Value", id = "ExmAndAirPreTestDate" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            State Plates:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "Plates" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            State Frames:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "Frames" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            State Riverts:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "Rivets" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            State Cements:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "Cements" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Paint Description:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "PaintsDescription" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Paint Satte:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "PaintsState" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Suction and Discharge Line Weather Clear:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "SuctionAndDischargeLineWhetherClear" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Suction and Discharge Line State:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "SuctionAndDischargeLineState" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Suction, Discharge & Non Return Valves Weather Tested:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "SuctionAndDischargeNonReturnValvesWhetherState" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Suction, Discharge & Non Return Valves State:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "SuctionAndDischargeNonReturnValvesState" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Watertight Doors, Hatches, Scuttles, & Manhole Cover Weather Tested:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "WatertightDoorWhetherTested" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Watertight Doors, Hatches, Scuttles, & Manhole Cover State:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "WatertightDoorState" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Defects/ Damge Description:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "DefectsDescription" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Defects/ Damge Action Taken Or Proposal for Repair:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ReportMonth, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Value", id = "DefectsActionTaken" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <a id="addToList" class="btn btn-primary" style="float:right">+Add</a>
+            </div>
+            <div class="row table-responsive hidden" id="hideOnEmpty">
+                <table class="table-bordered " id="detailsTable">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Compartment & Location</th>
+                            <th rowspan="2">Examination & Air Pressure test Date</th>
+                            <th colspan="4">State</th>
+                            <th colspan="2">Paints</th>
+                            <th colspan="2">Suction and Discharge Line</th>
+                            <th colspan="2">Suction, Discharge and Non return valves</th>
+                            <th colspan="2">Watertight Doors, Hatches, Scuttles & Manhole cover</th>
+                            <th colspan="2">Defects/Damage</th>
+                            <th rowspan="2">#</th>
+                        </tr>
+                        <tr>
+                            <th>Plates</th>
+                            <th>Frames</th>
+                            <th>Riverts</th>
+                            <th>Cements</th>
+                            <th>Description</th>
+                            <th>State</th>
+                            <th>Weather Clear</th>
+                            <th>State</th>
+                            <th>Weather Tested</th>
+                            <th>State</th>
+                            <th>Weather Tested</th>
+                            <th>State</th>
+                            <th>Description</th>
+                            <th>Action Taken Or Proposal for Rpair</th>
+                        </tr>
+
+                    </thead>
+                    <tbody class="detailsBody"></tbody>
+                </table>
+            </div>
+            <div class="row">
+                <a id="TempYearlyReturnDetailsStore" class="btn btn-primary" style="float:right">Save</a>
+            </div>
+        </fieldset>
+
+        <div class="form_group">
+            <div style="float: right">
+                <button id="saveOrder" type="submit" class="btn btn-danger">Save Order</button>
+                @*<button type="submit" value="Save" class="btn btn-primary" id="saveOrder" />*@
+            </div>
+        </div>
+
+
+        <div><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("YearlyReturnIndex", "DamageMachineriesInfo")'">Back to List </button></div>
+        <div class="row">
+            <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                <p id="message"></p>
+            </div>
+        </div>
+
+    }
+</div>
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script>
+            function getOrder(id) {
+                return $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetYearlyReturnById", "DamageMachineriesInfo", new { area = "" })',
+                    data: "id=" + id
+                });
+            }
+
+
+
+        $(document).ready(function () {
+            var id = $("#YearlyReturnId").val();
+            $.when(getOrder(id)).then(function (res) {
+                //console.log(res.result.MachinaryRunningHours);
+                var YearlyReturnDetails = [];
+                console.log(res.result.YearlyReturnDetails);
+                $.each(res.result.YearlyReturnDetails, function (i, v) {
+                    if (v.ExmAndAirPreTestDate === null) {
+                        var ExmAndAirPreTestDate = v.ExmAndAirPreTestDate;
+                    } else {
+                        var DefectDate1 = new Date(parseInt(v.ExmAndAirPreTestDate.substr(6))).toDateString();
+                        var ExmAndAirPreTestDate = $.datepicker.formatDate('dd MM yy', new Date(DefectDate1));
+
+                    }
+
+                    //var DefectDate = new Date(Date.parse(v.DefectDate));
+                    YearlyReturnDetails.push('<tr><td>' + v.CompartmentAndLocation + '</td><td>' + ExmAndAirPreTestDate + '</td><td>' + v.Plates + '</td><td>' + v.Frames + '</td><td>' + v.Rivets + '</td><td>' + v.Cements + '</td><td>' + v.PaintsDescription + '</td><td>' + v.PaintsState + '</td><td>' + v.SuctionAndDischargeLineWhetherClear + '</td><td>' + v.SuctionAndDischargeLineState + '</td><td>' + v.SuctionAndDischargeNonReturnValvesWhetherState + '</td><td>' + v.SuctionAndDischargeNonReturnValvesState + '</td><td>' + v.WatertightDoorWhetherTested + '</td><td>' + v.WatertightDoorState + '</td><td>' + v.DefectsDescription + '</td><td>' + v.DefectsActionTaken + '</td><td style="display: none;">' + v.YearlyReturnDetailsId + '</td><td><a data-itemId="0" href="#" class="deleteItem"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td><a data-itemId="0" href="#" class="update"><i class="fa fa-pencil" aria-hidden="true"></i></a></td></tr>')
+                });
+                $("#detailsTable tbody").append(YearlyReturnDetails);
+                checkIfNoDefectMachinery();
+
+
+
+
+
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+
+        //Auto Hide Defect Machinery
+        function checkIfNoDefectMachinery() {
+            if (document.querySelectorAll(".detailsBody > tr > td").length <= 0) {
+                document.querySelector("#hideOnEmpty").classList.add("hidden");
+            } else {
+                document.querySelector("#hideOnEmpty").classList.remove("hidden");
+            }
+        }
+
+
+        //Add Defect Machinery
+        $("#addToList").click(function (e) {
+            e.preventDefault();
+
+            if ($.trim($("#CompartmentAndLocation").val()) == "" || $.trim($("#ExmAndAirPreTestDate").val()) == "") return;
+
+            var CompartmentAndLocation = $("#CompartmentAndLocation").val(),
+                ExmAndAirPreTestDate = $("#ExmAndAirPreTestDate").val(),
+                Plates = $("#Plates").val(),
+                Frames = $("#Frames").val(),
+                Rivets = $("#Rivets").val(),
+                Cements = $("#Cements").val(),
+                PaintsDescription = $("#PaintsDescription").val(),
+                PaintsState = $("#PaintsState").val(),
+                SuctionAndDischargeLineWhetherClear = $("#SuctionAndDischargeLineWhetherClear").val(),
+                SuctionAndDischargeLineState = $("#SuctionAndDischargeLineState").val(),
+                SuctionAndDischargeNonReturnValvesWhetherState = $("#SuctionAndDischargeNonReturnValvesWhetherState").val(),
+                SuctionAndDischargeNonReturnValvesState = $("#SuctionAndDischargeNonReturnValvesState").val(),
+                WatertightDoorWhetherTested = $("#WatertightDoorWhetherTested").val(),
+                WatertightDoorState = $("#WatertightDoorState").val(),
+                DefectsDescription = $("#DefectsDescription").val(),
+                DefectsActionTaken = $("#DefectsActionTaken").val(),
+                YearlyReturnDetailsId = $("#YearlyReturnDetailsId").val(),
+                detailsTableBody = $("#detailsTable tbody");
+
+            var productItem = '<tr><td>' + CompartmentAndLocation + '</td><td>' + ExmAndAirPreTestDate + '</td><td>' + Plates + '</td><td>' + Frames + '</td><td>' + Rivets + '</td><td>' + Cements + '</td><td>' + PaintsDescription + '</td><td>' + PaintsState + '</td><td>' + SuctionAndDischargeLineWhetherClear + '</td><td>' + SuctionAndDischargeLineState + '</td><td>' + SuctionAndDischargeNonReturnValvesWhetherState + '</td><td>' + SuctionAndDischargeNonReturnValvesState + '</td><td>' + WatertightDoorWhetherTested + '</td><td>' + WatertightDoorState + '</td><td>' + DefectsDescription + '</td><td>' + DefectsActionTaken + '</td><td style="display: none;">' + YearlyReturnDetailsId + '</td><td><a data-itemId="0" href="#" class="deleteItem"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td><a data-itemId="0" href="#" class="update"><i class="fa fa-pencil" aria-hidden="true"></i></a></td></tr>';
+            detailsTableBody.append(productItem);
+            clearItem1();
+            checkIfNoDefectMachinery();
+        });
+        //After Add A New Defect Machinery In The List, Clear Clean The Form For Add More Defect Machinery.
+        function clearItem1() {
+            $("#CompartmentAndLocation").val('');
+            $("#ExmAndAirPreTestDate").val('');
+            $("#Plates").val('');
+            $("#Frames").val('');
+            $("#Rivets").val('');
+            $("#Cements").val('');
+            $("#PaintsDescription").val('');
+            $("#PaintsState").val('');
+            $("#SuctionAndDischargeLineWhetherClear").val('');
+            $("#SuctionAndDischargeLineState").val('');
+            $("#SuctionAndDischargeNonReturnValvesWhetherState").val('');
+            $("#SuctionAndDischargeNonReturnValvesState").val('');
+            $("#WatertightDoorWhetherTested").val('');
+            $("#WatertightDoorState").val('');
+            $("#DefectsActionTaken").val('');
+            $("#YearlyReturnDetailsId").val('');
+        }
+        // After Add A New Defect Machinery In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoDefectMachinery();
+                });
+            }
+        });
+
+
+        //Defect Machinery Update data
+        $(document).on('click', 'a.update', function (e) {
+
+            var _tr = $(this).closest('tr');
+            var CompartmentAndLocation = $(_tr).find('td:eq(0)').text();
+            var ExmAndAirPreTestDate = $(_tr).find('td:eq(1)').text();
+            var Plates = $(_tr).find('td:eq(2)').text();
+            var Frames = $(_tr).find('td:eq(3)').text();
+            var Rivets = $(_tr).find('td:eq(4)').text();
+            var Cements = $(_tr).find('td:eq(5)').text();
+            var PaintsDescription = $(_tr).find('td:eq(6)').text();
+            var PaintsState = $(_tr).find('td:eq(7)').text();
+            var SuctionAndDischargeLineWhetherClear = $(_tr).find('td:eq(8)').text();
+            var SuctionAndDischargeLineState = $(_tr).find('td:eq(9)').text();
+            var SuctionAndDischargeNonReturnValvesWhetherState = $(_tr).find('td:eq(10)').text();
+            var SuctionAndDischargeNonReturnValvesState = $(_tr).find('td:eq(11)').text();
+            var WatertightDoorWhetherTested = $(_tr).find('td:eq(12)').text();
+            var WatertightDoorState = $(_tr).find('td:eq(13)').text();
+            var DefectsDescription = $(_tr).find('td:eq(14)').text();
+            var DefectsActionTaken = $(_tr).find('td:eq(15)').text();
+            var YearlyReturnDetailsId = $(_tr).find('td:eq(16)').text();
+            $("#CompartmentAndLocation").val(CompartmentAndLocation);
+            $("#ExmAndAirPreTestDate").val(ExmAndAirPreTestDate);
+            $("#Plates").val(Plates);
+            $("#Frames").val(Frames);
+            $("#Rivets").val(Rivets);
+            $("#Cements").val(Cements);
+            $("#PaintsDescription").val(PaintsDescription);
+            $("#PaintsState").val(PaintsState);
+            $("#SuctionAndDischargeLineWhetherClear").val(SuctionAndDischargeLineWhetherClear);
+            $("#SuctionAndDischargeLineState").val(SuctionAndDischargeLineState);
+            $("#SuctionAndDischargeNonReturnValvesWhetherState").val(SuctionAndDischargeNonReturnValvesWhetherState);
+            $("#SuctionAndDischargeNonReturnValvesState").val(SuctionAndDischargeNonReturnValvesState);
+            $("#WatertightDoorWhetherTested").val(WatertightDoorWhetherTested);
+            $("#WatertightDoorState").val(WatertightDoorState);
+            $("#DefectsDescription").val(DefectsDescription);
+            $("#DefectsActionTaken").val(DefectsActionTaken);
+            $("#YearlyReturnDetailsId").val(YearlyReturnDetailsId);
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoDefectMachinery();
+                });
+            }
+        });
+        //Auto Hide Non-OPS Machinery Running Hours
+        function checkIfNoMachineryRunningHours() {
+            if (document.querySelectorAll(".MachineryRunningHours > tr > td").length <= 0) {
+                document.querySelector("#hideOnEmpty1").classList.add("hidden");
+            } else {
+                document.querySelector("#hideOnEmpty1").classList.remove("hidden");
+            }
+        }
+
+        //Auto Hide POL State
+        function checkIfNoPOLState() {
+            if (document.querySelectorAll(".POLState > tr > td").length <= 0) {
+                document.querySelector("#hideOnEmpty2").classList.add("hidden");
+            } else {
+                document.querySelector("#hideOnEmpty2").classList.remove("hidden");
+            }
+        }
+
+
+
+
+        //After Click Save Button Pass All Data View To Controller For Save Database
+        function saveOrder(data) {
+            console.log(data);
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/DeckInfo/SaveHalfYearlyReturn",
+                data: data,
+                success: function (result) {
+                    if (result.ShipId != null) {
+                        window.location.href = "/DeckInfo/HalfYearlyIndexByShipName?ShipId=" + result.ShipId;
+                    }else {
+                        alert(result.SaveData);
+                    }
+
+                },
+                error: function () {
+                    //window.location.href = '/DamageMachineriesInfo/MonthlyReturnIndex';
+                }
+            });
+        }
+        //Collect Multiple Data List For Pass To Controller
+        $("#saveOrder").click(function (e) {
+            e.preventDefault();
+
+            //var YearlyReturnDetailsArr = [];
+
+            //YearlyReturnDetailsArr.length = 0;
+            //$.each($("#detailsTable tbody tr"), function () {
+            //    YearlyReturnDetailsArr.push({
+            //        CompartmentAndLocation: $(this).find('td:eq(0)').html(),
+            //        ExmAndAirPreTestDate: $(this).find('td:eq(1)').html(),
+            //        Plates: $(this).find('td:eq(2)').html(),
+            //        Frames: $(this).find('td:eq(3)').html(),
+            //        Rivets: $(this).find('td:eq(4)').html(),
+            //        Cements: $(this).find('td:eq(5)').html(),
+            //        PaintsDescription: $(this).find('td:eq(6)').html(),
+            //        PaintsState: $(this).find('td:eq(7)').html(),
+            //        SuctionAndDischargeLineWhetherClear: $(this).find('td:eq(8)').html(),
+            //        SuctionAndDischargeLineState: $(this).find('td:eq(9)').html(),
+            //        SuctionAndDischargeNonReturnValvesWhetherState: $(this).find('td:eq(10)').html(),
+            //        SuctionAndDischargeNonReturnValvesState: $(this).find('td:eq(11)').html(),
+            //        WatertightDoorWhetherTested: $(this).find('td:eq(12)').html(),
+            //        WatertightDoorState: $(this).find('td:eq(13)').html(),
+            //        DefectsDescription: $(this).find('td:eq(14)').html(),
+            //        DefectsActionTaken: $(this).find('td:eq(15)').html(),
+            //        YearlyReturnDetailsId: $(this).find('td:eq(16)').html(),
+
+            //    });
+            //});
+
+            var data = JSON.stringify({
+                YearlyReturnId: $("#YearlyReturnId").val(),
+                ShipId: $("#ShipId").val(),
+                YearId: $("#YearId").val(),
+                DeskNoId: $("#DeskNoId").val(),
+                FrameNo: $("#FrameNo").val()
+                //YearlyReturnDetails: YearlyReturnDetailsArr
+            });
+            $.when(saveOrder(data)).then(function (response) {
+                if (response.Success == "1") {
+                    $("#ShipMonthlyRunningHr").val('');
+                    $("#ShipMonthlyRunningMin").val('');
+                    $("#NonOperationalDuringMonthHr").val('');
+                    $("#NonOperationalDuringMonthMin").val('');
+                    $("#AtSeaDuringThisMonthHr").val('');
+                    $("#AtSeaDuringThisMonthMin").val('');
+                    $("#HarbourDuringThisMonthHr").val('');
+                    $("#HarbourDuringThisMonthMin").val('');
+                    $("#RefrigerantKg").val('');
+                    $("#FreshWaterTons").val('');
+                };
+            }).fail(function (err) {
+
+                document.getElementById("message").innerHTML = "Half Yearly Return Information Data Error";
+            });
+        });
+
+
+        $("#TempYearlyReturnDetailsStore").click(function (e) {
+            e.preventDefault();
+            
+            var YearlyReturnDetailsArr = [];
+
+            YearlyReturnDetailsArr.length = 0;
+            $.each($("#detailsTable tbody tr"), function () {
+                YearlyReturnDetailsArr.push({
+                    CompartmentAndLocation: $(this).find('td:eq(0)').html(),
+                    ExmAndAirPreTestDate: $(this).find('td:eq(1)').html(),
+                    Plates: $(this).find('td:eq(2)').html(),
+                    Frames: $(this).find('td:eq(3)').html(),
+                    Rivets: $(this).find('td:eq(4)').html(),
+                    Cements: $(this).find('td:eq(5)').html(),
+                    PaintsDescription: $(this).find('td:eq(6)').html(),
+                    PaintsState: $(this).find('td:eq(7)').html(),
+                    SuctionAndDischargeLineWhetherClear: $(this).find('td:eq(8)').html(),
+                    SuctionAndDischargeLineState: $(this).find('td:eq(9)').html(),
+                    SuctionAndDischargeNonReturnValvesWhetherState: $(this).find('td:eq(10)').html(),
+                    SuctionAndDischargeNonReturnValvesState: $(this).find('td:eq(11)').html(),
+                    WatertightDoorWhetherTested: $(this).find('td:eq(12)').html(),
+                    WatertightDoorState: $(this).find('td:eq(13)').html(),
+                    DefectsDescription: $(this).find('td:eq(14)').html(),
+                    DefectsActionTaken: $(this).find('td:eq(15)').html(),
+                    YearlyReturnDetailsId: $(this).find('td:eq(16)').html(),
+
+                });
+            });
+            
+            $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("StoteTempYearlyReturnDetailsStore", "DeckInfo")",
+                data: JSON.stringify(YearlyReturnDetailsArr),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (result) {
+                        alert("Defect machinary data stored successfully");
+                    },
+                    error: function () {
+                        //window.location.href = '/DamageMachineriesInfo/MonthlyReturnIndex';
+                    }
+            });
+        });
+
+
+
+
+
+
+        //Casecading
+        $('.shipName').change(function () {
+
+            var $BankNamedropdown = $(this);
+            var targetClass = $BankNamedropdown.attr('TargetClass');
+            var url = $BankNamedropdown.attr('action');
+
+            var bankCode = $BankNamedropdown.val();
+            var option = {
+                url: url,
+                type: 'GET',
+                dataType: 'JSON',
+                data: { shipId: bankCode }
+            };
+
+            // aminul vai
+            //var saveShow = document.getElementById("saveOrder");
+            //saveShow.removeAttribute("disabled");
+            //element.setAttribute("disabled", "disabled");
+            $.ajax(option).done(function (districts) {
+
+                if (districts.length > 0) {
+                    ClearDropDownList(targetClass);
+                    $.each(districts, function () {
+
+                        $("." + targetClass).append($("<option />").val(this.Value).text(this.Text));
+                    });
+                } else {
+                    ClearDropDownList(targetClass);
+                    NotFoundData(targetClass);
+                }
+
+            });
+        });
+        function ClearDropDownList(selector) {
+            $('.' + selector)
+                .find('option').remove()
+                .end().append($('<option>').text("-নির্বাচন করুন-").attr('value', ""));
+        };
+
+        function NotFoundData(targetClass) {
+            $('.' + targetClass)
+                .append($('<option>').text("Not Found").attr('value', ""));
+        };
+
+
+
+    </script>
+}

@@ -1,0 +1,367 @@
+﻿@using System.Net.Mime
+@using DocumentFormat.OpenXml.Bibliography
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ProcurementScheduleViewModel
+@{
+    ViewBag.Title = (Model.ProcurementSchedule.ProcurementId > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="~/Scripts/jquery-2.1.3.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var chkYes = document.getElementById("chkYes");
+            var chkNo = document.getElementById("chkNo");
+            if (@Model.DefaultCheckboxCheck > 0 ) {
+                chkYes.checked = "checked";
+                var dvPassport = document.getElementById("Add1");
+                dvPassport.style.display = chkYes.checked ? "block" : "none";
+            } else {
+                chkNo.checked = "checked";
+            }
+        });
+        function ShowHideDiv() {
+            var chkYes = document.getElementById("chkYes");
+            var dvPassport = document.getElementById("Add1");
+            dvPassport.style.display = chkYes.checked ? "block" : "none";
+        }
+        function MaritalStatusChange() {
+            var value = $('#drop :selected').text();
+            if (value == "THROUGH NSSD") {
+                $('#DGDP').prop("disabled", true);
+
+            } else {
+                $('#DGDP').prop("disabled", false);
+            }
+
+            if (value == "THROUGH DGDP") {
+                $('#NSSD').prop("disabled", true);
+            }
+            else {
+                $('#NSSD').prop("disabled", false);
+
+            }
+        }
+
+    </script>
+    
+  
+</head>
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+<div>
+    @using (Html.BeginForm("Save", "ProcurementSchedule", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="container">
+            <div class="aaa">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        PROCUREMENT
+                    </legend>
+                    <br />
+                    <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="form-group">
+                            <div class="col-md-8 control-label"></div>
+                            <div class="col-md-4">
+                                <span class="col-md-4">Re-Tender:</span>
+                                <label class="col-md-4" for="chkYes" title="Yes">
+                                <input class="col-md-4" type="radio" id="chkYes" name="chkPassPort" onclick="ShowHideDiv()"  /> Yes
+                                </label>
+                                <label class="col-md-4" for="chkNo" title="No">
+                                    <input class="col-md-4" type="radio" id="chkNo" name="chkPassPort" onclick="ShowHideDiv()" />  No
+                                    
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                   </div>
+                        @if (ViewBag.Title == "Edit")
+                        {
+                            <div class="row">
+                                <div class="col-sm-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Serial Number:</label>
+                                        <div class="col-md-8">
+                                            @Html.DisplayFor(x => x.ProcurementSchedule.ProcurementId, new { @class = "textBoxsize form-control", tabindex = 1, placeholder = "Enter Value" })
+                                            @Html.HiddenFor(x => x.ProcurementSchedule.ProcurementId)
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        }
+                        <div class="row">
+                           
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Procurement Type:</label>
+                                    <div  class="col-md-8">
+                                        @Html.DropDownListFor(x => x.ProcurementSchedule.ProcurementType, Model.CommonSelectListItems, "-Select-", new { @class = "dropdownsize form-control",@id="drop", tabindex = 1, onclick = "MaritalStatusChange()" })
+                                        @*@Html.HiddenFor(x => x.ProcurementSchedule.ProcurementId)*@
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Description:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.Description, new { @class = "textBoxsize form-control", tabindex = 1, placeholder = "Enter Value" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Quantity:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.Qty, new { @class = "textBoxsize form-control", tabindex = 3, placeholder = "Enter Value" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Est.Total Price:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.EstTotalPrice, new { @class = "textBoxsize form-control", tabindex = 4, placeholder = "Enter Value" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Currency:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.Currency, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Completion Of Last:</label>
+                                    <div class="col-md-1">
+                                        @Html.RadioButtonFor(x => x.ProcurementSchedule.AIPReceived, "true", new { tabindex = 6 })
+                                        @*@Html.Label("yes", "Yes")*@
+                                    </div>
+                                    <text class="col-md-2">Yes</text>
+                                    <div class="col-md-1">
+                                        
+                                        @Html.RadioButtonFor(x => x.ProcurementSchedule.AIPReceived, "False", new { tabindex = 6 })
+                                        @*@Html.Label("no", "No")*@
+                                    </div>
+                                    <text class="col-md-2">No</text>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Spec Sent To DTS:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.SpecSentToDTS, "{0: dd MMMM yyyy}", new { @class = "datefrom textBoxsize form-control" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Spec Sent To DGDP:</label>
+                                    <div  class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.SpecSentToDGDP, "{0: dd MMMM yyyy}", new { @class = "datefrom1 textBoxsize form-control", @id = "DGDP", onclick = "MaritalStatusChange()" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Spec Sent To NSSD:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.SpecSentToNSSD, "{0: dd MMMM yyyy}", new { @class = "datefrom2 textBoxsize form-control", @id = "NSSD" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Tender Opened:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.TenderOpened, "{0: dd MMMM yyyy}", new { @class = "datefrom3 textBoxsize form-control" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Quotation Received:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.QuatationRec, "{0: dd MMMM yyyy}", new { @class = "datefrom4 textBoxsize form-control" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Accept Sent To DTS:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.AccepSentToDTS, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Accept Sent To NSSD:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.AccepSentToNSSD, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Accept Sent To DGDP:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.AccepSentToDGDP, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Accept Sent To AFD:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.AccepSentToAFD, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Approved By AFD:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.ApprovedByAFD, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Contract Signed:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.ConttractSigned, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Taka:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.Taka, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Remark:</label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ProcurementSchedule.Remark, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="Add1" style="display: none">
+                                <div class="col-sm-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">DTS Re-Tender:</label>
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.ProcurementSchedule.DTSReTender, "{0: dd MMMM yyyy}", new { @class = "dateto textBoxsize form-control" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">DGDP Re-Tender:</label>
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.ProcurementSchedule.DGDPReTender, "{0: dd MMMM yyyy}", new { @class = "dateto1 textBoxsize form-control" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">NSSD Re-Tender:</label>
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.ProcurementSchedule.NSSDReTender, "{0: dd MMMM yyyy}", new { @class = "dateto2 textBoxsize form-control" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Tender Open Re-Tender:</label>
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.ProcurementSchedule.TenderOpenReTender, "{0: dd MMMM yyyy}", new { @class = "dateto3 textBoxsize form-control" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Quotation Re-Tender:</label>
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.ProcurementSchedule.QuotRecReTender, "{0: dd MMMM yyyy}", new { @class = "dateto4 textBoxsize form-control" })
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+            </fieldset>
+            </div>
+            <div class="form_group">
+                <div style="float: right">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div>
+                @Html.ActionLink("Back to List", "Index", "ProcurementSchedule", new { @class = "btn btn-primary" })
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                    <p>@TempData["message"]</p>
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+</div>
+
+
+<script type="text/javascript">
+    function ValidateEndDate(a) {
+        var startDate = dateTime.now;
+        var endDate = dateTime.now;
+        if (a ==1)
+            startDate = $("txtfromdate").val();
+        endDate = $("txttodate").val();
+       
+        startDate = $("txtfromdate").val();
+        endDate = $("txttodate").val();
+        if (startDate != '' && endDate !='') {
+            if (Date.parse(startDate) > Date.parse(endDate)) {
+                $("txttodate").val('');
+                alert("Start date should not be greater than end date");
+            }
+        }
+        return false;
+    }
+</script>

@@ -1,0 +1,33 @@
+﻿@model RMS.Model.HomeInformation
+
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Show Database value in DataTable</h2>
+<div>
+    <table id="t01">
+        <thead>
+        <th>Control Code</th>
+        <th>Control Name</th>
+        <th>SQD</th>
+        </thead>
+        @foreach (var item in @Model.AllShipShow)
+        {
+
+            <tr>
+                <td>
+                    @item.ControlName
+                </td>
+                <td>
+                   @item.Status
+                </td>
+                <td>
+                    @item.SQD
+                </td>
+            </tr>
+
+        }
+
+    </table>
+</div>

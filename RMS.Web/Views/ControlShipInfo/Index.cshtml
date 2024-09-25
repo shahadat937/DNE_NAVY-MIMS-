@@ -1,0 +1,119 @@
+﻿@using Org.BouncyCastle.Asn1.X509
+@using RMS.BLL.TreeView
+@using RMS.Model
+@using iTextSharp.text.pdf
+@model RMS.Web.Models.ViewModel.ControlAccountViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@helper ShowCrudLink(ShipChartofAccount control)
+{
+    @Html.ActionLink("Create", "Create", "ControlShipInfo", new { ControlShipInfoId = control.ControlShipInfoId,Type="Create" }, null)
+     @Html.ActionLink(" / Edit", "Create", "ControlShipInfo", new { ControlShipInfoId = control.ControlShipInfoId,Type="Edit" }, null)
+      @Html.ActionLink(" / Delete", "Delete", "ControlShipInfo", new { ControlShipInfoId = control.ControlShipInfoId,Type="Edit" }, null)
+          @*@Html.ActionLink(" / Download", "DownloadReport", "ControlShipInfo", new { ControlShipInfoId = control.ControlCode }, null)
+           @Html.ActionLink(" / Preview", "DownloadReport", "ControlShipInfo", new { ControlShipInfoId = control.ControlCode, Type = "Download" }, null)*@
+           @Html.ActionLink(" /Image View", "Download", "ControlShipInfo", new { Id = control.ControlShipInfoId, Type = "Download" }, null)
+    @*@Html.ActionLink("/Image Preview", "Download", "ControlShipInfo", new { ControlShipInfoId = control.documentationIdentity }, null)*@
+
+
+}
+<link href="~/Content/App/treeView.css" rel="stylesheet" />
+<div style="width:auto; padding-left:260px">
+
+</div>
+
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading" >
+            
+            <h4>  Ship’s General & Machinery Information</h4>
+        </div>
+        <div class="panel-heading">
+
+            @Html.ActionLink("Ship Speed", "ShipPowerEdit", "ShipPower", new { @class = "btn btn-primary" })
+            @Html.ActionLink("Ship Trail", "ShipspeedTrialEdit", "ShipSpeedTrial", new { @class = "btn btn-primary" })
+
+        </div>
+        <div class="body">
+            @using (Html.BeginForm())
+            {
+                <section class="search">
+
+                    <div class="tree panel-body" style="overflow-x:scroll;overflow-y:scroll;height:322px; width:auto">
+                        <ul>
+
+                            @foreach (var ch1 in Model.ChartofAccounts)
+                            {
+                                <li>
+                                    <a>  </a>
+
+                                    &nbsp; &nbsp; &nbsp;<span style="margin-right: 5px;">
+                                        @ch1.ControlCode-@ch1.ControlName @ShowCrudLink(ch1)
+
+                                    </span>
+                                    <ul>
+                                        @foreach (var ch2 in ch1.Nodes.OrderBy(x => x.ControlCode))
+                                        {
+                                            <li>
+                                                <a> </a>
+                                                @ch2.ControlCode-<span> @ch2.ControlName @ShowCrudLink(ch2)</span>
+                                                <ul>
+                                                    @foreach (var ch3 in ch2.Nodes.OrderBy(x => x.ControlCode))
+                                                    {
+                                                        <li>
+                                                            <a>  </a>
+                                                            @ch3.ControlCode-<span> @ch3.ControlName @ShowCrudLink(ch3)</span>
+
+                                                            <ul>
+                                                                @foreach (var ch4 in ch3.Nodes)
+                                                                {
+                                                                    <li>
+                                                                        <a>   </a>
+                                                                        @ch4.ControlCode-<span> @ch4.ControlName @ShowCrudLink(ch4)</span>
+
+                                                                        <ul>
+                                                                            @foreach (var ch5 in ch4.Nodes)
+                                                                            {
+                                                                                <li>
+                                                                                    @Math.Truncate(ch5.ControlCode)-
+                                                                                    <span>
+                                                                                        @ch5.ControlName
+                                                                                        @Html.ActionLink("Edit", "Create", "ControlShipInfo", new { @class = "AjaxPopup", title = "Edit", @action = Url.Action("Create", "ControlShipInfo", new { ControlShipInfoId = ch5.ControlShipInfoId, ControlLevel = ch5.ControlLevel }) })
+
+                                                                                    </span>
+                                                                                </li>
+                                                                            }
+                                                                        </ul>
+                                                                    </li>
+                                                                }
+                                                            </ul>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </li>
+
+                                        }
+                                    </ul>
+
+                                </li>
+
+                            }
+
+                        </ul>
+                    </div>
+                </section>
+
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/APP/treeView.js"></script>
+}
+
+
+

@@ -1,0 +1,958 @@
+﻿@using System.Web.UI.WebControls
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.MonthlyReturnViewModel
+@{
+    ViewBag.Title = (Model.MonthlyReturn.MonthlyReturnId > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+
+<style>
+    .deleteItem, .deleteItem1, .deleteItem2 {
+        background-color: #f44336;
+        color: white;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        border-radius: 3px;
+    }
+
+        .deleteItem:hover, .deleteItem1:hover, .deleteItem2:hover {
+            background-color: red;
+            color: white;
+        }
+
+    .update, .update1, .update2 {
+        background-color: #F0AD4E;
+        color: white;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        border-radius: 3px;
+    }
+
+        .update:hover, .update1:hover, .update2:hover {
+            background-color: red;
+            color: white;
+        }
+
+    th {
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+</style>
+
+<div>
+    @using (Html.BeginForm("SaveMonthlyReturn", "DamageMachineriesInfo", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <fieldset class="scheduler-border" style="@(Model.ViewCount==0 ? "display:block" : "display:none")">
+            <legend class="scheduler-border">
+                Basic Information :
+            </legend>
+            @Html.TextBoxFor(x => x.MonthlyReturn.MonthlyReturnId, new { Type = "hidden", @class = "textBoxsize form-control", PlaceHolder = "Report Month", id = "MonthlyReturnId" })
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Ship Name<span style="color:red; font-size:16px;">*</span>:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.MonthlyReturn.ShipId, Model.ShipInfoSelectListItems, "Select Ship Name", new { @class = "dropdownsize form-control shipName", @TargetClass = "DistrictName", @action = "/DamageMachineriesInfo/GetMachinariesInformation", id = "ShipId", required = "required" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Ship Status<span style="color:red; font-size:16px;">*</span>:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.MonthlyReturn.ShipStatusId, Model.shipStatusSelectedListItem, "Select Ship Status", new { @class = "dropdownsize form-control", id = "ShipStatusId" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Report Month<span style="color:red; font-size:16px;">*</span>:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.MonthlyReturn.ReportMonthId, Model.ReportMonthSelectListItem, "Select Report Month", new { @class = "dropdownsize form-control", id = "ReportMonthId" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Report Year<span style="color:red; font-size:16px;">*</span>:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.MonthlyReturn.ReportYearId, Model.ReportYearSelectListItem, "Select Report Year", new { @class = "dropdownsize form-control", id = "ReportYearId" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+
+        <fieldset class="scheduler-border" style="@(Model.ViewCount==1 ? "display:block" : "display:none")">
+            <legend class="scheduler-border">
+                Defect Machinery:
+            </legend>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Machine Name:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.MonthlyReturn.ShipMonthlyRunningMin, Model.MachinarySelectListItem, "Select Machinery", new { @class = "dropdownsize form-control DistrictName", id = "MachineId" })
+                            @Html.TextBoxFor(x => x.ShipMonthlyRunningMin, new { Type = "hidden", @class = "textBoxsize form-control", PlaceHolder = "Report Month", id = "DefectMachinaryId" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Machine Status:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.ShipMonthlyRunningMin, Model.MachinaryStateSelectListItem, "Select Machinery Status", new { @class = "dropdownsize form-control", id = "MachinaryStatusId" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Defect Date:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipMonthlyRunningMin, "{0:dd MMMM yyyy}", new { @class = "textBoxsize form-control datepicker", PlaceHolder = " Enter Defect Date", id = "DefectDate" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Defect Reason Detail:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.ShipMonthlyRunningMin, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Defect Reason Detail", id = "DefectReasonDetail" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Defect Action:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.ShipMonthlyRunningMin, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Defect Reason Detail", id = "DefectAction" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Remarks:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.ShipMonthlyRunningMin, new { @class = "textBoxsize form-control", PlaceHolder = "Enter Ongoing Action Detail", id = "Remarks" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <a id="addToList" class="btn btn-primary" style="float:right">+Add</a>
+            </div>
+            <div class="row table-responsive hidden" id="hideOnEmpty">
+                <table class="table-bordered " id="detailsTable">
+                    <thead>
+                        <tr>
+                            <th>Machine Name</th>
+                            <th>Machine Status</th>
+                            <th>Defect Date</th>
+                            <th>Defect Reason Detail</th>
+                            <th>Defect Action</th>
+                            <th>Remarks</th>
+                            <th colspan="2">#</th>
+                        </tr>
+                    </thead>
+                    <tbody class="detailsBody"></tbody>
+                </table>
+            </div>
+        </fieldset>
+
+        <fieldset class="scheduler-border" style="@(Model.ViewCount==2 ? "display:block" : "display:none")">
+            <legend class="scheduler-border">
+                Machinery Running Hours :
+            </legend>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Machinery Name:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.ShipMonthlyRunningMin, Model.MachinarySelectListItem, "Select Machinery Status", new { @class = "dropdownsize form-control DistrictName", id = "NoOPSMachineId" })
+                            @Html.TextBoxFor(x => x.ShipMonthlyRunningMin, new { Type = "hidden", @class = "textBoxsize form-control", PlaceHolder = "Report Month", id = "MachinaryRunningHourId" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Running (Hr):
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipMonthlyRunningMin, new { @class = "textBoxsize form-control", type = "Number", placeholder = "Enter At Sea (Hr)", id = "RunningHr" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Running (Min):
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipMonthlyRunningMin, new { @class = "textBoxsize form-control", type = "Number", placeholder = "Enter At Sea (Hr)", id = "RunningMin" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            @*<div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">
+                                At Sea (Hr):
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.MonthlyReturn.AtSeaHr, new { @class = "textBoxsize form-control", placeholder = "Enter At Sea (Hr)" })
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">
+                                At Sea (Min):
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.MonthlyReturn.AtSeaHr, new { @class = "textBoxsize form-control", placeholder = "Enter At Sea (Hr)" })
+                            </div>
+
+                        </div>
+                    </div>
+                </div>*@
+            <div class="row">
+                <a id="AddMachineryRunningHours" class="btn btn-primary" style="float:right">+Add</a>
+            </div>
+            <div class="row table-responsive hidden" id="hideOnEmpty1">
+                <table class="table-bordered text-center" id="MachineryRunningHoursTable">
+                    <thead>
+                        <tr style="text-align:center">
+                            <th>Machine Name</th>
+                            <th>RunningHr</th>
+                            <th> RunningMin</th>
+                            <th colspan="2">#</th>
+                        </tr>
+                    </thead>
+                    <tbody class="MachineryRunningHours"></tbody>
+                </table>
+            </div>
+        </fieldset>
+
+        <fieldset class="scheduler-border" style="@(Model.ViewCount==3 ? "display:block" : "display:none")">
+            <legend class="scheduler-border">
+                POL State:
+            </legend>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            POL Name:
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.ShipMonthlyRunningMin, Model.OilNameSelectListCategory, "Select POL Name", new { @class = "dropdownsize form-control shipName", id = "OilName" })
+                            @Html.TextBoxFor(x => x.ShipMonthlyRunningMin, new { Type = "hidden", @class = "textBoxsize form-control", PlaceHolder = "Report Month", id = "POLExpenseInfoId" })
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Initial Stock (Ltr/Unit):
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipMonthlyRunningMin, new { @class = "textBoxsize form-control ", PlaceHolder = " Initial Stock (Ltr/Unit)", id = "InitialStockLtrOrUnit" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Received Qty(Ltr/Unit):
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipMonthlyRunningMin, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Received Qty(Ltr/Unit)", id = "ReceivedQtyLtrorUnit" })
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Handover (Ltr/Unit):
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipMonthlyRunningMin, new { @class = "textBoxsize form-control", PlaceHolder = "Handover (Ltr/Unit)", id = "HandoverLtrOrUnit" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Monthly Use (ltr/Unit):
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipMonthlyRunningMin, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Monthly Use (ltr/Unit)", id = "MonthlyUseltrOrUnit" })
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Stock after Use(Ltr/Unit):
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ShipMonthlyRunningMin, new { @class = "textBoxsize form-control", PlaceHolder = "Stock after Use(Ltr/Unit)", id = "StockAfterUseLtrOrUnit" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Rate(Per Ltr/Unit)</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.OilRate, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Rate(Per Ltr/Unit)", id = "OilPerLtRate" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <a id="AddPOLState" class="btn btn-primary" style="float:right">+Add</a>
+            </div>
+            <div class="row table-responsive hidden" id="hideOnEmpty2">
+                <table class="table-bordered " id="POLStateTable">
+                    <thead>
+                        <tr>
+                            <th>POL Name</th>
+                            <th>Initial Stock (Ltr/Unit)</th>
+                            <th>Received Qty(Ltr/Unit)</th>
+                            <th>Handover (Ltr/Unit)</th>
+                            <th>Monthly Use (ltr/Unit)</th>
+                            <th>Stock after Use(Ltr/Unit)</th>
+                            <th>Rate(Per Ltr/Unit)</th>
+                            <th colspan="2">#</th>
+                        </tr>
+                    </thead>
+                    <tbody class="POLState"></tbody>
+                </table>
+            </div>
+        </fieldset>
+        <fieldset class="scheduler-border" style="@(Model.ViewCount==4 ? "display:block" : "display:none")">
+            <legend class="scheduler-border">
+                Ships Running Hours Entry:
+            </legend>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            At Sea During This Month(Day):
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MonthlyReturn.FreshWaterTons, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "At Sea During This Month(Day)", id = "FreshWaterTons" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            At Sea During This Month(hr):
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MonthlyReturn.AtSeaDuringThisMonthHr, new { @class = "textBoxsize form-control", PlaceHolder = "Enter At Sea During This Month(hr)", id = "AtSeaDuringThisMonthHr" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">At Sea During This Month(min):</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MonthlyReturn.AtSeaDuringThisMonthMin, new { @class = "textBoxsize form-control", placeholder = "At Sea During This Month(min)", id = "AtSeaDuringThisMonthMin" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Distance Run
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MonthlyReturn.RefrigerantKg, new { @class = "textBoxsize form-control", PlaceHolder = " Distance Run", id = "RefrigerantKg" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">
+                            Ship Monthly Running(hr):
+                        </label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MonthlyReturn.ShipMonthlyRunningHr, new { @class = "textBoxsize form-control", PlaceHolder = "Ship Monthly Running(hr)", id = "ShipMonthlyRunningHr" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Ship Monthly Running(min):</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MonthlyReturn.ShipMonthlyRunningMin, new { @class = "textBoxsize form-control", PlaceHolder = " Ship Monthly Running(min)", id = "ShipMonthlyRunningMin" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            @*<div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">
+                                Harbour During This Month(hr):
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.MonthlyReturn.HarbourDuringThisMonthHr, new { @class = "textBoxsize form-control", PlaceHolder = "Harbour During This Month(hr)", id = "HarbourDuringThisMonthHr" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">Harbour During This Month(min):</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.MonthlyReturn.HarbourDuringThisMonthMin, new { @class = "textBoxsize form-control", placeholder = "Harbour During This Month(min)", id = "HarbourDuringThisMonthMin" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>*@
+        </fieldset>
+
+        <div class="form_group">
+            <div style="float: left">
+                @Html.ActionLink("Exit", "MonthlyReturnIndex", "DamageMachineriesInfo", new { @class = "btn btn-primary", style = "color:#fff;" })
+                @*<button type="submit" value="Save" class="btn btn-primary" id="saveOrder" />*@
+            </div>
+        </div>
+
+        <div class="form_group">
+            <div style="float: right">
+                <button id="saveOrder" type="submit" class="btn btn-danger">Save Order</button>
+                @*<button type="submit" value="Save" class="btn btn-primary" id="saveOrder" />*@
+            </div>
+        </div>
+        @*<div><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("MonthlyReturnIndex", "DamageMachineriesInfo")'">Back to List </button></div>*@
+        <div class="row">
+            <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                <p id="message"></p>
+            </div>
+        </div>
+
+    }
+</div>
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script>
+            function getOrder(id) {
+                return $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetMonthlyReturnById", "DamageMachineriesInfo", new { area = "" })',
+                    data: "id=" + id
+                });
+            }
+
+
+
+        $(document).ready(function () {
+            var id = $("#MonthlyReturnId").val();
+            $.when(getOrder(id)).then(function (res) {
+                //console.log(res.result.MachinaryRunningHours);
+                var DefectMachinaries = [];
+                var MachinaryRunningHours = [];
+                var POLExpenseInfoes = [];
+                console.log(res.result.DefectMachinaries);
+                $.each(res.result.DefectMachinaries, function (i, v) {
+                    if (v.DefectDate === null) {
+                        var DefectDate = v.DefectDate;
+                    } else {
+                        var DefectDate1 = new Date(parseInt(v.DefectDate.substr(6))).toDateString();
+                        var DefectDate = $.datepicker.formatDate('dd MM yy', new Date(DefectDate1));
+
+                    }
+
+                    //var DefectDate = new Date(Date.parse(v.DefectDate));
+                    DefectMachinaries.push('<tr><td style="display: none;">' + v.MachineId + '</td><td style="display: none;">' + v.MachinaryStatusId + '</td><td>' + v.MachineName + '</td><td>' + v.MachinaryStatusName + '</td><td>' + DefectDate + '</td><td>' + v.DefectReasonDetail + '</td><td>' + v.DefectAction + '</td><td>' + v.Remarks + '</td><td style="display: none;">' + v.DefectMachinaryId + '</td><td><a data-itemId="0" href="#" class="deleteItem"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td><a data-itemId="0" href="#" class="update"><i class="fa fa-pencil" aria-hidden="true"></i></a></td></tr>')
+                });
+                $("#detailsTable tbody").append(DefectMachinaries);
+                checkIfNoDefectMachinery();
+
+
+                $.each(res.result.MachinaryRunningHours, function (i, v) {
+                    MachinaryRunningHours.push('<tr><td style="display: none;">' + v.NoOPSMachineId + '</td><td>' + v.NoOPSMachineName + '</td><td>' + v.RunningHr + '</td><td>' + v.RunningMin + '</td><td style="display: none;">' + v.MachinaryRunningHourId + '</td><td><a data-itemId="0" href="#" class="deleteItem1"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td><a data-itemId="0" href="#" class="update1"><i class="fa fa-pencil" aria-hidden="true"></i></a></td></tr>')
+                });
+                $("#MachineryRunningHoursTable tbody").append(MachinaryRunningHours);
+                checkIfNoMachineryRunningHours();
+
+
+                $.each(res.result.POLExpenseInfoes, function (i, v) {
+                    console.log(v.OilName);
+                    POLExpenseInfoes.push('<tr><td style="display: none;">' + v.OilName + '</td><td>' + v.OilNameFull + '</td><td>' + v.InitialStockLtrOrUnit + '</td><td>' + v.ReceivedQtyLtrorUnit + '</td><td>' + v.HandoverLtrOrUnit + '</td><td>' + v.MonthlyUseltrOrUnit + '</td><td>' + v.StockAfterUseLtrOrUnit + '</td><td>' + v.OilPerLtRate + '</td><td style="display: none;">' + v.POLExpenseInfoId + '</td><td><a data-itemId="0" href="#" class="deleteItem2"><i class="fa fa-trash-o" aria-hidden="true"></a></td><td><a data-itemId="0" href="#" class="update2"><i class="fa fa-pencil" aria-hidden="true"></i></a></td></tr>')
+                });
+                $("#POLStateTable tbody").append(POLExpenseInfoes);
+                checkIfNoPOLState();
+
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+
+        //Auto Hide Defect Machinery
+        function checkIfNoDefectMachinery() {
+            if (document.querySelectorAll(".detailsBody > tr > td").length <= 0) {
+                document.querySelector("#hideOnEmpty").classList.add("hidden");
+            } else {
+                document.querySelector("#hideOnEmpty").classList.remove("hidden");
+            }
+        }
+
+
+        //Add Defect Machinery
+        $("#addToList").click(function (e) {
+            e.preventDefault();
+
+            if ($.trim($("#MachineId").val()) == "" || $.trim($("#DefectDate").val()) == "" || $.trim($("#DefectReasonDetail").val()) == "" || $.trim($("#DefectAction").val()) == "") return;
+
+            var MachineId = $("#MachineId").val(),
+                MachineName = $("#MachineId option:selected").text(),
+                MachinaryStatusId = $("#MachinaryStatusId").val(),
+                MachinaryStatusName = $("#MachinaryStatusId option:selected").text(),
+                DefectDate = $("#DefectDate").val(),
+                DefectReasonDetail = $("#DefectReasonDetail").val(),
+                DefectAction = $("#DefectAction").val(),
+                Remarks = $("#Remarks").val(),
+                DefectMachinaryId = $("#DefectMachinaryId").val(),
+                detailsTableBody = $("#detailsTable tbody");
+
+            var productItem = '<tr><td style="display: none;">' + MachineId + '</td><td style="display: none;">' + MachinaryStatusId + '</td><td>' + MachineName + '</td><td>' + MachinaryStatusName + '</td><td>' + DefectDate + '</td><td>' + DefectReasonDetail + '</td><td>' + DefectAction + '</td><td>' + Remarks + '</td><td style="display: none;">' + DefectMachinaryId + '</td><td><a data-itemId="0" href="#" class="deleteItem"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td><a data-itemId="0" href="#" class="update"><i class="fa fa-pencil" aria-hidden="true"></i></a></td></tr>';
+            detailsTableBody.append(productItem);
+            clearItem1();
+            checkIfNoDefectMachinery();
+        });
+        //After Add A New Defect Machinery In The List, Clear Clean The Form For Add More Defect Machinery.
+        function clearItem1() {
+            $("#MachineId").val('');
+            $("#MachinaryStatusId").val('');
+            $("#DefectAction").val('');
+            $("#DefectDate").val('');
+            $("#DefectReasonDetail").val('');
+            $("#DefectAction").val('');
+            $("#Remarks").val('');
+            $("#DefectMachinaryId").val('');
+        }
+        // After Add A New Defect Machinery In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoDefectMachinery();
+                });
+            }
+        });
+
+
+        //Defect Machinery Update data
+        $(document).on('click', 'a.update', function (e) {
+
+            var _tr = $(this).closest('tr');
+            var MachineId = $(_tr).find('td:eq(0)').text();
+            var MachinaryStatusId = $(_tr).find('td:eq(1)').text();
+            var DefectDate = $(_tr).find('td:eq(4)').text();
+            var DefectReasonDetail = $(_tr).find('td:eq(5)').text();
+            var DefectAction = $(_tr).find('td:eq(6)').text();
+            var Remarks = $(_tr).find('td:eq(7)').text();
+            var DefectMachinaryId = $(_tr).find('td:eq(8)').text();
+            $("#MachineId").val(MachineId);
+            $("#MachinaryStatusId").val(MachinaryStatusId);
+            $("#DefectDate").val(DefectDate);
+            $("#DefectReasonDetail").val(DefectReasonDetail);
+            $("#DefectAction").val(DefectAction);
+            $("#Remarks").val(Remarks);
+            $("#DefectMachinaryId").val(DefectMachinaryId);
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoDefectMachinery();
+                });
+            }
+        });
+        //Auto Hide Non-OPS Machinery Running Hours
+        function checkIfNoMachineryRunningHours() {
+            if (document.querySelectorAll(".MachineryRunningHours > tr > td").length <= 0) {
+                document.querySelector("#hideOnEmpty1").classList.add("hidden");
+            } else {
+                document.querySelector("#hideOnEmpty1").classList.remove("hidden");
+            }
+        }
+        //Add Machinery Running Hours
+        $("#AddMachineryRunningHours").click(function (e) {
+            e.preventDefault();
+
+            if ($.trim($("#NoOPSMachineId").val()) == "" || $.trim($("#RunningHr").val()) == "" || $.trim($("#RunningMin").val()) == "") return;
+
+            var NoOPSMachineId = $("#NoOPSMachineId").val(),
+                NoOPSMachineName = $("#NoOPSMachineId option:selected").text(),
+                RunningHr = $("#RunningHr").val(),
+                RunningMin = $("#RunningMin").val(),
+                MachinaryRunningHourId = $("#MachinaryRunningHourId").val(),
+                MachineryRunningHoursTableBody = $("#MachineryRunningHoursTable tbody");
+
+            var productItem = '<tr><td  style="display: none;">' + NoOPSMachineId + '</td><td>' + NoOPSMachineName + '</td><td>' + RunningHr + '</td><td>' + RunningMin + '</td><td style="display: none;">' + MachinaryRunningHourId + '</td><td><a data-itemId="0" href="#" class="deleteItem1"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td><a data-itemId="0" href="#" class="update1"><i class="fa fa-pencil" aria-hidden="true"></i></a></td></tr>';
+            MachineryRunningHoursTableBody.append(productItem);
+            clearItem2();
+            checkIfNoMachineryRunningHours();
+        });
+
+        //After Add A New Machinery Running Hours In The List, Clear Clean The Form For Add More Machinery Running Hours
+        function clearItem2() {
+            $("#NoOPSMachineId").val('');
+            $("#RunningHr").val('');
+            $("#RunningMin").val('');
+            $("#MachinaryRunningHourId").val('');
+        }
+
+        //return data;
+        // After Add A New Machinery Running Hours In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem1', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoMachineryRunningHours();
+                });
+            }
+        });
+        // update data
+        $(document).on('click', 'a.update1', function (e) {
+            var _tr = $(this).closest('tr');
+            var NoOPSMachineId = $(_tr).find('td:eq(0)').text();
+            var RunningHr = $(_tr).find('td:eq(2)').text();
+            var RunningMin = $(_tr).find('td:eq(3)').text();
+            var MachinaryRunningHourId = $(_tr).find('td:eq(4)').text();
+            $("#NoOPSMachineId").val(NoOPSMachineId);
+            $("#RunningHr").val(RunningHr);
+            $("#RunningMin").val(RunningMin);
+            $("#MachinaryRunningHourId").val(MachinaryRunningHourId);
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoMachineryRunningHours();
+                });
+            }
+        });
+
+        //Auto Hide POL State
+        function checkIfNoPOLState() {
+            if (document.querySelectorAll(".POLState > tr > td").length <= 0) {
+                document.querySelector("#hideOnEmpty2").classList.add("hidden");
+            } else {
+                document.querySelector("#hideOnEmpty2").classList.remove("hidden");
+            }
+        }
+
+        //Add POL State
+        $("#AddPOLState").click(function (e) {
+            e.preventDefault();
+
+            if ($.trim($("#OilName").val()) == "" || $.trim($("#InitialStockLtrOrUnit").val()) == "" || $.trim($("#ReceivedQtyLtrorUnit").val()) == "" || $.trim($("#OilPerLtRate").val()) == "") return;
+
+            var OilName = $("#OilName").val(),
+                OilNameFull = $("#OilName option:selected").text(),
+                InitialStockLtrOrUnit = $("#InitialStockLtrOrUnit").val(),
+                ReceivedQtyLtrorUnit = $("#ReceivedQtyLtrorUnit").val(),
+                HandoverLtrOrUnit = $("#HandoverLtrOrUnit").val(),
+                MonthlyUseltrOrUnit = $("#MonthlyUseltrOrUnit").val(),
+                StockAfterUseLtrOrUnit = $("#StockAfterUseLtrOrUnit").val(),
+                OilPerLtRate = $("#OilPerLtRate").val(),
+                POLExpenseInfoId = $("#POLExpenseInfoId").val()
+
+                POLStateTableBody = $("#POLStateTable tbody");
+
+            var productItem = '<tr><td style="display: none;">' + OilName + '</td><td>' + OilNameFull + '</td><td>' + InitialStockLtrOrUnit + '</td><td>' + ReceivedQtyLtrorUnit + '</td><td>' + HandoverLtrOrUnit + '</td><td>' + MonthlyUseltrOrUnit + '</td><td>' + StockAfterUseLtrOrUnit + '</td><td>' + OilPerLtRate + '</td><td style="display: none;">' + POLExpenseInfoId + '</td><td><a data-itemId="0" href="#" class="deleteItem2"><i class="fa fa-trash-o" aria-hidden="true"></a></td><td><a data-itemId="0" href="#" class="update2"><i class="fa fa-pencil" aria-hidden="true"></i></a></td></tr>';
+            POLStateTableBody.append(productItem);
+            clearItem();
+            checkIfNoPOLState();
+        });
+        //After Add A New Machinery Running Hours In The List, Clear Clean The Form For Add More Machinery Running Hours
+        function clearItem() {
+            $("#OilName").val('');
+            $("#InitialStockLtrOrUnit").val('');
+            $("#ReceivedQtyLtrorUnit").val('');
+            $("#HandoverLtrOrUnit").val('');
+            $("#MonthlyUseltrOrUnit").val('');
+            $("#StockAfterUseLtrOrUnit").val('');
+            $("#OilPerLtRate").val('');
+        }
+        // After Add A New Machinery Running Hours In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem2', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoPOLState();
+                });
+            }
+        });
+        // update data
+        $(document).on('click', 'a.update2', function (e) {
+            var _tr = $(this).closest('tr');
+            var OilName = $(_tr).find('td:eq(0)').text();
+            var InitialStockLtrOrUnit = $(_tr).find('td:eq(2)').text();
+            var ReceivedQtyLtrorUnit = $(_tr).find('td:eq(3)').text();
+            var HandoverLtrOrUnit = $(_tr).find('td:eq(4)').text();
+            var MonthlyUseltrOrUnit = $(_tr).find('td:eq(5)').text();
+            var StockAfterUseLtrOrUnit = $(_tr).find('td:eq(6)').text();
+            var OilPerLtRate = $(_tr).find('td:eq(7)').text();
+            var POLExpenseInfoId = $(_tr).find('td:eq(8)').text();
+            $("#OilName").val(OilName);
+            $("#InitialStockLtrOrUnit").val(InitialStockLtrOrUnit);
+            $("#ReceivedQtyLtrorUnit").val(ReceivedQtyLtrorUnit);
+            $("#HandoverLtrOrUnit").val(HandoverLtrOrUnit);
+            $("#MonthlyUseltrOrUnit").val(MonthlyUseltrOrUnit);
+            $("#StockAfterUseLtrOrUnit").val(StockAfterUseLtrOrUnit);
+            $("#OilPerLtRate").val(OilPerLtRate);
+            $("#POLExpenseInfoId").val(POLExpenseInfoId);
+
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                    checkIfNoPOLState();
+                });
+            }
+        });
+
+
+
+        //After Click Save Button Pass All Data View To Controller For Save Database
+        function saveOrder(data) {
+            console.log(data);
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/DamageMachineriesInfo/SaveMonthlyReturn",
+                data: data,
+                success: function (result) {
+                    if(result.ShipId != null) {
+                        window.location.href = "/DamageMachineriesInfo/MonthlyReturnIndexByShipName?ShipId=" + result.ShipId;
+                    } else {
+                        alert(result.SaveData);
+                        //document.getElementById("message").innerHTML = result.SaveData;
+                    }
+                },
+                error: function () {
+                    //window.location.href = '/DamageMachineriesInfo/MonthlyReturnIndex';
+                }
+            });
+        }
+        //Collect Multiple Data List For Pass To Controller
+        $("#saveOrder").click(function (e) {
+            e.preventDefault();
+
+            var DefectMachineryArr = [];
+            var MachineryRunningHoursArr = [];
+            var POLStateArr = [];
+            DefectMachineryArr.length = 0;
+            MachineryRunningHoursArr.length = 0;
+            POLStateArr.length = 0;
+            $.each($("#detailsTable tbody tr"), function () {
+                DefectMachineryArr.push({
+                    MachineId: $(this).find('td:eq(0)').html(),
+                    MachinaryStatusId: $(this).find('td:eq(1)').html(),
+                    DefectDate: $(this).find('td:eq(4)').html(),
+                    DefectReasonDetail: $(this).find('td:eq(5)').html(),
+                    DefectSolution: $(this).find('td:eq(6)').html(),
+                    Remarks: $(this).find('td:eq(7)').html(),
+                    DefectMachinaryId: $(this).find('td:eq(8)').html()
+                });
+            });
+            $.each($("#MachineryRunningHoursTable tbody tr"), function () {
+                MachineryRunningHoursArr.push({
+                    NoOPSMachineId: $(this).find('td:eq(0)').html(),
+                    RunningHr: $(this).find('td:eq(2)').html(),
+                    RunningMin: $(this).find('td:eq(3)').html(),
+                    MachinaryRunningHourId: $(this).find('td:eq(4)').html()
+                });
+            });
+            $.each($("#POLStateTable tbody tr"), function () {
+                POLStateArr.push({
+                    OilName: $(this).find('td:eq(0)').html(),
+                    InitialStockLtrOrUnit: $(this).find('td:eq(2)').html(),
+                    ReceivedQtyLtrorUnit: $(this).find('td:eq(3)').html(),
+                    HandoverLtrOrUnit: $(this).find('td:eq(4)').html(),
+                    MonthlyUseltrOrUnit: $(this).find('td:eq(5)').html(),
+                    StockAfterUseLtrOrUnit: $(this).find('td:eq(6)').html(),
+                    OilPerLtRate: $(this).find('td:eq(7)').html(),
+                    POLExpenseInfoId: $(this).find('td:eq(8)').html(),
+                });
+            });
+
+            var data = JSON.stringify({
+                ShipId: $("#ShipId").val(),
+                ShipStatusId: $("#ShipStatusId").val(),
+                ReportMonthId: $("#ReportMonthId").val(),
+                ReportYearId: $("#ReportYearId").val(),
+                MonthlyReturnId: $("#MonthlyReturnId").val(),
+
+                ShipMonthlyRunningHr: $("#ShipMonthlyRunningHr").val(),
+                ShipMonthlyRunningMin: $("#ShipMonthlyRunningMin").val(),
+                RefrigerantKg: $("#RefrigerantKg").val(),
+                FreshWaterTons: $("#FreshWaterTons").val(),
+                NonOperationalDuringMonthHr: $("#NonOperationalDuringMonthHr").val(),
+                NonOperationalDuringMonthMin: $("#NonOperationalDuringMonthMin").val(),
+                AtSeaDuringThisMonthHr: $("#AtSeaDuringThisMonthHr").val(),
+                AtSeaDuringThisMonthMin: $("#AtSeaDuringThisMonthMin").val(),
+                HarbourDuringThisMonthHr: $("#HarbourDuringThisMonthHr").val(),
+                HarbourDuringThisMonthMin: $("#HarbourDuringThisMonthMin").val(),
+
+                defectMachinaries: DefectMachineryArr,
+                machinaryRunningHours: MachineryRunningHoursArr,
+                polExpenseInfos: POLStateArr
+            });
+            console.log(data.machinaryRunningHours);
+            $.when(saveOrder(data)).then(function (response) {
+                if (response.Success == "1") {
+                    $("#ShipMonthlyRunningHr").val('');
+                    $("#ShipMonthlyRunningMin").val('');
+                    $("#NonOperationalDuringMonthHr").val('');
+                    $("#NonOperationalDuringMonthMin").val('');
+                    $("#AtSeaDuringThisMonthHr").val('');
+                    $("#AtSeaDuringThisMonthMin").val('');
+                    $("#HarbourDuringThisMonthHr").val('');
+                    $("#HarbourDuringThisMonthMin").val('');
+                    $("#RefrigerantKg").val('');
+                    $("#FreshWaterTons").val('');
+                    console.log("Response Message:"+response.Message);
+
+                };
+            }).fail(function (err) {
+
+                document.getElementById("message").innerHTML = "Monthly Return Information Data Error";
+            });
+        });
+
+        //Casecading
+        $('.shipName').change(function () {
+
+            var $BankNamedropdown = $(this);
+            var targetClass = $BankNamedropdown.attr('TargetClass');
+            var url = $BankNamedropdown.attr('action');
+
+            var bankCode = $BankNamedropdown.val();
+            var option = {
+                url: url,
+                type: 'GET',
+                dataType: 'JSON',
+                data: { shipId: bankCode }
+            };
+
+            // aminul vai
+            //var saveShow = document.getElementById("saveOrder");
+            //saveShow.removeAttribute("disabled");
+            //element.setAttribute("disabled", "disabled");
+            $.ajax(option).done(function (districts) {
+
+                if (districts.length > 0) {
+                    ClearDropDownList(targetClass);
+                    $.each(districts, function () {
+
+                        $("." + targetClass).append($("<option />").val(this.Value).text(this.Text));
+                        $("#myselect option:selected").text();
+                    });
+                } else {
+                    ClearDropDownList(targetClass);
+                    NotFoundData(targetClass);
+                }
+
+            });
+        });
+        function ClearDropDownList(selector) {
+            $('.' + selector)
+                .find('option').remove()
+                .end().append($('<option>').text("-নির্বাচন করুন-").attr('value', ""));
+        };
+
+        function NotFoundData(targetClass) {
+            $('.' + targetClass)
+                .append($('<option>').text("Not Found").attr('value', ""));
+        };
+
+
+
+    </script>
+}
+
+

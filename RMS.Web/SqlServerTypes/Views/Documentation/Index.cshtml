@@ -1,0 +1,148 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.DocumentationViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Drawing Information</h5>
+        </div>
+        <div class="body">
+            <table>
+                <tr>
+                    <td>@Html.ActionLink("Add New", "Edit", "Documentation", new { @class = "btn btn-primary" })</td>
+                    <td>
+                        @using (Html.BeginForm("SearchByKey", "Documentation", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                        {
+
+                            <table>
+                                <tr>
+                                    <td>
+                                        @Html.Label("Search Key")
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                    </td>
+                                    <td>
+                                        @Html.SearchButton()
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.Documentations, rowCount: Model.Documentations.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { documentationIdentity = "grid" },
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                columns: grid.Columns(
+                                        grid.Column("DocumentationIdentity", header: "Serial No"),
+                                        grid.Column("ShipInfo.ShipName", header: "Ship Name"),
+                                        grid.Column("CommonCode.TypeValue", header: "Document Type"),
+                                        grid.Column("Name", header: "Doucment Name"),
+                                        grid.Column("CreateDate", header: "Create Date", format: item => (item.CreateDate == null) ? "" : item.CreateDate.ToString("dd MMMM yyyy")),
+                                        @*grid.Column(format: @<img src="@Url.Content(item.ImageUrl)" alt="@item.ImageUrl" height="30" width="30" />   , header: "Photo"),*@
+                                        grid.Column(header: "Download", format: @<text>@Html.ActionLink("Download", "Download", "Documentation", new { id = item.documentationIdentity }, null)</text>, canSort: false),
+                                        grid.Column(header: "Edit", format: @<text> @Html.ActionLink("Edit", "Edit", "Documentation", new { id = item.documentationIdentity }, null)</text>),
+                                                grid.Column(header: "Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "Documentation", new { id = item.documentationIdentity }, null)</text>)
+                                                                                                                                                                         ));
+    }
+</div>
+
+
+
+
+@*@using AMS.Utility
+    @using AMS.Web.Extensions
+    @model AMS.Web.Models.ViewModel.DocumentationViewModel
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <h2 style="margin-left:400px;">Ship's Drawing Information</h2>
+    <section class="search" style="margin-bottom: 5px;">
+        @using (Html.BeginForm("SearchByKey", "Documentation", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+        {
+
+            <table>
+                <tr>
+                    <td>
+                        @Html.Label("Search Key")
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.SearchKey, new { @placeholder = "SearchName", @class = "search_TextBox" })
+                    </td>
+                    <td>
+                        @Html.SearchButton()
+                    </td>
+                </tr>
+            </table>
+
+        }
+
+    </section>
+    <div class="row">
+        @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.Documentations, rowCount: Model.Documentations.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { documentationIdentity = "grid" },
+                    tableStyle: "webgrid-table webgrid",
+                    headerStyle: "webgrid-header",
+                    footerStyle: "webgrid-footer",
+                    alternatingRowStyle: "webgrid-alternating-row",
+                    selectedRowStyle: "webgrid-selected-row",
+                    rowStyle: "webgrid-row-style",
+                    firstText: "First",
+                    lastText: "Last",
+                    nextText: "Next",
+                    mode: WebGridPagerModes.All,
+                    previousText: "Previous",
+                            columns: grid.Columns(
+                                    grid.Column("DocumentationIdentity", header: "Serial No"),
+                            grid.Column("ShipInfo.ShipName", header: "Ship Name"),
+                            grid.Column("CommonCode.Description", header: "Document Type"),
+                            grid.Column("Name", header: "Doucment Name"),
+                            grid.Column("CreateDate", header: "Create Date", format: item => (item.CreateDate == null) ? "" : item.CreateDate.ToString("dd MMMM yyyy")),
+                            grid.Column(format: @<img src="@Url.Content(item.ImageUrl)" alt="@item.ImageUrl" height="30" width="30" />   , header: "Photo"),
+                            grid.Column(header: "Download", format: @<text> @Html.ActionLink("Download", "Download", "Documentation", new { id = item.documentationIdentity }, null)</text>),
+                            grid.Column(header: "Edit", format: @<text> @Html.ActionLink("Edit", "Edit", "Documentation", new { id = item.documentationIdentity }, null)</text>)
+                                                                                     )
+                                                                );
+    }
+    </div>*@
+
+
+
+
+
+
+
+
+
+

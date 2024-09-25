@@ -1,0 +1,104 @@
+﻿@using Org.BouncyCastle.Asn1.X509
+@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.viewmodelMachinary
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<script src="~/Scripts/APP/datepicker.js"></script>
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Machinery Particulars </h5>
+        </div>
+        <div class="body">
+            <table>
+                <tr>
+                    <td class="col-md-1"><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "MachineryInfo")'">Add New</button></td>
+                    <td class="col-md-7">
+                        @using (Html.BeginForm("SearchByKey", "MachineryInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                        {
+                            <div>
+                                <div class="pull-left">
+                                    @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "ex. ShipName, Machine, Model" })
+                                </div>
+                                <div class="pull-left">
+                                    &nbsp;  @Html.SearchButton()&nbsp;
+                                </div>
+                            </div>
+                        }
+                    </td>
+                    <td class="col-md-4">
+                        @using (Html.BeginForm("RptGenerate", "MachineryInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation", target = "_blank" }))
+                        {
+
+                            <table>
+                                <tr>
+                                    <td class="col-md-3.25">
+                                        <div class="form-group">
+                                            <label class="col-md-5 control-label">Model Name :</label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(x => x.MSearchKey, new { @class = "textBoxsize form-control", PlaceHolder = "Model" })
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td class="col-md-1"> <input type="submit" class="btn btn-primary pull-right " id="btnRpt" value="Genarate Report" /></td>
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.MachineryInfos, rowCount: Model.MachineryInfos.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { MachineryInfoIdentity = "grid" },
+            tableStyle: "webgrid-table webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            firstText: "First",
+            lastText: "Last",
+            nextText: "Next",
+            mode: WebGridPagerModes.All,
+            previousText: "Previous",
+            columns: grid.Columns(
+                                  grid.Column("SL No", format: item => item.WebGrid.Rows.IndexOf(item) + 1 + Math.Round(Convert.ToDouble(grid.TotalRowCount / grid.PageCount) / grid.RowsPerPage) * grid.RowsPerPage * grid.PageIndex),
+                                  grid.Column("ControlShipInfo.ControlName", header: "Ship Name"),
+                                  grid.Column("Machinery", header: "Machinery"),
+                                  //grid.Column("Quantity", header: "Quantity"),
+                                  grid.Column("Location", header: "Location"),
+                                  grid.Column("Model", header: "Model"),
+                                  grid.Column("Power", header: "Power"),
+                                  grid.Column("PowerUnit", header: "Power Unit"),
+                                  grid.Column("RPM", header: "RPM"),
+                                  grid.Column("Pressure", header: "Pressure"),
+                                  grid.Column("MakerAddress", header: "Maker Address"),
+                                  //  grid.Column("InstallationDate", header: "Installation Date", format: item => ((item.InstallationDate == null) ? "" : item.InstallationDate.ToString("dd MMM yyyy"))),
+                                  grid.Column("InstallationDate", header: "Installation Date"),
+                                  grid.Column("TOH", header: "TOH"),
+                                  grid.Column("MOH", header: "MOH ..."),
+                grid.Column("Edit", format: @<text>@Html.ActionLink("Edit", "Edit", "MachineryInfo", new { id = item.MachineryInfoIdentity }, null)</text>),
+                grid.Column("Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "MachineryInfo", new { id = item.MachineryInfoIdentity }, null)</text>),
+                grid.Column("Download", format: @<text> @Html.ActionLink("Download", "Download", "MachineryInfo", new { id = item.ControlShipInfoId, target = "_blank" }, null)</text>)
+                                                                                            ));
+    }
+</div>
+
+
+

@@ -1,0 +1,116 @@
+﻿@*@using DocumentFormat.OpenXml.Office.CustomUI*@
+@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.ShipInfoViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Refit / Docking Interval and Duration</h5>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.ActionLink("Add New", "EditRefitDocking", "ShipInfo", new { @class = "btn btn-primary" })
+                </div>
+                @*<div class="col-md-10">
+                    @using (Html.BeginForm("SearchRefitAndDocking", "ShipInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                    {
+                        <div>
+                            <div class="pull-right">
+                                &nbsp;&nbsp;&nbsp;@Html.SearchButton()&nbsp;
+                            </div>
+                            <div class="pull-right">
+                                @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                            </div>
+                        </div>
+                    }
+                </div>*@
+                
+                <div class="col-md-10">
+                    @using (Html.BeginForm("SearchRefitAndDocking", "ShipInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                    {
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-5">
+                            <div>
+
+                                <div class="pull-right">
+                                    &nbsp;&nbsp;<button class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i>Search</button>&nbsp;
+                                </div>
+                                <div class="pull-right">
+                                    @Html.DropDownListFor(x => x.Search, Model.ControlShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 5, placeholder = "Enter Value", style = "width:200px !important", required = "required" })
+                                    @*@Html.DropDownListFor(x => x.ShipInactive.Command, Model.CommandShipInactiveSelectListItems, "-নির্বাচন করুন-", new { @class = "dropdownsize form-control", tabindex = 9, required = "required" })*@
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="">
+        <div class="btn-group ">
+            <button type="button" class="btn btn-primary">Export Report</button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Excel", "ExportTo", new { ReportType = "Excel", searchKey = Model.SearchKey, id = "RefitDockingDuration" })</li>
+                <li>@Html.ActionLink("PDF", "ExportTo", new { ReportType = "PDF", searchKey = Model.SearchKey, id = "RefitDockingDuration" })</li>
+                <li>@Html.ActionLink("Word", "ExportTo", new { ReportType = "Word", searchKey = Model.SearchKey, id = "RefitDockingDuration" })</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.ShipInfoes, rowCount: Model.ShipInfoes.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { shipInfoIdentity = "grid" },
+            tableStyle: "webgrid-table webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            firstText: "First",
+            lastText: "Last",
+            nextText: "Next",
+            mode: WebGridPagerModes.All,
+            previousText: "Previous",
+            columns: grid.Columns(
+                //grid.Column("ShipInfoIdentity", header: "Serial No"),
+                grid.Column("ControlShipInfo.ControlName", header: "Ship Name"),
+                               
+                grid.Column("RefitInterval", header: "Refit Interval"),
+                grid.Column("CommonCode.TypeValue", header: "Refit Interval Type"),
+                grid.Column("RefitDuration", header: "Refit Duration"),
+                grid.Column("CommonCode1.TypeValue", header: "Refit Duration Type"),
+                grid.Column("DockingDuration", header: "Docking Duration"),
+                grid.Column("CommonCode2.TypeValue", header: "Docking Duration Type"),
+                grid.Column("LastRefitDate", "Last Refit Date", format: item => ((item.LastRefitDate == null) ? "" : item.LastRefitDate.ToString("dd MMM yyyy"))),
+                grid.Column("LastDockingDate", header: "Last Docking Date", format: item => ((item.LastRefitDate == null) ? "" : item.LastRefitDate.ToString("dd MMM yyyy"))),
+                grid.Column("NextRefitDate", header: "Next Refit Date", format: item => ((item.NextRefitDate == null) ? "" : item.NextRefitDate.ToString("dd MMM yyyy"))),
+                grid.Column("NextDockingDate", header: "Next Docking Date", format: item => ((item.NextDockingDate == null) ? "" : item.NextDockingDate.ToString("dd MMM yyyy"))),
+                grid.Column("Remarks", header: "Remarks"),
+                grid.Column( "Edit", format: @<text>@Html.ActionLink("Edit", "EditRefitDocking", "ShipInfo", new { id = item.ShipInfoIdentity }, null)</text>)
+
+                ));
+    }
+
+</div>
+<div>@Html.ActionLink("<<", "RefitDockingIndex", "ShipInfo", new { @class = "btn btn-primary" })</div>
+
+
+

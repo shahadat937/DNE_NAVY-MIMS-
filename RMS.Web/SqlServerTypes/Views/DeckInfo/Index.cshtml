@@ -1,0 +1,97 @@
+﻿@using RMS.Utility
+@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.DeckInfoViewModel
+@{
+    ViewBag.Title = "Active User Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Hull & Structure</h5>
+        </div>
+        <div class="body">
+            <section class="search">
+
+                @using (Html.BeginForm("SearchByPartial", "DeckInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                {
+                    <table>
+                        <tr>
+                            <td>@Html.ActionLink("Add New", "Edit", "DeckInfo", new { @class = "btn btn-primary" })</td>
+                            <td>
+                                @using (Html.BeginForm("SearchByKey", "DeckInfo", FormMethod.Get, new { @class = "submit-allow ignore-validation" }))
+                                {
+
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                @Html.Label("Search Key")
+                                            </td>
+                                            <td>
+                                                @Html.TextBoxFor(x => x.SearchKey, new { @class = "textBoxsize form-control", tabindex = 1, autofocus = "autofocus", placeholder = "Serach Value" })
+                                            </td>
+                                            <td>
+                                                @Html.SearchButton()
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }
+                            </td>
+
+                            @*<td>@Html.Label("Search Key")</td>
+                                <td>@Html.TextBoxFor(m => m.SearchKey, new { @placeholder = "Search", @class = "search search_TextBox" })</td>
+                                <td>@Html.SearchButton()</td>*@
+                        </tr>
+                    </table>
+                }
+            </section>
+        </div>
+    </div>
+</div>
+
+
+@*<p>
+        @Html.Button("Add New", new { @class = "AjaxPopup add-new", @action = "/DeckInfo/AddNew/" })
+    </p>*@
+<p>
+    @*<input type="button" value="Add New" class="AjaxPopup" action="@Url.Action("AddNew","DeckInfo")"/>*@
+
+</p>
+<div class="row">
+    @{
+        var grid = new WebGrid(canPage: true, rowsPerPage: AppConfig.PageSize, canSort: true, ajaxUpdateContainerId: "grid");
+        grid.Bind(Model.DeckInfos, rowCount: Model.DeckInfos.Count, autoSortAndPage: true);
+        grid.Pager(WebGridPagerModes.All);
+        @grid.GetHtml(htmlAttributes: new { deckInfoIdentity = "grid" },
+                tableStyle: "webgrid-table webgrid",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                selectedRowStyle: "webgrid-selected-row",
+                rowStyle: "webgrid-row-style",
+                firstText: "First",
+                lastText: "Last",
+                nextText: "Next",
+                mode: WebGridPagerModes.All,
+                previousText: "Previous",
+                        columns: grid.Columns(grid.Column("DeckInfoIdentity", header: "Serial No"),
+                        grid.Column("ShipInfo.ShipName", header: "Ship Name"),
+                        grid.Column("DechNo", header: "Deck No"),
+                        grid.Column("Compartment", header: "Compartment"),
+                        grid.Column("Location", header: "Location"),
+                        grid.Column("CheckDate", header: "Checking Date", format: item => (item.CheckDate == null) ? "" : item.CheckDate.ToString("dd MMM yyyy")),
+                        grid.Column("StatePlates", header: "State Plates"),
+                        grid.Column("StateFrames", header: "State Frames"),
+                        grid.Column("StateRivets", header: "State Rivets"),
+                        grid.Column("StateCement", header: "State Cement..."),
+                        grid.Column(header: "Edit", format: @<text> @Html.ActionLink("Edit", "Edit", "DeckInfo", new { id = item.DeckInfoIdentity }, null)</text>),
+                        grid.Column(header: "Delete", format: @<text> @Html.ActionLink("Delete", "Delete", "DeckInfo", new { id = item.DeckInfoIdentity }, null)</text>),
+        grid.Column(header: "Download", format: @<text> @Html.ActionLink("Download", "Download", "DeckInfo", new { id = item.ShipInfoIdentity }, null)</text>)
+));
+    }
+
+
+</div>
+

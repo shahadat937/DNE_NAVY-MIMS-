@@ -1,0 +1,359 @@
+﻿@using RMS.Web.Extensions
+@model RMS.Web.Models.ViewModel.MachineryInfoViewModel
+@{
+    ViewBag.Title = (Model.MachineryInfo.MachineryInfoIdentity > 0) ? "Edit" : "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/CommonDesign/commonBootStrap.css" rel="stylesheet" />
+<div>
+    @using (Html.BeginForm("Save", "MachineryInfo", FormMethod.Post, new { @class = "UserForm" }))
+    {
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">
+                Machinery Particulars
+            </legend>
+            <br />
+            @if (ViewBag.Title == "Edit")
+            {
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">Serial Number:</label>
+                            <div class="col-md-8">
+                                @Html.DisplayFor(x => x.MachineryInfo.MachineryInfoIdentity, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                                @Html.HiddenFor(x => x.MachineryInfo.MachineryInfoIdentity)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Ship Name:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.MachineryInfo.ControlShipInfoId, Model.ControlShipSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Machinery:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.Machinery, new { @class = "textBoxsize form-control", placeholder = "Machinery Name" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Location:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.Location, new { @class = "textBoxsize form-control", placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Equipment Type:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.MachineryInfo.EquipmentTypeId, Model.EquipmentTypeSelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Machinery Category:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.MachineryInfo.MachineryCategoryId, Model.MachineryCategorySelectListItems, "-Select-", new { @class = "dropdownsize form-control", tabindex = 9 })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Quantity:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.Quantity, new { @class = "textBoxsize form-control", placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Model:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.Model, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Power:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.Power, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Please Input " })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">PowerUnit:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.PowerUnit, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Like (K.G, Liter) " })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">RPM:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.RPM, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Neumeric Value", required = "required" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Pressure:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.Pressure, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Maker Address:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.MakerAddress, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value", required = "required" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Installation Date:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.InstallationDate, new { @class = " textBoxsize form-control", placeholder = "Enter Date" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">TOH:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.TOH, new { @class = "textBoxsize form-control", Type = "Number", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">MOH:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.MOH, new { @class = "textBoxsize form-control", Type = "Number", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Consumption Fuel:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.ConsumptionFuel, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Only Number" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Fuel Unit:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.ConsumptionFuelUnit, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Lub Oil Grade:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.LubOilGrade, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Consumption Luboil:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.ConsuptionLuboil, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Only Number" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Luboil Unit:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MachineryInfo.ConsumptionLuboilUnit, new { @class = "textBoxsize form-control", tabindex = 5, placeholder = "Enter Value" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label class="col-md-8">Machineries State:</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(x => x.MachineryInfo.MachinariesState, Model.MachinariesStateViewModel, "-Select-", new { @class = "dropdownsize form-control" })
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">LifeTime Type:</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.MachineryInfo.LifeTimeType, Model.LifetimeStateViewModel, "-Select-", new { @class = "dropdownsize form-control BankName" })
+
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        </fieldset>
+        @*<fieldset class="scheduler-border">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">Machineries State:</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.MachineryInfo.MachinariesState, Model.MachinariesStateViewModel, "-Select-", new { @class = "dropdownsize form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-8">LifeTime Type:</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.MachineryInfo.LifeTimeType, Model.LifetimeStateViewModel, "-Select-", new { @class = "dropdownsize form-control BankName" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6" style="display: none" id="expireDate">
+                        <div class="form-group">
+                            <label class="col-md-8">Expired Date:</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.MachineryInfo.ExpiredLifeDate, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control", placeholder = "Enter Date" })
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6" style="display: none" id="expireDateAlerm">
+                        <div class="form-group">
+                            <label class="col-md-8">Alarm Date:</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.MachineryInfo.ExpiredLifeDateAlerm, "{0: dd MMMM yyyy}", new { @class = "datepicker textBoxsize form-control", placeholder = "Enter Date" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6" style="display: none" id="expiredTime">
+                        <div class="form-group">
+                            <label class="col-md-8">Expired Time:</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.MachineryInfo.ExpiredLifeTime, new { @class = "textBoxsize form-control", placeholder = "Enter Value" })
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6" style="display: none" id="expiredTimeAlerm">
+                        <div class="form-group">
+                            <label class="col-md-8">Alarm Time:</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.MachineryInfo.ExpiredLifeTimeAlerm, new { @class = "textBoxsize form-control", placeholder = "Enter Value" })
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </fieldset>*@
+        <div class="form_group">
+            <div class="text-center">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+        @*<div>@Html.ActionLink("Back to List", "Index", "MachineryInfo", new { @class = "btn btn-primary" })</div>*@
+        <div class="row">
+            <div class="col-sm-offset-4" id="newpost" style="color:red; padding-left:3px;">
+                <p>@TempData["message"]</p>
+            </div>
+        </div>
+    }
+</div>
+@section scripts {
+    <script type="text/javascript">
+        //onkeypress = " return isNumberKey(event)",
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        $('.BankName').change(function () {
+            var $BankNamedropdown = $(this);
+            var bankCode = $BankNamedropdown.val();
+            if (bankCode == 979) {
+                $('#expiredTimeAlerm').hide();
+                $('#expireDate').show();
+                $('#expiredTime').hide();
+                $('#expireDateAlerm').show();
+            } else {
+                $('#expiredTimeAlerm').show();
+                $('#expireDate').hide();
+                $('#expiredTime').show();
+                $('#expireDateAlerm').hide();
+            }
+
+        });
+        $(document).ready(function () {
+            var $BankNamedropdown = $('.BankName').val();
+            //alert($BankNamedropdown);
+            var bankCode = $BankNamedropdown;
+            if (bankCode != "") {
+                if (bankCode == 979) {
+                    $('#expiredTimeAlerm').hide();
+                    $('#expireDate').show();
+                    $('#expiredTime').hide();
+                    $('#expireDateAlerm').show();
+                } else {
+                    $('#expiredTimeAlerm').show();
+                    $('#expireDate').hide();
+                    $('#expiredTime').show();
+                    $('#expireDateAlerm').hide();
+                }
+            }
+        });
+
+    </script>
+
+}

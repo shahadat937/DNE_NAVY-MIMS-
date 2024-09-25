@@ -1,0 +1,80 @@
+﻿@model RMS.Model.Role
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title col-sm-offset-6">
+            Edit Role
+        </h2>
+    </div>
+    <div style="height:30px;">
+    </div>
+    <div class="col-sm-offset-4">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.RoleId)
+
+                <div class="form-group">
+                    @Html.Label("Role Name: ", new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.RoleName)
+                        @Html.ValidationMessageFor(model => model.RoleName)
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    @Html.Label("Lower Role Name: ", new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.LoweredRoleName)
+                        @Html.ValidationMessageFor(model => model.LoweredRoleName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Description: ", new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.Description)
+                        @*@Html.TextAreaFor(model => model.Description, new { rows = 10, columns = 40 })*@
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Active: ", new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.IsActive)
+                        @Html.ValidationMessageFor(model => model.IsActive)
+                    </div>
+                </div>
+
+                <div style="height:30px;">
+                    <div id="newpost" style="color:#ff0000; padding-left:3px;" class="col-sm-offset-3">
+
+                        <p>@TempData["message1"]</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-3" style="padding-left: 12px">
+                        <input type="submit" value="Save" class="btn btn-primary pull-left" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="col-md-offset-3">
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+        </div>
+
+    </div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
