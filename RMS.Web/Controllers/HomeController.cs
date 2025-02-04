@@ -590,7 +590,7 @@ namespace RMS.Web.Controllers
         {
 
             Random r = new Random();
-            int num = r.Next(100000, 1000000);
+            int num = 12345; //r.Next(100000, 1000000);
             String otp = num.ToString();
 
             var scb = new IBSHasCode();
@@ -723,7 +723,7 @@ namespace RMS.Web.Controllers
                                     //return Redirect(returnUrl ?? Url.Action("Index", "Home"));
                                     try
                                     {
-                                        smtpClient.Send(mailMessage);
+                                        //smtpClient.Send(mailMessage);
                                         Console.WriteLine("Email Sent Successfully.");
                                         isMailSend = 1;
 
