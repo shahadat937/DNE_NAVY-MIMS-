@@ -588,7 +588,13 @@ namespace RMS.Web.Controllers
 
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-
+            // Check CAPTCHA
+            if (Session["Captcha"] == null || model.CaptchaInput != Session["Captcha"].ToString())
+            {
+                GenerateCaptcha(); // Regenerate CAPTCHA
+                TempData["Msg"] = "Invalid CAPTCHA. Please try again.";
+                return RedirectToAction("Login", "Account");
+            }
             Random r = new Random();
             int num = r.Next(100000, 1000000);
             String otp = num.ToString();
@@ -795,6 +801,17 @@ namespace RMS.Web.Controllers
 
             return RedirectToAction("Login", "Account");
             //return View(model);
+        }
+
+        private void GenerateCaptcha()
+        {
+            Random rand = new Random();
+            int num1 = rand.Next(1, 10);
+            int num2 = rand.Next(1, 10);
+
+            // Store both the question and the answer in session
+            Session["CaptchaQuestion"] = $"{num1} + {num2} = ?";
+            Session["Captcha"] = (num1 + num2).ToString();
         }
        
         

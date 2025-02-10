@@ -1,8 +1,10 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -39,6 +41,8 @@ namespace RMS.Web.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+
+            GenerateCaptcha();
             string loginID = PortalContext.CurrentUser.UserName;
             if (loginID != null)
             {
@@ -91,6 +95,8 @@ namespace RMS.Web.Controllers
         //    return addresses;
         //}
         //
+
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -112,7 +118,19 @@ namespace RMS.Web.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            GenerateCaptcha();
             return View(model);
+        }
+
+        private void GenerateCaptcha()
+        {
+            Random rand = new Random();
+            int num1 = rand.Next(1, 10);
+            int num2 = rand.Next(1, 10);
+
+            // Store both the question and the answer in session
+            Session["CaptchaQuestion"] = $"{num1} + {num2} = ?";
+            Session["Captcha"] = (num1 + num2).ToString();
         }
 
         //[HttpPost]

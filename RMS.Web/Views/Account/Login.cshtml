@@ -52,19 +52,30 @@
         <div class="login">
             <h1 style="background-color: white;"><img style="float: left; padding-left: 20px;" src="~/images/RemittInfinity.jpg" /><span style="float: left; padding-left: 10px; padding-top: 20px; font-size: 20px; color: darkblue">BANGLADESH NAVY</span></h1>
             <br /><br />
-            <form>
-                <p>@Html.TextBoxFor(x => x.UserName, new { @class = "form-control", autofocus = "autofocus", tabindex = 1, placeholder = "Enter User ID" })</p>
-                <p>@Html.PasswordFor(x => x.Password, new { @class = "form-control ", tabindex = 2, placeholder = "Enter Password" })</p>
-                <p class="submit"><input type="submit" class="btn btn-primary" value="Login" /></p>
-                        @if (TempData["Msg"] != null)
-                        {
-                            <div class="alert alert-dismissable alert-info" style="color:red">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                @TempData["Msg"].ToString()
-                            </div>
-                        }
+                  <form>
+                      <p>@Html.TextBoxFor(x => x.UserName, new { @class = "form-control", autofocus = "autofocus", tabindex = 1, placeholder = "Enter User ID" })</p>
+                      <p>@Html.PasswordFor(x => x.Password, new { @class = "form-control ", tabindex = 2, placeholder = "Enter Password" })</p>
+                      <!-- Simple CAPTCHA -->
+                      <p>
+                          <strong>Solve this:</strong>
+                          <span style="font-size: 16px; font-weight: bold; color: blue;">
+                              @Session["CaptchaQuestion"]
+                          </span>
+                      </p>
+                      <p>
+                          @Html.TextBoxFor(x => x.CaptchaInput, new { @class = "form-control", placeholder = "Enter Answer" })
+                          @Html.ValidationMessageFor(x => x.CaptchaInput)
+                      </p>
+                      <p class="submit"><input type="submit" class="btn btn-primary" value="Login" /></p>
+                      @if (TempData["Msg"] != null)
+                      {
+                          <div class="alert alert-dismissable alert-info" style="color:red">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                              @TempData["Msg"].ToString()
+                          </div>
+                      }
 
-            </form>
+                  </form>
         </div>
 
     </section>
