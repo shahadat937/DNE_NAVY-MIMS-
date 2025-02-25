@@ -53,6 +53,10 @@ namespace RMS.Web.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        [Required(ErrorMessage = "Please solve the CAPTCHA.")]
+        public string CaptchaInput { get; set; }
+
     }
 
     public class TwoFactorLoginViewModel
